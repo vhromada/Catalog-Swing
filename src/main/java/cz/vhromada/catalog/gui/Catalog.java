@@ -194,12 +194,7 @@ public class Catalog extends JFrame {
         setIconImage(Picture.CATALOG.getIcon().getImage());
 
         this.context = context;
-        movieFacade = context.getBean(MovieFacade.class);
-        serieFacade = context.getBean(SerieFacade.class);
-        gameFacade = context.getBean(GameFacade.class);
-        musicFacade = context.getBean(MusicFacade.class);
-        programFacade = context.getBean(ProgramFacade.class);
-        bookCategoryFacade = context.getBean(BookCategoryFacade.class);
+        initFacades();
         final GenreFacade genreFacade = context.getBean(GenreFacade.class);
 
         initMenuBar();
@@ -243,6 +238,18 @@ public class Catalog extends JFrame {
         pack();
         setLocationRelativeTo(getRootPane());
         setExtendedState(MAXIMIZED_BOTH);
+    }
+
+    /**
+     * Initializes facades.
+     */
+    private void initFacades() {
+        movieFacade = context.getBean(MovieFacade.class);
+        serieFacade = context.getBean(SerieFacade.class);
+        gameFacade = context.getBean(GameFacade.class);
+        musicFacade = context.getBean(MusicFacade.class);
+        programFacade = context.getBean(ProgramFacade.class);
+        bookCategoryFacade = context.getBean(BookCategoryFacade.class);
     }
 
     /**
@@ -405,8 +412,7 @@ public class Catalog extends JFrame {
      * Closes form.
      */
     private void closing() {
-        final boolean saved = moviesPanel.isSaved() && seriesPanel.isSaved() && gamesPanel.isSaved() && musicPanel.isSaved() && programsPanel.isSaved()
-                && bookCategoriesPanel.isSaved() && genresPanel.isSaved();
+        final boolean saved = areMediaSaved() && areProgramsSaved() && bookCategoriesPanel.isSaved() && genresPanel.isSaved();
         if (!saved) {
             final int returnStatus = JOptionPane.showConfirmDialog(this, "Save data?", "", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (returnStatus == JOptionPane.YES_OPTION) {
@@ -414,6 +420,24 @@ public class Catalog extends JFrame {
             }
         }
         context.close();
+    }
+
+    /**
+     * Returns true if media are saved.
+     *
+     * @return true if media are saved
+     */
+    private boolean areMediaSaved() {
+        return moviesPanel.isSaved() && seriesPanel.isSaved() && musicPanel.isSaved();
+    }
+
+    /**
+     * Returns true if programs are saved.
+     *
+     * @return true if programs are saved
+     */
+    private boolean areProgramsSaved() {
+        return gamesPanel.isSaved() && programsPanel.isSaved();
     }
 
     /**

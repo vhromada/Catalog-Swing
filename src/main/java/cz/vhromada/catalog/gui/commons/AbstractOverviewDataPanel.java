@@ -408,14 +408,7 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
 
         });
 
-        if (statsTableDataModel != null) {
-            statsTable.setModel(statsTableDataModel);
-            statsTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-            statsTable.setEnabled(false);
-            statsTable.setRowSelectionAllowed(false);
-            statsTable.setDefaultRenderer(Integer.class, new StatsTableCellRenderer());
-            statsTable.setDefaultRenderer(String.class, new StatsTableCellRenderer());
-        }
+        initStats();
 
         final GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
@@ -431,6 +424,20 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
     private void initPopupMenu(final JMenuItem... menuItems) {
         for (final JMenuItem menuItem : menuItems) {
             popupMenu.add(menuItem);
+        }
+    }
+
+    /**
+     * Initializes stats.
+     */
+    private void initStats() {
+        if (statsTableDataModel != null) {
+            statsTable.setModel(statsTableDataModel);
+            statsTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+            statsTable.setEnabled(false);
+            statsTable.setRowSelectionAllowed(false);
+            statsTable.setDefaultRenderer(Integer.class, new StatsTableCellRenderer());
+            statsTable.setDefaultRenderer(String.class, new StatsTableCellRenderer());
         }
     }
 
