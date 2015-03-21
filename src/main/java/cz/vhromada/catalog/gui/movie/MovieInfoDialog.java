@@ -476,13 +476,13 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
             return "";
         }
 
-        final StringBuilder subtitlesString = new StringBuilder();
+        final StringBuilder mediaString = new StringBuilder();
         for (final Integer medium : media) {
-            subtitlesString.append(new Time(medium));
-            subtitlesString.append(", ");
+            mediaString.append(new Time(medium));
+            mediaString.append(", ");
         }
 
-        return subtitlesString.substring(0, subtitlesString.length() - 2);
+        return mediaString.substring(0, mediaString.length() - 2);
     }
 
     /**
@@ -495,13 +495,13 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
             return "";
         }
 
-        final StringBuilder subtitlesString = new StringBuilder();
+        final StringBuilder genresString = new StringBuilder();
         for (final GenreTO genre : genres) {
-            subtitlesString.append(genre.getName());
-            subtitlesString.append(", ");
+            genresString.append(genre.getName());
+            genresString.append(", ");
         }
 
-        return subtitlesString.substring(0, subtitlesString.length() - 2);
+        return genresString.substring(0, genresString.length() - 2);
     }
 
     /**

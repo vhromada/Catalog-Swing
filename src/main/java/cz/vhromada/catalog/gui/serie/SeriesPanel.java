@@ -52,7 +52,7 @@ public class SeriesPanel extends AbstractOverviewDataPanel<SerieTO> {
      * Creates a new instance of SeriesPanel.
      *
      * @param serieFacade   facade for series
-     * @param seasonFacade  facade for episodes
+     * @param seasonFacade  facade for seasons
      * @param episodeFacade facade for episodes
      * @param genreFacade   facade for genres
      * @throws IllegalArgumentException if facade for series is null

@@ -311,13 +311,13 @@ public class SerieInfoDialog extends AbstractInfoDialog<SerieTO> {
             return "";
         }
 
-        final StringBuilder subtitlesString = new StringBuilder();
+        final StringBuilder genresString = new StringBuilder();
         for (final GenreTO genre : genres) {
-            subtitlesString.append(genre.getName());
-            subtitlesString.append(", ");
+            genresString.append(genre.getName());
+            genresString.append(", ");
         }
 
-        return subtitlesString.substring(0, subtitlesString.length() - 2);
+        return genresString.substring(0, genresString.length() - 2);
     }
 
     /**
