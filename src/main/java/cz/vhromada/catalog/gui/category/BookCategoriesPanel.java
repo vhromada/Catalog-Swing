@@ -95,7 +95,7 @@ public class BookCategoriesPanel extends AbstractOverviewDataPanel<BookCategoryT
 
     @Override
     protected JPanel getDataPanel(final BookCategoryTO data) {
-        return new BookCategoryDataPanel(data);
+        return new BookCategoryDataPanel(data, bookFacade);
     }
 
     @Override

@@ -115,6 +115,7 @@ public class BookInfoDialog extends AbstractInfoDialog<BookTO> {
 
         addInputValidator(authorData);
         addInputValidator(titleData);
+        addInputValidator(categoryData);
 
         languagesLabel.setFocusable(false);
     }
@@ -132,13 +133,13 @@ public class BookInfoDialog extends AbstractInfoDialog<BookTO> {
     }
 
     /**
-     * Returns true if input is valid: author isn't empty string, title isn't empty string.
+     * Returns true if input is valid: author isn't empty string, title isn't empty string, category isn't empty string.
      *
-     * @return true if input is valid: author isn't empty string, title isn't empty string
+     * @return true if input is valid: author isn't empty string, title isn't empty string, category isn't empty string
      */
     @Override
     protected boolean isInputValid() {
-        return !authorData.getText().isEmpty() && !titleData.getText().isEmpty();
+        return !authorData.getText().isEmpty() && !titleData.getText().isEmpty() && !categoryData.getText().isEmpty();
     }
 
     @Override
