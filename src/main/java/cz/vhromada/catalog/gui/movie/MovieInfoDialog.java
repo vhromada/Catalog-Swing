@@ -120,6 +120,11 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
     private JRadioButton japaneseLanguageData = new JRadioButton("Japanese");
 
     /**
+     * Radio button for slovak language
+     */
+    private JRadioButton slovakLanguageData = new JRadioButton("Slovak");
+
+    /**
      * Label for subtitles
      */
     private JLabel subtitlesLabel = new JLabel("Subtitles");
@@ -242,7 +247,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
      * @param genreFacade facade for genres
      * @param movie       TO for movie
      * @throws IllegalArgumentException if facade for genres is null
-     *                                  or TO for serie is null
+     *                                  or TO for movie is null
      */
     public MovieInfoDialog(final GenreFacade genreFacade, final MovieTO movie) {
         super(movie);
@@ -266,6 +271,9 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
                 break;
             case JP:
                 this.japaneseLanguageData.setSelected(true);
+                break;
+            case SK:
+                this.slovakLanguageData.setSelected(true);
                 break;
             default:
                 throw new IndexOutOfBoundsException("Bad language");
@@ -309,6 +317,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
         languagesButtonGroup.add(englishLanguageData);
         languagesButtonGroup.add(frenchLanguageData);
         languagesButtonGroup.add(japaneseLanguageData);
+        languagesButtonGroup.add(slovakLanguageData);
 
         languageLabel.setFocusable(false);
         subtitlesLabel.setFocusable(false);
@@ -348,16 +357,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
         movie.setCzechName(czechNameData.getText());
         movie.setOriginalName(originalNameData.getText());
         movie.setYear((Integer) yearData.getValue());
-        final Language language;
-        final ButtonModel model = languagesButtonGroup.getSelection();
-        if (model.equals(czechLanguageData.getModel())) {
-            language = Language.CZ;
-        } else if (model.equals(englishLanguageData.getModel())) {
-            language = Language.EN;
-        } else {
-            language = model.equals(frenchLanguageData.getModel()) ? Language.FR : Language.JP;
-        }
-        movie.setLanguage(language);
+        movie.setLanguage(processLanguage(languagesButtonGroup.getSelection()));
         movie.setSubtitles(getSelectedSubtitles());
         movie.setMedia(media);
         movie.setCsfd(csfdData.getText());
@@ -393,6 +393,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
                 .addGroup(createHorizontalSelectableComponent(layout, englishLanguageData))
                 .addGroup(createHorizontalSelectableComponent(layout, frenchLanguageData))
                 .addGroup(createHorizontalSelectableComponent(layout, japaneseLanguageData))
+                .addGroup(createHorizontalSelectableComponent(layout, slovakLanguageData))
                 .addGroup(createHorizontalComponents(layout, subtitlesLabel, czechSubtitlesData))
                 .addGroup(createHorizontalSelectableComponent(layout, englishSubtitlesData))
                 .addGroup(createHorizontalComponents(layout, mediaLabel, mediaData))
@@ -427,6 +428,9 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
                 .addComponent(japaneseLanguageData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
                         CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
                 .addGap(VERTICAL_GAP_SIZE)
+                .addComponent(slovakLanguageData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
+                .addGap(VERTICAL_GAP_SIZE)
                 .addGroup(createVerticalComponents(layout, subtitlesLabel, czechSubtitlesData))
                 .addGap(VERTICAL_GAP_SIZE)
                 .addComponent(englishSubtitlesData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
@@ -453,6 +457,28 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
                 .addGap(VERTICAL_GAP_SIZE)
                 .addComponent(genresButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
                         CatalogSwingConstants.VERTICAL_BUTTON_SIZE);
+    }
+
+    /**
+     * Returns selected language.
+     *
+     * @param model button model
+     * @return selected language
+     */
+    private Language processLanguage(final ButtonModel model) {
+        if (model.equals(czechLanguageData.getModel())) {
+            return Language.CZ;
+        }
+        if (model.equals(englishLanguageData.getModel())) {
+            return Language.EN;
+        }
+        if (model.equals(frenchLanguageData.getModel())) {
+            return Language.FR;
+        }
+        if (model.equals(japaneseLanguageData.getModel())) {
+            return Language.JP;
+        }
+        return Language.SK;
     }
 
     /**

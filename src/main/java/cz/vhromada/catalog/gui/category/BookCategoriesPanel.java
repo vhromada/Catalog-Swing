@@ -106,6 +106,7 @@ public class BookCategoriesPanel extends AbstractOverviewDataPanel<BookCategoryT
             @Override
             public void propertyChange(final PropertyChangeEvent evt) {
                 if (Boolean.TRUE.equals(evt.getNewValue())) {
+                    booksPanel.setBookCategory(data);
                     updateModel(data);
                 }
             }

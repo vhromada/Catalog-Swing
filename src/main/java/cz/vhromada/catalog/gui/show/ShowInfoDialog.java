@@ -1,4 +1,4 @@
-package cz.vhromada.catalog.gui.serie;
+package cz.vhromada.catalog.gui.show;
 
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -19,7 +19,7 @@ import javax.swing.event.ChangeListener;
 import cz.vhromada.catalog.commons.Constants;
 import cz.vhromada.catalog.facade.GenreFacade;
 import cz.vhromada.catalog.facade.to.GenreTO;
-import cz.vhromada.catalog.facade.to.SerieTO;
+import cz.vhromada.catalog.facade.to.ShowTO;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
 import cz.vhromada.catalog.gui.commons.DialogResult;
@@ -28,11 +28,11 @@ import cz.vhromada.catalog.gui.genre.GenreChooseDialog;
 import cz.vhromada.validators.Validators;
 
 /**
- * A class represents dialog for serie.
+ * A class represents dialog for show.
  *
  * @author Vladimir Hromada
  */
-public class SerieInfoDialog extends AbstractInfoDialog<SerieTO> {
+public class ShowInfoDialog extends AbstractInfoDialog<ShowTO> {
 
     /**
      * SerialVersionUID
@@ -145,12 +145,12 @@ public class SerieInfoDialog extends AbstractInfoDialog<SerieTO> {
     private JButton genresButton = new JButton("Change genres", Picture.CHOOSE.getIcon());
 
     /**
-     * Creates a new instance of SerieInfoDialog.
+     * Creates a new instance of ShowInfoDialog.
      *
      * @param genreFacade facade for genres
      * @throws IllegalArgumentException if facade for genres is null
      */
-    public SerieInfoDialog(final GenreFacade genreFacade) {
+    public ShowInfoDialog(final GenreFacade genreFacade) {
         init();
         setGenreFacade(genreFacade);
         imdbCodeLabel.setSelected(false);
@@ -158,34 +158,34 @@ public class SerieInfoDialog extends AbstractInfoDialog<SerieTO> {
     }
 
     /**
-     * Creates a new instance of SerieInfoDialog.
+     * Creates a new instance of ShowInfoDialog.
      *
      * @param genreFacade facade for genres
-     * @param serie       TO for serie
+     * @param show       TO for show
      * @throws IllegalArgumentException if facade for genres is null
-     *                                  or TO for serie is null
+     *                                  or TO for show is null
      */
-    public SerieInfoDialog(final GenreFacade genreFacade, final SerieTO serie) {
-        super(serie);
+    public ShowInfoDialog(final GenreFacade genreFacade, final ShowTO show) {
+        super(show);
 
         init();
         setGenreFacade(genreFacade);
-        this.genres = serie.getGenres();
-        this.czechNameData.setText(serie.getCzechName());
-        this.originalNameData.setText(serie.getOriginalName());
-        this.csfdData.setText(serie.getCsfd());
-        final int imdbCode = serie.getImdbCode();
+        this.genres = show.getGenres();
+        this.czechNameData.setText(show.getCzechName());
+        this.originalNameData.setText(show.getOriginalName());
+        this.csfdData.setText(show.getCsfd());
+        final int imdbCode = show.getImdbCode();
         if (imdbCode > 0) {
             this.imdbCodeLabel.setSelected(true);
-            this.imdbCodeData.setValue(serie.getImdbCode());
+            this.imdbCodeData.setValue(show.getImdbCode());
         } else {
             this.imdbCodeLabel.setSelected(false);
             this.imdbCodeData.setEnabled(false);
         }
-        this.wikiCzData.setText(serie.getWikiCz());
-        this.wikiEnData.setText(serie.getWikiEn());
-        this.pictureData.setText(serie.getPicture());
-        this.noteData.setText(serie.getNote());
+        this.wikiCzData.setText(show.getWikiCz());
+        this.wikiEnData.setText(show.getWikiEn());
+        this.pictureData.setText(show.getPicture());
+        this.noteData.setText(show.getNote());
         this.genreData.setText(getGenres());
     }
 
@@ -225,19 +225,19 @@ public class SerieInfoDialog extends AbstractInfoDialog<SerieTO> {
     }
 
     @Override
-    protected SerieTO processData(final SerieTO objectData) {
-        final SerieTO serie = objectData == null ? new SerieTO() : objectData;
-        serie.setCzechName(czechNameData.getText());
-        serie.setOriginalName(originalNameData.getText());
-        serie.setCsfd(csfdData.getText());
-        serie.setImdbCode(imdbCodeLabel.isSelected() ? (Integer) imdbCodeData.getValue() : -1);
-        serie.setWikiCz(wikiCzData.getText());
-        serie.setWikiEn(wikiEnData.getText());
-        serie.setPicture(pictureData.getText());
-        serie.setNote(noteData.getText());
-        serie.setGenres(genres);
+    protected ShowTO processData(final ShowTO objectData) {
+        final ShowTO show = objectData == null ? new ShowTO() : objectData;
+        show.setCzechName(czechNameData.getText());
+        show.setOriginalName(originalNameData.getText());
+        show.setCsfd(csfdData.getText());
+        show.setImdbCode(imdbCodeLabel.isSelected() ? (Integer) imdbCodeData.getValue() : -1);
+        show.setWikiCz(wikiCzData.getText());
+        show.setWikiEn(wikiEnData.getText());
+        show.setPicture(pictureData.getText());
+        show.setNote(noteData.getText());
+        show.setGenres(genres);
 
-        return serie;
+        return show;
     }
 
     /**

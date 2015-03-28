@@ -1,4 +1,4 @@
-package cz.vhromada.catalog.gui.serie;
+package cz.vhromada.catalog.gui.show;
 
 import java.util.List;
 
@@ -13,17 +13,17 @@ import cz.vhromada.catalog.facade.SeasonFacade;
 import cz.vhromada.catalog.facade.to.EpisodeTO;
 import cz.vhromada.catalog.facade.to.GenreTO;
 import cz.vhromada.catalog.facade.to.SeasonTO;
-import cz.vhromada.catalog.facade.to.SerieTO;
+import cz.vhromada.catalog.facade.to.ShowTO;
 import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
 import cz.vhromada.catalog.gui.commons.WebPageButtonType;
 import cz.vhromada.validators.Validators;
 
 /**
- * A class represents panel with serie's data.
+ * A class represents panel with show data.
  *
  * @author Vladimir Hromada
  */
-public class SerieDataPanel extends AbstractDataPanel<SerieTO> {
+public class ShowDataPanel extends AbstractDataPanel<ShowTO> {
 
     /**
      * SerialVersionUID
@@ -116,27 +116,27 @@ public class SerieDataPanel extends AbstractDataPanel<SerieTO> {
     private JLabel noteData = new JLabel();
 
     /**
-     * Button for showing serie's ČSFD page
+     * Button for showing show ČSFD page
      */
     private JButton csfdButton = new JButton("ČSFD");
 
     /**
-     * Button for showing serie's IMDB page
+     * Button for showing show IMDB page
      */
     private JButton imdbButton = new JButton("IMDB");
 
     /**
-     * Button for showing serie's czech Wikipedia page
+     * Button for showing show czech Wikipedia page
      */
     private JButton wikiCzButton = new JButton("Czech Wikipedia");
 
     /**
-     * Button for showing serie's english Wikipedia page
+     * Button for showing show english Wikipedia page
      */
     private JButton wikiEnButton = new JButton("English Wikipedia");
 
     /**
-     * URL to ČSFD page about serie
+     * URL to ČSFD page about show
      */
     private String csfd;
 
@@ -146,33 +146,33 @@ public class SerieDataPanel extends AbstractDataPanel<SerieTO> {
     private int imdb;
 
     /**
-     * URL to czech Wikipedia page about serie
+     * URL to czech Wikipedia page about show
      */
     private String wikiCz;
 
     /**
-     * URL to english Wikipedia page about serie
+     * URL to english Wikipedia page about show
      */
     private String wikiEn;
 
     /**
-     * Creates a new instance of SerieDataPanel.
+     * Creates a new instance of ShowDataPanel.
      *
-     * @param serie         TO for serie
+     * @param show         TO for show
      * @param seasonFacade  facade for seasons
      * @param episodeFacade facade for episodes
-     * @throws IllegalArgumentException if serie is null
+     * @throws IllegalArgumentException if show is null
      *                                  or facade for seasons is null
      *                                  or facade for episodes is null
      */
-    public SerieDataPanel(final SerieTO serie, final SeasonFacade seasonFacade, final EpisodeFacade episodeFacade) {
+    public ShowDataPanel(final ShowTO show, final SeasonFacade seasonFacade, final EpisodeFacade episodeFacade) {
         Validators.validateArgumentNotNull(seasonFacade, "Facade for seasons");
         Validators.validateArgumentNotNull(episodeFacade, "Facade for episodes");
 
         this.seasonFacade = seasonFacade;
         this.episodeFacade = episodeFacade;
 
-        updateData(serie);
+        updateData(show);
 
         pictureData.setFocusable(false);
 
@@ -193,7 +193,7 @@ public class SerieDataPanel extends AbstractDataPanel<SerieTO> {
     }
 
     @Override
-    protected void updateComponentData(final SerieTO data) {
+    protected void updateComponentData(final ShowTO data) {
         final String picture = data.getPicture();
         if (picture.isEmpty()) {
             pictureData.setIcon(null);
@@ -206,7 +206,7 @@ public class SerieDataPanel extends AbstractDataPanel<SerieTO> {
         genreData.setText(getGenres(data));
         seasonsCountData.setText(getSeasonsCount(data));
         episodesCountData.setText(getEpisodesCount(data));
-        totalLengthData.setText(getSerieLength(data));
+        totalLengthData.setText(getShowLength(data));
         noteData.setText(data.getNote());
 
         csfd = data.getCsfd();
@@ -277,13 +277,13 @@ public class SerieDataPanel extends AbstractDataPanel<SerieTO> {
     }
 
     /**
-     * Returns serie's genres.
+     * Returns show genres.
      *
-     * @param serie TO for serie
-     * @return serie's genres
+     * @param show TO for show
+     * @return show genres
      */
-    private static String getGenres(final SerieTO serie) {
-        final List<GenreTO> genres = serie.getGenres();
+    private static String getGenres(final ShowTO show) {
+        final List<GenreTO> genres = show.getGenres();
 
         if (genres == null || genres.isEmpty()) {
             return "";
@@ -299,24 +299,24 @@ public class SerieDataPanel extends AbstractDataPanel<SerieTO> {
     }
 
     /**
-     * Returns count of serie's seasons.
+     * Returns count of show seasons.
      *
-     * @param serie TO for serie
-     * @return count of serie's seasons
+     * @param show TO for show
+     * @return count of show seasons
      */
-    private String getSeasonsCount(final SerieTO serie) {
-        final List<SeasonTO> seasons = seasonFacade.findSeasonsBySerie(serie);
+    private String getSeasonsCount(final ShowTO show) {
+        final List<SeasonTO> seasons = seasonFacade.findSeasonsByShow(show);
         return Integer.toString(seasons.size());
     }
 
     /**
-     * Returns count of serie's episodes.
+     * Returns count of show episodes.
      *
-     * @param serie TO for serie
-     * @return count of serie's episodes
+     * @param show TO for show
+     * @return count of show episodes
      */
-    private String getEpisodesCount(final SerieTO serie) {
-        final List<SeasonTO> seasons = seasonFacade.findSeasonsBySerie(serie);
+    private String getEpisodesCount(final ShowTO show) {
+        final List<SeasonTO> seasons = seasonFacade.findSeasonsByShow(show);
         int totalCount = 0;
         for (final SeasonTO season : seasons) {
             final List<EpisodeTO> episodes = episodeFacade.findEpisodesBySeason(season);
@@ -326,13 +326,13 @@ public class SerieDataPanel extends AbstractDataPanel<SerieTO> {
     }
 
     /**
-     * Returns total length of all serie's seasons.
+     * Returns total length of all show seasons.
      *
-     * @param serie TO for serie
-     * @return total length of all serie's seasons
+     * @param show TO for show
+     * @return total length of all show seasons
      */
-    private String getSerieLength(final SerieTO serie) {
-        final List<SeasonTO> seasons = seasonFacade.findSeasonsBySerie(serie);
+    private String getShowLength(final ShowTO show) {
+        final List<SeasonTO> seasons = seasonFacade.findSeasonsByShow(show);
         int totalLength = 0;
         for (final SeasonTO season : seasons) {
             final List<EpisodeTO> episodes = episodeFacade.findEpisodesBySeason(season);

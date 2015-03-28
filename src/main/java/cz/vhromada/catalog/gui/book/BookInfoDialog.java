@@ -61,16 +61,6 @@ public class BookInfoDialog extends AbstractInfoDialog<BookTO> {
     private JCheckBox englishLanguageData = new JCheckBox("English");
 
     /**
-     * Label for category
-     */
-    private JLabel categoryLabel = new JLabel("Category");
-
-    /**
-     * Text field for category
-     */
-    private JTextField categoryData = new JTextField();
-
-    /**
      * Label for note
      */
     private JLabel noteLabel = new JLabel("Note");
@@ -102,7 +92,6 @@ public class BookInfoDialog extends AbstractInfoDialog<BookTO> {
         for (final Language language : book.getLanguages()) {
             initLanguage(language);
         }
-        this.categoryData.setText(book.getCategory());
         this.noteData.setText(book.getNote());
     }
 
@@ -110,12 +99,10 @@ public class BookInfoDialog extends AbstractInfoDialog<BookTO> {
     protected void initComponents() {
         initLabelComponent(authorLabel, authorData);
         initLabelComponent(titleLabel, titleData);
-        initLabelComponent(categoryLabel, categoryData);
         initLabelComponent(noteLabel, noteData);
 
         addInputValidator(authorData);
         addInputValidator(titleData);
-        addInputValidator(categoryData);
 
         languagesLabel.setFocusable(false);
     }
@@ -126,20 +113,19 @@ public class BookInfoDialog extends AbstractInfoDialog<BookTO> {
         book.setAuthor(authorData.getText());
         book.setTitle(titleData.getText());
         book.setLanguages(getSelectedLanguages());
-        book.setCategory(categoryData.getText());
         book.setNote(noteData.getText());
 
         return book;
     }
 
     /**
-     * Returns true if input is valid: author isn't empty string, title isn't empty string, category isn't empty string.
+     * Returns true if input is valid: author isn't empty string, title isn't empty string.
      *
-     * @return true if input is valid: author isn't empty string, title isn't empty string, category isn't empty string
+     * @return true if input is valid: author isn't empty string, title isn't empty string,
      */
     @Override
     protected boolean isInputValid() {
-        return !authorData.getText().isEmpty() && !titleData.getText().isEmpty() && !categoryData.getText().isEmpty();
+        return !authorData.getText().isEmpty() && !titleData.getText().isEmpty();
     }
 
     @Override
@@ -149,7 +135,6 @@ public class BookInfoDialog extends AbstractInfoDialog<BookTO> {
                 .addGroup(createHorizontalComponents(layout, titleLabel, titleData))
                 .addGroup(createHorizontalComponents(layout, languagesLabel, czechLanguageData))
                 .addGroup(createHorizontalSelectableComponent(layout, englishLanguageData))
-                .addGroup(createHorizontalComponents(layout, categoryLabel, categoryData))
                 .addGroup(createHorizontalComponents(layout, noteLabel, noteData));
     }
 
@@ -164,8 +149,6 @@ public class BookInfoDialog extends AbstractInfoDialog<BookTO> {
                 .addGap(VERTICAL_GAP_SIZE)
                 .addComponent(englishLanguageData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
                         CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, categoryLabel, categoryData))
                 .addGap(VERTICAL_GAP_SIZE)
                 .addGroup(createVerticalComponents(layout, noteLabel, noteData));
     }

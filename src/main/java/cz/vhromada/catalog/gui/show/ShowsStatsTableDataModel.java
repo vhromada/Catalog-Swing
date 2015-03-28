@@ -1,19 +1,19 @@
-package cz.vhromada.catalog.gui.serie;
+package cz.vhromada.catalog.gui.show;
 
 import java.util.List;
 
 import cz.vhromada.catalog.commons.Time;
-import cz.vhromada.catalog.facade.SerieFacade;
-import cz.vhromada.catalog.facade.to.SerieTO;
+import cz.vhromada.catalog.facade.ShowFacade;
+import cz.vhromada.catalog.facade.to.ShowTO;
 import cz.vhromada.catalog.gui.commons.AbstractStatsTableDataModel;
 import cz.vhromada.validators.Validators;
 
 /**
- * A class represents data model for table with stats for series.
+ * A class represents data model for table with stats for shows.
  *
  * @author Vladimir Hromada
  */
-public class SeriesStatsTableDataModel extends AbstractStatsTableDataModel {
+public class ShowsStatsTableDataModel extends AbstractStatsTableDataModel {
 
     /**
      * SerialVersionUID
@@ -26,40 +26,40 @@ public class SeriesStatsTableDataModel extends AbstractStatsTableDataModel {
     private static final String BAD_COLUMN_ERROR_MESSAGE = "Bad column";
 
     /**
-     * Facade for series
+     * Facade for shows
      */
-    private SerieFacade serieFacade;
+    private ShowFacade showFacade;
 
     /**
-     * List of TO for serie
+     * List of TO for show
      */
-    private List<SerieTO> series;
+    private List<ShowTO> shows;
 
     /**
-     * Count of seasons from all series
+     * Count of seasons from all shows
      */
     private int seasonsCount;
 
     /**
-     * Count of episodes from all series
+     * Count of episodes from all shows
      */
     private int episodesCount;
 
     /**
-     * Total length of all series
+     * Total length of all shows
      */
     private Time totalLength;
 
     /**
-     * Creates a new instance of SeriesStatsTableDataModel.
+     * Creates a new instance of ShowsStatsTableDataModel.
      *
-     * @param serieFacade facade for series
+     * @param showFacade facade for shows
      * @throws IllegalArgumentException if service is null
      */
-    public SeriesStatsTableDataModel(final SerieFacade serieFacade) {
-        Validators.validateArgumentNotNull(serieFacade, "Facade for series");
+    public ShowsStatsTableDataModel(final ShowFacade showFacade) {
+        Validators.validateArgumentNotNull(showFacade, "Facade for shows");
 
-        this.serieFacade = serieFacade;
+        this.showFacade = showFacade;
         update();
     }
 
@@ -67,7 +67,7 @@ public class SeriesStatsTableDataModel extends AbstractStatsTableDataModel {
     public Object getValueAt(final int rowIndex, final int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return series.size();
+                return shows.size();
             case 1:
                 return seasonsCount;
             case 2:
@@ -109,7 +109,7 @@ public class SeriesStatsTableDataModel extends AbstractStatsTableDataModel {
     public String getColumnName(final int column) {
         switch (column) {
             case 0:
-                return "Count of series";
+                return "Count of shows";
             case 1:
                 return "Count of seasons";
             case 2:
@@ -123,10 +123,10 @@ public class SeriesStatsTableDataModel extends AbstractStatsTableDataModel {
 
     @Override
     public final void update() {
-        series = serieFacade.getSeries();
-        seasonsCount = serieFacade.getSeasonsCount();
-        episodesCount = serieFacade.getEpisodesCount();
-        totalLength = serieFacade.getTotalLength();
+        shows = showFacade.getShows();
+        seasonsCount = showFacade.getSeasonsCount();
+        episodesCount = showFacade.getEpisodesCount();
+        totalLength = showFacade.getTotalLength();
     }
 
 }

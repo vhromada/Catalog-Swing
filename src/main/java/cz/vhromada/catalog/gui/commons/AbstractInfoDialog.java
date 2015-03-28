@@ -172,7 +172,7 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
     /**
      * Returns data.
      *
-     * @return datae
+     * @return data
      * @throws IllegalStateException if data haven't been set
      */
     public T getData() {

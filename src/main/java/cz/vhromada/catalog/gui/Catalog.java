@@ -29,7 +29,7 @@ import cz.vhromada.catalog.facade.MovieFacade;
 import cz.vhromada.catalog.facade.MusicFacade;
 import cz.vhromada.catalog.facade.ProgramFacade;
 import cz.vhromada.catalog.facade.SeasonFacade;
-import cz.vhromada.catalog.facade.SerieFacade;
+import cz.vhromada.catalog.facade.ShowFacade;
 import cz.vhromada.catalog.facade.SongFacade;
 import cz.vhromada.catalog.gui.category.BookCategoriesPanel;
 import cz.vhromada.catalog.gui.commons.Picture;
@@ -38,7 +38,7 @@ import cz.vhromada.catalog.gui.genre.GenresPanel;
 import cz.vhromada.catalog.gui.movie.MoviesPanel;
 import cz.vhromada.catalog.gui.music.MusicPanel;
 import cz.vhromada.catalog.gui.program.ProgramsPanel;
-import cz.vhromada.catalog.gui.serie.SeriesPanel;
+import cz.vhromada.catalog.gui.show.ShowsPanel;
 import cz.vhromada.validators.Validators;
 
 import org.springframework.context.ConfigurableApplicationContext;
@@ -121,9 +121,9 @@ public class Catalog extends JFrame {
     private MoviesPanel moviesPanel;
 
     /**
-     * Panel for series
+     * Panel for shows
      */
-    private SeriesPanel seriesPanel;
+    private ShowsPanel showsPanel;
 
     /**
      * Panel for games
@@ -156,9 +156,9 @@ public class Catalog extends JFrame {
     private MovieFacade movieFacade;
 
     /**
-     * Facade for series
+     * Facade for shows
      */
-    private SerieFacade serieFacade;
+    private ShowFacade showFacade;
 
     /**
      * Facade for games
@@ -211,7 +211,7 @@ public class Catalog extends JFrame {
         });
 
         moviesPanel = new MoviesPanel(movieFacade, genreFacade);
-        seriesPanel = new SeriesPanel(serieFacade, context.getBean(SeasonFacade.class), context.getBean(EpisodeFacade.class), genreFacade);
+        showsPanel = new ShowsPanel(showFacade, context.getBean(SeasonFacade.class), context.getBean(EpisodeFacade.class), genreFacade);
         gamesPanel = new GamesPanel(gameFacade);
         musicPanel = new MusicPanel(musicFacade, context.getBean(SongFacade.class));
         programsPanel = new ProgramsPanel(programFacade);
@@ -245,7 +245,7 @@ public class Catalog extends JFrame {
      */
     private void initFacades() {
         movieFacade = context.getBean(MovieFacade.class);
-        serieFacade = context.getBean(SerieFacade.class);
+        showFacade = context.getBean(ShowFacade.class);
         gameFacade = context.getBean(GameFacade.class);
         musicFacade = context.getBean(MusicFacade.class);
         programFacade = context.getBean(ProgramFacade.class);
@@ -327,7 +327,7 @@ public class Catalog extends JFrame {
      */
     private void initTabbedPane() {
         tabbedPane.addTab("Movies", moviesPanel);
-        tabbedPane.addTab("Series", seriesPanel);
+        tabbedPane.addTab("Shows", showsPanel);
         tabbedPane.addTab("Games", gamesPanel);
         tabbedPane.addTab("Music", musicPanel);
         tabbedPane.addTab("Programs", programsPanel);
@@ -338,7 +338,7 @@ public class Catalog extends JFrame {
             @Override
             public void stateChanged(final ChangeEvent e) {
                 moviesPanel.clearSelection();
-                seriesPanel.clearSelection();
+                showsPanel.clearSelection();
                 gamesPanel.clearSelection();
                 musicPanel.clearSelection();
                 programsPanel.clearSelection();
@@ -354,7 +354,7 @@ public class Catalog extends JFrame {
      */
     private void newAction() {
         moviesPanel.newData();
-        seriesPanel.newData();
+        showsPanel.newData();
         gamesPanel.newData();
         musicPanel.newData();
         programsPanel.newData();
@@ -428,7 +428,7 @@ public class Catalog extends JFrame {
      * @return true if media are saved
      */
     private boolean areMediaSaved() {
-        return moviesPanel.isSaved() && seriesPanel.isSaved() && musicPanel.isSaved();
+        return moviesPanel.isSaved() && showsPanel.isSaved() && musicPanel.isSaved();
     }
 
     /**
@@ -445,13 +445,13 @@ public class Catalog extends JFrame {
      */
     private void save() {
         movieFacade.updatePositions();
-        serieFacade.updatePositions();
+        showFacade.updatePositions();
         gameFacade.updatePositions();
         musicFacade.updatePositions();
         programFacade.updatePositions();
         bookCategoryFacade.updatePositions();
         moviesPanel.save();
-        seriesPanel.save();
+        showsPanel.save();
         gamesPanel.save();
         musicPanel.save();
         programsPanel.save();

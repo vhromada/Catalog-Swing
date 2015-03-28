@@ -92,6 +92,11 @@ public class SeasonInfoDialog extends AbstractInfoDialog<SeasonTO> {
     private JRadioButton japaneseLanguageData = new JRadioButton("Japanese");
 
     /**
+     * Radio button for slovak language
+     */
+    private JRadioButton slovakLanguageData = new JRadioButton("Slovak");
+
+    /**
      * Label for subtitles
      */
     private JLabel subtitlesLabel = new JLabel("Subtitles");
@@ -151,6 +156,9 @@ public class SeasonInfoDialog extends AbstractInfoDialog<SeasonTO> {
             case JP:
                 this.japaneseLanguageData.setSelected(true);
                 break;
+            case SK:
+                this.slovakLanguageData.setSelected(true);
+                break;
             default:
                 throw new IndexOutOfBoundsException("Bad language");
         }
@@ -180,6 +188,7 @@ public class SeasonInfoDialog extends AbstractInfoDialog<SeasonTO> {
         languagesButtonGroup.add(englishLanguageData);
         languagesButtonGroup.add(frenchLanguageData);
         languagesButtonGroup.add(japaneseLanguageData);
+        languagesButtonGroup.add(slovakLanguageData);
 
         languageLabel.setFocusable(false);
         subtitlesLabel.setFocusable(false);
@@ -194,16 +203,7 @@ public class SeasonInfoDialog extends AbstractInfoDialog<SeasonTO> {
         season.setNumber((Integer) numberData.getValue());
         season.setStartYear((Integer) startYearData.getValue());
         season.setEndYear((Integer) endYearData.getValue());
-        final Language language;
-        final ButtonModel model = languagesButtonGroup.getSelection();
-        if (model.equals(czechLanguageData.getModel())) {
-            language = Language.CZ;
-        } else if (model.equals(englishLanguageData.getModel())) {
-            language = Language.EN;
-        } else {
-            language = model.equals(frenchLanguageData.getModel()) ? Language.FR : Language.JP;
-        }
-        season.setLanguage(language);
+        season.setLanguage(processLanguage(languagesButtonGroup.getSelection()));
         season.setSubtitles(getSelectedSubtitles());
         season.setNote(noteData.getText());
 
@@ -230,6 +230,7 @@ public class SeasonInfoDialog extends AbstractInfoDialog<SeasonTO> {
                 .addGroup(createHorizontalSelectableComponent(layout, englishLanguageData))
                 .addGroup(createHorizontalSelectableComponent(layout, frenchLanguageData))
                 .addGroup(createHorizontalSelectableComponent(layout, japaneseLanguageData))
+                .addGroup(createHorizontalSelectableComponent(layout, slovakLanguageData))
                 .addGroup(createHorizontalComponents(layout, subtitlesLabel, czechSubtitlesData))
                 .addGroup(createHorizontalSelectableComponent(layout, englishSubtitlesData))
                 .addGroup(createHorizontalComponents(layout, noteLabel, noteData));
@@ -255,12 +256,37 @@ public class SeasonInfoDialog extends AbstractInfoDialog<SeasonTO> {
                 .addComponent(japaneseLanguageData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
                         CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
                 .addGap(VERTICAL_GAP_SIZE)
+                .addComponent(slovakLanguageData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
+                .addGap(VERTICAL_GAP_SIZE)
                 .addGroup(createVerticalComponents(layout, subtitlesLabel, czechSubtitlesData))
                 .addGap(VERTICAL_GAP_SIZE)
                 .addComponent(englishSubtitlesData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
                         CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
                 .addGap(VERTICAL_GAP_SIZE)
                 .addGroup(createVerticalComponents(layout, noteLabel, noteData));
+    }
+
+    /**
+     * Returns selected language.
+     *
+     * @param model button model
+     * @return selected language
+     */
+    private Language processLanguage(final ButtonModel model) {
+        if (model.equals(czechLanguageData.getModel())) {
+            return Language.CZ;
+        }
+        if (model.equals(englishLanguageData.getModel())) {
+            return Language.EN;
+        }
+        if (model.equals(frenchLanguageData.getModel())) {
+            return Language.FR;
+        }
+        if (model.equals(japaneseLanguageData.getModel())) {
+            return Language.JP;
+        }
+        return Language.SK;
     }
 
     /**

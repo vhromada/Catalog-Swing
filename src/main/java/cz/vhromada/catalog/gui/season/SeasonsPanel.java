@@ -9,7 +9,7 @@ import javax.swing.JTabbedPane;
 import cz.vhromada.catalog.facade.EpisodeFacade;
 import cz.vhromada.catalog.facade.SeasonFacade;
 import cz.vhromada.catalog.facade.to.SeasonTO;
-import cz.vhromada.catalog.facade.to.SerieTO;
+import cz.vhromada.catalog.facade.to.ShowTO;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.AbstractOverviewDataPanel;
 import cz.vhromada.catalog.gui.episode.EpisodesPanel;
@@ -38,40 +38,40 @@ public class SeasonsPanel extends AbstractOverviewDataPanel<SeasonTO> {
     private EpisodeFacade episodeFacade;
 
     /**
-     * TO for serie
+     * TO for show
      */
-    private SerieTO serie;
+    private ShowTO show;
 
     /**
      * Creates a new instance of SeasonsPanel.
      *
      * @param seasonFacade  facade for seasons
      * @param episodeFacade facade for episodes
-     * @param serie         TO for serie
+     * @param show         TO for show
      * @throws IllegalArgumentException if facade for seasons is null
      *                                  or facade for episodes is null
-     *                                  or TO for serie is null
+     *                                  or TO for show is null
      */
-    public SeasonsPanel(final SeasonFacade seasonFacade, final EpisodeFacade episodeFacade, final SerieTO serie) {
-        super(getSeasonsListDataModel(seasonFacade, serie));
+    public SeasonsPanel(final SeasonFacade seasonFacade, final EpisodeFacade episodeFacade, final ShowTO show) {
+        super(getSeasonsListDataModel(seasonFacade, show));
 
         Validators.validateArgumentNotNull(episodeFacade, "Facade for episodes");
 
         this.seasonFacade = seasonFacade;
         this.episodeFacade = episodeFacade;
-        this.serie = serie;
+        this.show = show;
     }
 
     /**
-     * Sets a new value to TO for serie.
+     * Sets a new value to TO for show.
      *
-     * @param serie new value
-     * @throws IllegalArgumentException if TO for serie is null
+     * @param show new value
+     * @throws IllegalArgumentException if TO for show is null
      */
-    public void setSerie(final SerieTO serie) {
-        Validators.validateArgumentNotNull(serie, "TO for serie");
+    public void setShow(final ShowTO show) {
+        Validators.validateArgumentNotNull(show, "TO for show");
 
-        this.serie = serie;
+        this.show = show;
     }
 
     @Override
@@ -101,7 +101,7 @@ public class SeasonsPanel extends AbstractOverviewDataPanel<SeasonTO> {
 
     @Override
     protected void addData(final SeasonTO data) {
-        data.setSerie(serie);
+        data.setShow(show);
         seasonFacade.add(data);
     }
 
@@ -149,6 +149,7 @@ public class SeasonsPanel extends AbstractOverviewDataPanel<SeasonTO> {
             public void propertyChange(final PropertyChangeEvent evt) {
                 if (Boolean.TRUE.equals(evt.getNewValue())) {
                     updateModel(data);
+                    episodesPanel.setSeason(data);
                     firePropertyChange("update", false, true);
                 }
             }
@@ -161,13 +162,13 @@ public class SeasonsPanel extends AbstractOverviewDataPanel<SeasonTO> {
      * Returns data model for list with seasons.
      *
      * @param facade      facade for seasons
-     * @param serieObject TO for serie
+     * @param showObject TO for show
      * @return data model for list with seasons
      * @throws IllegalArgumentException if facade for seasons is null
-     *                                  or TO for serie is null
+     *                                  or TO for show is null
      */
-    private static SeasonsListDataModel getSeasonsListDataModel(final SeasonFacade facade, final SerieTO serieObject) {
-        return new SeasonsListDataModel(facade, serieObject);
+    private static SeasonsListDataModel getSeasonsListDataModel(final SeasonFacade facade, final ShowTO showObject) {
+        return new SeasonsListDataModel(facade, showObject);
     }
 
 }

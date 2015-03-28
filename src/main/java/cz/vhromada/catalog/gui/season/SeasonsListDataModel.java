@@ -4,7 +4,7 @@ import java.util.List;
 
 import cz.vhromada.catalog.facade.SeasonFacade;
 import cz.vhromada.catalog.facade.to.SeasonTO;
-import cz.vhromada.catalog.facade.to.SerieTO;
+import cz.vhromada.catalog.facade.to.ShowTO;
 import cz.vhromada.catalog.gui.commons.AbstractListDataModel;
 import cz.vhromada.validators.Validators;
 
@@ -26,30 +26,30 @@ public class SeasonsListDataModel extends AbstractListDataModel<SeasonTO> {
     private SeasonFacade seasonFacade;
 
     /**
-     * TO for serie
+     * TO for show
      */
-    private SerieTO serie;
+    private ShowTO show;
 
     /**
      * Creates a new instance of SeasonsListDataModel.
      *
      * @param seasonFacade facade for seasons
-     * @param serie        TO for serie
+     * @param show        TO for show
      * @throws IllegalArgumentException if facade for seasons is null
-     *                                  or TO for serie is null
+     *                                  or TO for show is null
      */
-    public SeasonsListDataModel(final SeasonFacade seasonFacade, final SerieTO serie) {
+    public SeasonsListDataModel(final SeasonFacade seasonFacade, final ShowTO show) {
         Validators.validateArgumentNotNull(seasonFacade, "Facade for seasons");
-        Validators.validateArgumentNotNull(serie, "TO for serie");
+        Validators.validateArgumentNotNull(show, "TO for show");
 
         this.seasonFacade = seasonFacade;
-        this.serie = serie;
+        this.show = show;
         update();
     }
 
     @Override
     protected List<SeasonTO> getData() {
-        return seasonFacade.findSeasonsBySerie(serie);
+        return seasonFacade.findSeasonsByShow(show);
     }
 
     @Override

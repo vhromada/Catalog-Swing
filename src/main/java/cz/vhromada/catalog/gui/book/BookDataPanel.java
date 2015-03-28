@@ -52,16 +52,6 @@ public class BookDataPanel extends AbstractDataPanel<BookTO> {
     private JLabel languagesData = new JLabel();
 
     /**
-     * Label for category
-     */
-    private JLabel categoryLabel = new JLabel("Category");
-
-    /**
-     * Label with category
-     */
-    private JLabel categoryData = new JLabel();
-
-    /**
      * Label for note
      */
     private JLabel noteLabel = new JLabel("Note");
@@ -83,7 +73,6 @@ public class BookDataPanel extends AbstractDataPanel<BookTO> {
         initData(authorLabel, authorData);
         initData(titleLabel, titleData);
         initData(languagesLabel, languagesData);
-        initData(categoryLabel, categoryData);
         initData(noteLabel, noteData);
 
         createLayout();
@@ -94,7 +83,6 @@ public class BookDataPanel extends AbstractDataPanel<BookTO> {
         authorData.setText(data.getAuthor());
         titleData.setText(data.getTitle());
         languagesData.setText(getLanguages(data));
-        categoryData.setText(data.getCategory());
         noteData.setText(data.getNote());
     }
 
@@ -124,7 +112,6 @@ public class BookDataPanel extends AbstractDataPanel<BookTO> {
                 .addGroup(createHorizontalDataComponents(layout, authorLabel, authorData))
                 .addGroup(createHorizontalDataComponents(layout, titleLabel, titleData))
                 .addGroup(createHorizontalDataComponents(layout, languagesLabel, languagesData))
-                .addGroup(createHorizontalDataComponents(layout, categoryLabel, categoryData))
                 .addGroup(createHorizontalDataComponents(layout, noteLabel, noteData));
     }
 
@@ -136,8 +123,6 @@ public class BookDataPanel extends AbstractDataPanel<BookTO> {
                 .addGroup(createVerticalComponents(layout, titleLabel, titleData))
                 .addGap(VERTICAL_GAP_SIZE)
                 .addGroup(createVerticalComponents(layout, languagesLabel, languagesData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, categoryLabel, categoryData))
                 .addGap(VERTICAL_GAP_SIZE)
                 .addGroup(createVerticalComponents(layout, noteLabel, noteData))
                 .addGap(VERTICAL_GAP_SIZE);
