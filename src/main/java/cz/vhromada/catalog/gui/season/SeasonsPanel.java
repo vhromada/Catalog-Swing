@@ -47,7 +47,7 @@ public class SeasonsPanel extends AbstractOverviewDataPanel<SeasonTO> {
      *
      * @param seasonFacade  facade for seasons
      * @param episodeFacade facade for episodes
-     * @param show         TO for show
+     * @param show          TO for show
      * @throws IllegalArgumentException if facade for seasons is null
      *                                  or facade for episodes is null
      *                                  or TO for show is null
@@ -161,7 +161,7 @@ public class SeasonsPanel extends AbstractOverviewDataPanel<SeasonTO> {
     /**
      * Returns data model for list with seasons.
      *
-     * @param facade      facade for seasons
+     * @param facade     facade for seasons
      * @param showObject TO for show
      * @return data model for list with seasons
      * @throws IllegalArgumentException if facade for seasons is null

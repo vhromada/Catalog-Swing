@@ -161,7 +161,7 @@ public class ShowInfoDialog extends AbstractInfoDialog<ShowTO> {
      * Creates a new instance of ShowInfoDialog.
      *
      * @param genreFacade facade for genres
-     * @param show       TO for show
+     * @param show        TO for show
      * @throws IllegalArgumentException if facade for genres is null
      *                                  or TO for show is null
      */

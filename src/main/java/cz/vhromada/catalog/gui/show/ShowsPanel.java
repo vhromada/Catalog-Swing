@@ -51,7 +51,7 @@ public class ShowsPanel extends AbstractOverviewDataPanel<ShowTO> {
     /**
      * Creates a new instance of ShowsPanel.
      *
-     * @param showFacade   facade for shows
+     * @param showFacade    facade for shows
      * @param seasonFacade  facade for seasons
      * @param episodeFacade facade for episodes
      * @param genreFacade   facade for genres

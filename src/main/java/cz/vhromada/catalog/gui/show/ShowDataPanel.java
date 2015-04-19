@@ -158,7 +158,7 @@ public class ShowDataPanel extends AbstractDataPanel<ShowTO> {
     /**
      * Creates a new instance of ShowDataPanel.
      *
-     * @param show         TO for show
+     * @param show          TO for show
      * @param seasonFacade  facade for seasons
      * @param episodeFacade facade for episodes
      * @throws IllegalArgumentException if show is null
