@@ -166,10 +166,10 @@ public class ProgramDataPanel extends AbstractDataPanel<ProgramTO> {
      */
     private static String getAdditionalData(final ProgramTO program) {
         final StringBuilder result = new StringBuilder();
-        if (program.hasCrack()) {
+        if (program.getCrack()) {
             result.append("Crack");
         }
-        addToResult(result, program.hasSerialKey(), "serial key");
+        addToResult(result, program.getSerialKey(), "serial key");
         if (program.getOtherData() != null && !program.getOtherData().isEmpty()) {
             if (result.length() != 0) {
                 result.append(", ");

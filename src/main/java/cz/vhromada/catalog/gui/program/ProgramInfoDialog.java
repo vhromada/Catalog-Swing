@@ -114,8 +114,8 @@ public class ProgramInfoDialog extends AbstractInfoDialog<ProgramTO> {
         this.wikiCzData.setText(program.getWikiCz());
         this.wikiEnData.setText(program.getWikiEn());
         this.mediaCountData.setValue(program.getMediaCount());
-        this.crackData.setSelected(program.hasCrack());
-        this.serialData.setSelected(program.hasSerialKey());
+        this.crackData.setSelected(program.getCrack());
+        this.serialData.setSelected(program.getSerialKey());
         this.otherDataData.setText(program.getOtherData());
         this.noteData.setText(program.getNote());
     }

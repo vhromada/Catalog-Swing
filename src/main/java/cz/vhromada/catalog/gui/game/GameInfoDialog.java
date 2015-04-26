@@ -139,13 +139,13 @@ public class GameInfoDialog extends AbstractInfoDialog<GameTO> {
         this.wikiCzData.setText(game.getWikiCz());
         this.wikiEnData.setText(game.getWikiEn());
         this.mediaCountData.setValue(game.getMediaCount());
-        this.crackData.setSelected(game.hasCrack());
-        this.serialData.setSelected(game.hasSerialKey());
-        this.patchData.setSelected(game.hasPatch());
-        this.trainerData.setSelected(game.hasTrainer());
-        this.trainerDataData.setSelected(game.hasTrainerData());
-        this.editorData.setSelected(game.hasEditor());
-        this.savesData.setSelected(game.haveSaves());
+        this.crackData.setSelected(game.getCrack());
+        this.serialData.setSelected(game.getSerialKey());
+        this.patchData.setSelected(game.getPatch());
+        this.trainerData.setSelected(game.getTrainer());
+        this.trainerDataData.setSelected(game.getTrainerData());
+        this.editorData.setSelected(game.getEditor());
+        this.savesData.setSelected(game.getSaves());
         this.otherDataData.setText(game.getOtherData());
         this.noteData.setText(game.getNote());
     }

@@ -166,15 +166,15 @@ public class GameDataPanel extends AbstractDataPanel<GameTO> {
      */
     private static String getAdditionalData(final GameTO game) {
         final StringBuilder result = new StringBuilder();
-        if (game.hasCrack()) {
+        if (game.getCrack()) {
             result.append("Crack");
         }
-        addToResult(result, game.hasSerialKey(), "serial key");
-        addToResult(result, game.hasPatch(), "patch");
-        addToResult(result, game.hasTrainer(), "trainer");
-        addToResult(result, game.hasTrainerData(), "data for trainer");
-        addToResult(result, game.hasEditor(), "editor");
-        addToResult(result, game.haveSaves(), "saves");
+        addToResult(result, game.getSerialKey(), "serial key");
+        addToResult(result, game.getPatch(), "patch");
+        addToResult(result, game.getTrainer(), "trainer");
+        addToResult(result, game.getTrainerData(), "data for trainer");
+        addToResult(result, game.getEditor(), "editor");
+        addToResult(result, game.getSaves(), "saves");
         if (game.getOtherData() != null && !game.getOtherData().isEmpty()) {
             if (result.length() != 0) {
                 result.append(", ");

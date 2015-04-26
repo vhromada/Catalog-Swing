@@ -70,7 +70,7 @@ public class AboutDialog extends JDialog {
     /**
      * Label for version
      */
-    private JLabel versionLabel = new JLabel("Version: 1.0.0");
+    private JLabel versionLabel = new JLabel("Version: 1.1.1");
 
     /**
      * Label for author
