@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import cz.vhromada.catalog.commons.Language;
 import cz.vhromada.catalog.commons.Time;
 import cz.vhromada.catalog.facade.to.GenreTO;
+import cz.vhromada.catalog.facade.to.MediumTO;
 import cz.vhromada.catalog.facade.to.MovieTO;
 import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
 import cz.vhromada.catalog.gui.commons.WebPageButtonType;
@@ -335,15 +336,15 @@ public class MovieDataPanel extends AbstractDataPanel<MovieTO> {
      * @return movie's media
      */
     private static String getMedia(final MovieTO movie) {
-        final List<Integer> media = movie.getMedia();
+        final List<MediumTO> media = movie.getMedia();
 
         if (media == null || media.isEmpty()) {
             return "";
         }
 
         final StringBuilder subtitlesString = new StringBuilder();
-        for (final Integer medium : media) {
-            subtitlesString.append(new Time(medium));
+        for (final MediumTO medium : media) {
+            subtitlesString.append(new Time(medium.getLength()));
             subtitlesString.append(", ");
         }
 
@@ -357,15 +358,15 @@ public class MovieDataPanel extends AbstractDataPanel<MovieTO> {
      * @return total length of movie
      */
     private static String getMovieLength(final MovieTO movie) {
-        final List<Integer> media = movie.getMedia();
+        final List<MediumTO> media = movie.getMedia();
 
         if (media == null || media.isEmpty()) {
             return new Time(0).toString();
         }
 
         int totalLength = 0;
-        for (final Integer medium : media) {
-            totalLength += medium;
+        for (final MediumTO medium : media) {
+            totalLength += medium.getLength();
         }
         return new Time(totalLength).toString();
     }

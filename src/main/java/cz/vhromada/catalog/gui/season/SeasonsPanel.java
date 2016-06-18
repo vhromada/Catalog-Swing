@@ -101,8 +101,7 @@ public class SeasonsPanel extends AbstractOverviewDataPanel<SeasonTO> {
 
     @Override
     protected void addData(final SeasonTO data) {
-        data.setShow(show);
-        seasonFacade.add(data);
+        seasonFacade.add(show, data);
     }
 
     @Override

@@ -5,7 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
 
-    <import resource="classpath:daoContext.xml"/>
+    <import resource="classpath:repositoryContext.xml"/>
 
     <import resource="classpath:cacheContext.xml"/>
 

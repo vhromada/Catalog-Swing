@@ -86,8 +86,7 @@ public class SongsPanel extends AbstractOverviewDataPanel<SongTO> {
 
     @Override
     protected void addData(final SongTO data) {
-        data.setMusic(music);
-        songFacade.add(data);
+        songFacade.add(music, data);
     }
 
     @Override

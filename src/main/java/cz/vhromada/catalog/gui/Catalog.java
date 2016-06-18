@@ -20,8 +20,6 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import cz.vhromada.catalog.facade.BookCategoryFacade;
-import cz.vhromada.catalog.facade.BookFacade;
 import cz.vhromada.catalog.facade.EpisodeFacade;
 import cz.vhromada.catalog.facade.GameFacade;
 import cz.vhromada.catalog.facade.GenreFacade;
@@ -31,7 +29,6 @@ import cz.vhromada.catalog.facade.ProgramFacade;
 import cz.vhromada.catalog.facade.SeasonFacade;
 import cz.vhromada.catalog.facade.ShowFacade;
 import cz.vhromada.catalog.facade.SongFacade;
-import cz.vhromada.catalog.gui.category.BookCategoriesPanel;
 import cz.vhromada.catalog.gui.commons.Picture;
 import cz.vhromada.catalog.gui.game.GamesPanel;
 import cz.vhromada.catalog.gui.genre.GenresPanel;
@@ -141,11 +138,6 @@ public class Catalog extends JFrame {
     private ProgramsPanel programsPanel;
 
     /**
-     * Panel for book categories
-     */
-    private BookCategoriesPanel bookCategoriesPanel;
-
-    /**
      * Panel for genres
      */
     private GenresPanel genresPanel;
@@ -174,11 +166,6 @@ public class Catalog extends JFrame {
      * Facade for programs
      */
     private ProgramFacade programFacade;
-
-    /**
-     * Facade for book categories
-     */
-    private BookCategoryFacade bookCategoryFacade;
 
     /**
      * Creates a new instance Catalog.
@@ -215,7 +202,6 @@ public class Catalog extends JFrame {
         gamesPanel = new GamesPanel(gameFacade);
         musicPanel = new MusicPanel(musicFacade, context.getBean(SongFacade.class));
         programsPanel = new ProgramsPanel(programFacade);
-        bookCategoriesPanel = new BookCategoriesPanel(bookCategoryFacade, context.getBean(BookFacade.class));
         genresPanel = new GenresPanel(genreFacade);
 
         initTabbedPane();
@@ -249,7 +235,6 @@ public class Catalog extends JFrame {
         gameFacade = context.getBean(GameFacade.class);
         musicFacade = context.getBean(MusicFacade.class);
         programFacade = context.getBean(ProgramFacade.class);
-        bookCategoryFacade = context.getBean(BookCategoryFacade.class);
     }
 
     /**
@@ -331,7 +316,6 @@ public class Catalog extends JFrame {
         tabbedPane.addTab("Games", gamesPanel);
         tabbedPane.addTab("Music", musicPanel);
         tabbedPane.addTab("Programs", programsPanel);
-        tabbedPane.addTab("Books", bookCategoriesPanel);
         tabbedPane.addTab("Genres", genresPanel);
         tabbedPane.addChangeListener(new ChangeListener() {
 
@@ -342,7 +326,6 @@ public class Catalog extends JFrame {
                 gamesPanel.clearSelection();
                 musicPanel.clearSelection();
                 programsPanel.clearSelection();
-                bookCategoriesPanel.clearSelection();
                 genresPanel.clearSelection();
             }
 
@@ -358,7 +341,6 @@ public class Catalog extends JFrame {
         gamesPanel.newData();
         musicPanel.newData();
         programsPanel.newData();
-        bookCategoriesPanel.newData();
         genresPanel.newData();
     }
 
@@ -412,7 +394,7 @@ public class Catalog extends JFrame {
      * Closes form.
      */
     private void closing() {
-        final boolean saved = areMediaSaved() && areProgramsSaved() && bookCategoriesPanel.isSaved() && genresPanel.isSaved();
+        final boolean saved = areMediaSaved() && areProgramsSaved() && genresPanel.isSaved();
         if (!saved) {
             final int returnStatus = JOptionPane.showConfirmDialog(this, "Save data?", "", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (returnStatus == JOptionPane.YES_OPTION) {
@@ -449,13 +431,11 @@ public class Catalog extends JFrame {
         gameFacade.updatePositions();
         musicFacade.updatePositions();
         programFacade.updatePositions();
-        bookCategoryFacade.updatePositions();
         moviesPanel.save();
         showsPanel.save();
         gamesPanel.save();
         musicPanel.save();
         programsPanel.save();
-        bookCategoriesPanel.save();
         genresPanel.save();
     }
 

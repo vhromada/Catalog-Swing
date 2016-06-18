@@ -24,6 +24,7 @@ import cz.vhromada.catalog.commons.Language;
 import cz.vhromada.catalog.commons.Time;
 import cz.vhromada.catalog.facade.GenreFacade;
 import cz.vhromada.catalog.facade.to.GenreTO;
+import cz.vhromada.catalog.facade.to.MediumTO;
 import cz.vhromada.catalog.facade.to.MovieTO;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
@@ -57,7 +58,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
     /**
      * List of media
      */
-    private List<Integer> media = new ArrayList<>();
+    private List<MediumTO> media = new ArrayList<>();
 
     /**
      * Label for czech name
@@ -503,8 +504,8 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
         }
 
         final StringBuilder mediaString = new StringBuilder();
-        for (final Integer medium : media) {
-            mediaString.append(new Time(medium));
+        for (final MediumTO medium : media) {
+            mediaString.append(new Time(medium.getLength()));
             mediaString.append(", ");
         }
 

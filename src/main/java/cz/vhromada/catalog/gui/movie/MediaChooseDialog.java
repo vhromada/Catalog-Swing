@@ -18,6 +18,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import cz.vhromada.catalog.commons.Time;
+import cz.vhromada.catalog.facade.to.MediumTO;
 import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
 import cz.vhromada.catalog.gui.commons.DialogResult;
 import cz.vhromada.catalog.gui.commons.Picture;
@@ -94,7 +95,7 @@ public class MediaChooseDialog extends JDialog {
     /**
      * List of media
      */
-    private List<Integer> media;
+    private List<MediumTO> media;
 
     /**
      * Label for media count
@@ -127,7 +128,7 @@ public class MediaChooseDialog extends JDialog {
      * @param media media
      * @throws IllegalArgumentException if list of media is null
      */
-    public MediaChooseDialog(final List<Integer> media) {
+    public MediaChooseDialog(final List<MediumTO> media) {
         super(new JFrame(), "Choose", true);
 
         Validators.validateArgumentNotNull(media, "List of media");
@@ -152,7 +153,7 @@ public class MediaChooseDialog extends JDialog {
      * @return list of media
      * @throws IllegalStateException if list of media for hasn't been set
      */
-    public List<Integer> getMedia() {
+    public List<MediumTO> getMedia() {
         Validators.validateFieldNotNull(media, "List of media");
 
         return media;
@@ -189,7 +190,7 @@ public class MediaChooseDialog extends JDialog {
         } else {
             mediaCountData.setValue(media.size());
             for (int i = 0; i < media.size(); i++) {
-                mediaPanels.get(i).setLength(new Time(media.get(i)));
+                mediaPanels.get(i).setLength(new Time(media.get(i).getLength()));
             }
         }
 
@@ -228,7 +229,9 @@ public class MediaChooseDialog extends JDialog {
         media.clear();
         final int mediaCount = (Integer) mediaCountData.getValue();
         for (int i = 0; i < mediaCount; i++) {
-            media.add(mediaPanels.get(i).getLength().getLength());
+            final MediumTO medium = new MediumTO();
+            medium.setLength(mediaPanels.get(i).getLength().getLength());
+            media.add(medium);
         }
         close();
     }
