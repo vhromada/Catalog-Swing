@@ -1,8 +1,6 @@
 package cz.vhromada.catalog.gui;
 
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -102,14 +100,9 @@ public class AboutDialog extends JDialog {
         initLabels(font, nameLabel, versionLabel, authorLabel, rightsLabel);
 
         okButton.setFont(font);
-        okButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                setVisible(false);
-                dispose();
-            }
-
+        okButton.addActionListener(e -> {
+            setVisible(false);
+            dispose();
         });
 
         final GroupLayout layout = new GroupLayout(getContentPane());

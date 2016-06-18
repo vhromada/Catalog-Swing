@@ -1,8 +1,5 @@
 package cz.vhromada.catalog.gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -58,23 +55,9 @@ public class Selector extends JFrame {
         setIconImage(Picture.CATALOG.getIcon().getImage());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        catalogButton.addActionListener(new ActionListener() {
+        catalogButton.addActionListener(e -> catalogAction());
 
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                catalogAction();
-            }
-
-        });
-
-        exitButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                System.exit(0);
-            }
-
-        });
+        exitButton.addActionListener(e -> System.exit(0));
 
         final GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,21 +73,16 @@ public class Selector extends JFrame {
      * Performs action for button Catalog.
      */
     private void catalogAction() {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                setVisible(false);
-                final LoadingDialog dialog = new LoadingDialog();
-                dialog.setVisible(true);
-                if (dialog.getReturnStatus() == DialogResult.OK) {
-                    dispose();
-                    new Catalog(dialog.getContext()).setVisible(true);
-                } else {
-                    System.exit(0);
-                }
+        SwingUtilities.invokeLater(() -> {
+            setVisible(false);
+            final LoadingDialog dialog = new LoadingDialog();
+            dialog.setVisible(true);
+            if (dialog.getReturnStatus() == DialogResult.OK) {
+                dispose();
+                new Catalog(dialog.getContext()).setVisible(true);
+            } else {
+                System.exit(0);
             }
-
         });
     }
 

@@ -54,14 +54,7 @@ public final class Main {
                 if (os != null && "Windows".equals(os)) {
                     UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
                 }
-                SwingUtilities.invokeLater(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        new Selector().setVisible(true);
-                    }
-
-                });
+                SwingUtilities.invokeLater(() -> new Selector().setVisible(true));
             } else {
                 logger.error("There isn't settings file ({}).", file.getAbsolutePath());
                 System.exit(3);

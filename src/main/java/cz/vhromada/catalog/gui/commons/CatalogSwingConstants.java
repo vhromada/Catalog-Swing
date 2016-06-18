@@ -18,7 +18,7 @@ public final class CatalogSwingConstants {
     public static final int VERTICAL_BUTTON_SIZE = 26;
 
     /**
-     * Creates a new instance of CatalogSwingConstant2.
+     * Creates a new instance of CatalogSwingConstant.
      */
     private CatalogSwingConstants() {
     }

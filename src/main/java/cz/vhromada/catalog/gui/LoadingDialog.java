@@ -1,7 +1,5 @@
 package cz.vhromada.catalog.gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -142,14 +140,7 @@ public class LoadingDialog extends JDialog {
 
         @Override
         protected ConfigurableApplicationContext doInBackground() throws Exception {
-            timer = new Timer(1000, new ActionListener() {
-
-                @Override
-                public void actionPerformed(final ActionEvent e) {
-                    timerAction();
-                }
-
-            });
+            timer = new Timer(1000, e -> timerAction());
             timer.start();
             return new ClassPathXmlApplicationContext("applicationContext.xml");
         }

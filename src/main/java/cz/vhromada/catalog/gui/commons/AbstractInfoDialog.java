@@ -1,8 +1,5 @@
 package cz.vhromada.catalog.gui.commons;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -11,8 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.WindowConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.text.JTextComponent;
 
 import cz.vhromada.validators.Validators;
@@ -141,23 +136,9 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
         setResizable(false);
         setIconImage(picture.getIcon().getImage());
 
-        okButton.addActionListener(new ActionListener() {
+        okButton.addActionListener(e -> okAction());
 
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                okAction();
-            }
-
-        });
-
-        cancelButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                cancelAction();
-            }
-
-        });
+        cancelButton.addActionListener(e -> cancelAction());
     }
 
     /**
@@ -253,14 +234,7 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
      * @param spinner spinner
      */
     protected final void addSpinnerValidator(final JSpinner spinner) {
-        spinner.addChangeListener(new ChangeListener() {
-
-            @Override
-            public void stateChanged(final ChangeEvent e) {
-                okButton.setEnabled(isInputValid());
-            }
-
-        });
+        spinner.addChangeListener(e -> okButton.setEnabled(isInputValid()));
     }
 
     /**

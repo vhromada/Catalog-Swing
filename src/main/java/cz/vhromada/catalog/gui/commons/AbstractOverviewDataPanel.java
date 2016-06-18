@@ -1,7 +1,5 @@
 package cz.vhromada.catalog.gui.commons;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
@@ -16,8 +14,6 @@ import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import cz.vhromada.validators.Validators;
 
@@ -312,13 +308,7 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
         listDataModel.update();
         list.updateUI();
         getTabbedPanelDataPanel().updateData(data);
-        if (statsTableDataModel == null) {
-            firePropertyChange(UPDATE_PROPERTY, false, true);
-        } else {
-            statsTableDataModel.update();
-            statsTable.updateUI();
-            saved = false;
-        }
+        updateState();
     }
 
     /**
@@ -332,81 +322,32 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
         }
 
         addPopupMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_INSERT, 0));
-        addPopupMenuItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                addAction();
-            }
-
-        });
+        addPopupMenuItem.addActionListener(e -> addAction());
 
         updatePopupMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F11, 0));
         updatePopupMenuItem.setEnabled(false);
-        updatePopupMenuItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                updateAction();
-            }
-
-        });
+        updatePopupMenuItem.addActionListener(e -> updateAction());
 
         removePopupMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0));
         removePopupMenuItem.setEnabled(false);
-        removePopupMenuItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                removeAction();
-            }
-
-        });
+        removePopupMenuItem.addActionListener(e -> removeAction());
 
         duplicatePopupMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK));
         duplicatePopupMenuItem.setEnabled(false);
-        duplicatePopupMenuItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                duplicateAction();
-            }
-
-        });
+        duplicatePopupMenuItem.addActionListener(e -> duplicateAction());
 
         moveUpPopupMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_MASK));
         moveUpPopupMenuItem.setEnabled(false);
-        moveUpPopupMenuItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                moveUpAction();
-            }
-
-        });
+        moveUpPopupMenuItem.addActionListener(e -> moveUpAction());
 
         moveDownPopupMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_MASK));
         moveDownPopupMenuItem.setEnabled(false);
-        moveDownPopupMenuItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                moveDownAction();
-            }
-
-        });
+        moveDownPopupMenuItem.addActionListener(e -> moveDownAction());
 
         list.setModel(listDataModel);
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setComponentPopupMenu(popupMenu);
-        list.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-
-            @Override
-            public void valueChanged(final ListSelectionEvent e) {
-                listValueChangedAction();
-            }
-
-        });
+        list.getSelectionModel().addListSelectionListener(e -> listValueChangedAction());
 
         initStats();
 
@@ -445,27 +386,16 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
      * Performs action for button Add.
      */
     private void addAction() {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                final AbstractInfoDialog<T> dialog = getInfoDialog(true, null);
-                dialog.setVisible(true);
-                if (dialog.getReturnStatus() == DialogResult.OK) {
-                    addData(dialog.getData());
-                    listDataModel.update();
-                    list.updateUI();
-                    list.setSelectedIndex(list.getModel().getSize() - 1);
-                    if (statsTableDataModel == null) {
-                        firePropertyChange(UPDATE_PROPERTY, false, true);
-                    } else {
-                        statsTableDataModel.update();
-                        statsTable.updateUI();
-                        saved = false;
-                    }
-                }
+        SwingUtilities.invokeLater(() -> {
+            final AbstractInfoDialog<T> dialog = getInfoDialog(true, null);
+            dialog.setVisible(true);
+            if (dialog.getReturnStatus() == DialogResult.OK) {
+                addData(dialog.getData());
+                listDataModel.update();
+                list.updateUI();
+                list.setSelectedIndex(list.getModel().getSize() - 1);
+                updateState();
             }
-
         });
     }
 
@@ -473,19 +403,14 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
      * Performs action for button Update.
      */
     private void updateAction() {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                final AbstractInfoDialog<T> dialog = getInfoDialog(false, listDataModel.getObjectAt(list.getSelectedIndex()));
-                dialog.setVisible(true);
-                if (dialog.getReturnStatus() == DialogResult.OK) {
-                    final T data = dialog.getData();
-                    updateData(data);
-                    updateModel(data);
-                }
+        SwingUtilities.invokeLater(() -> {
+            final AbstractInfoDialog<T> dialog = getInfoDialog(false, listDataModel.getObjectAt(list.getSelectedIndex()));
+            dialog.setVisible(true);
+            if (dialog.getReturnStatus() == DialogResult.OK) {
+                final T data = dialog.getData();
+                updateData(data);
+                updateModel(data);
             }
-
         });
     }
 
@@ -497,13 +422,7 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
         listDataModel.update();
         list.updateUI();
         list.clearSelection();
-        if (statsTableDataModel == null) {
-            firePropertyChange(UPDATE_PROPERTY, false, true);
-        } else {
-            statsTableDataModel.update();
-            statsTable.updateUI();
-            saved = false;
-        }
+        updateState();
     }
 
     /**
@@ -515,13 +434,7 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
         listDataModel.update();
         list.updateUI();
         list.setSelectedIndex(index + 1);
-        if (statsTableDataModel == null) {
-            firePropertyChange(UPDATE_PROPERTY, false, true);
-        } else {
-            statsTableDataModel.update();
-            statsTable.updateUI();
-            saved = false;
-        }
+        updateState();
     }
 
     /**
@@ -580,6 +493,19 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
             moveDownPopupMenuItem.setEnabled(true);
         } else {
             moveDownPopupMenuItem.setEnabled(false);
+        }
+    }
+
+    /**
+     * Updates state.
+     */
+    private void updateState() {
+        if (statsTableDataModel == null) {
+            firePropertyChange(UPDATE_PROPERTY, false, true);
+        } else {
+            statsTableDataModel.update();
+            statsTable.updateUI();
+            saved = false;
         }
     }
 

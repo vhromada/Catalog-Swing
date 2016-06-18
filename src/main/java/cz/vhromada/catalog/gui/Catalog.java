@@ -1,7 +1,5 @@
 package cz.vhromada.catalog.gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
@@ -17,8 +15,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import cz.vhromada.catalog.facade.EpisodeFacade;
 import cz.vhromada.catalog.facade.GameFacade;
@@ -188,14 +184,7 @@ public class Catalog extends JFrame {
         initFileMenu();
 
         aboutMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
-        aboutMenuItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                aboutAction();
-            }
-
-        });
+        aboutMenuItem.addActionListener(e -> aboutAction());
 
         moviesPanel = new MoviesPanel(movieFacade, genreFacade);
         showsPanel = new ShowsPanel(showFacade, context.getBean(SeasonFacade.class), context.getBean(EpisodeFacade.class), genreFacade);
@@ -267,44 +256,16 @@ public class Catalog extends JFrame {
      */
     private void initFileMenu() {
         newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
-        newMenuItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                newAction();
-            }
-
-        });
+        newMenuItem.addActionListener(e -> newAction());
 
         saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
-        saveMenuItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                saveAction();
-            }
-
-        });
+        saveMenuItem.addActionListener(e -> saveAction());
 
         selectorMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
-        selectorMenuItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                selectorAction();
-            }
-
-        });
+        selectorMenuItem.addActionListener(e -> selectorAction());
 
         exitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_MASK));
-        exitMenuItem.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                exitAction();
-            }
-
-        });
+        exitMenuItem.addActionListener(e -> exitAction());
     }
 
     /**
@@ -317,18 +278,13 @@ public class Catalog extends JFrame {
         tabbedPane.addTab("Music", musicPanel);
         tabbedPane.addTab("Programs", programsPanel);
         tabbedPane.addTab("Genres", genresPanel);
-        tabbedPane.addChangeListener(new ChangeListener() {
-
-            @Override
-            public void stateChanged(final ChangeEvent e) {
-                moviesPanel.clearSelection();
-                showsPanel.clearSelection();
-                gamesPanel.clearSelection();
-                musicPanel.clearSelection();
-                programsPanel.clearSelection();
-                genresPanel.clearSelection();
-            }
-
+        tabbedPane.addChangeListener(e -> {
+            moviesPanel.clearSelection();
+            showsPanel.clearSelection();
+            gamesPanel.clearSelection();
+            musicPanel.clearSelection();
+            programsPanel.clearSelection();
+            genresPanel.clearSelection();
         });
     }
 
@@ -356,14 +312,7 @@ public class Catalog extends JFrame {
      */
     private void selectorAction() {
         closing();
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new Selector().setVisible(true);
-            }
-
-        });
+        SwingUtilities.invokeLater(() -> new Selector().setVisible(true));
         setVisible(false);
         dispose();
     }
@@ -380,14 +329,7 @@ public class Catalog extends JFrame {
      * Performs action for button About.
      */
     private static void aboutAction() {
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                new AboutDialog().setVisible(true);
-            }
-
-        });
+        SwingUtilities.invokeLater(() -> new AboutDialog().setVisible(true));
     }
 
     /**
