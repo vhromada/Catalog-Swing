@@ -1,8 +1,5 @@
 package cz.vhromada.catalog.gui.music;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -101,16 +98,11 @@ public class MusicPanel extends AbstractOverviewDataPanel<MusicTO> {
     @Override
     protected void updateDataOnChange(final JTabbedPane dataPanel, final MusicTO data) {
         final SongsPanel songsPanel = new SongsPanel(songFacade, data);
-        songsPanel.addPropertyChangeListener("update", new PropertyChangeListener() {
-
-            @Override
-            public void propertyChange(final PropertyChangeEvent evt) {
-                if (Boolean.TRUE.equals(evt.getNewValue())) {
-                    updateModel(data);
-                    songsPanel.setMusic(data);
-                }
+        songsPanel.addPropertyChangeListener("update", evt -> {
+            if (Boolean.TRUE.equals(evt.getNewValue())) {
+                updateModel(data);
+                songsPanel.setMusic(data);
             }
-
         });
         dataPanel.add("Songs", songsPanel);
     }

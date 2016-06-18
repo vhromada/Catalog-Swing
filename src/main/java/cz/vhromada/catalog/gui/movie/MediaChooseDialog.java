@@ -1,7 +1,5 @@
 package cz.vhromada.catalog.gui.movie;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.WindowConstants;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import cz.vhromada.catalog.commons.Time;
 import cz.vhromada.catalog.facade.to.MediumTO;
@@ -172,17 +168,12 @@ public class MediaChooseDialog extends JDialog {
             mediaPanels.add(mediumPanel);
         }
 
-        mediaCountData.addChangeListener(new ChangeListener() {
-
-            @Override
-            public void stateChanged(final ChangeEvent e) {
-                final int mediaCount = (Integer) mediaCountData.getValue();
-                for (int i = 0; i < mediaPanels.size(); i++) {
-                    mediaPanels.get(i).setVisible(i < mediaCount);
-                    pack();
-                }
+        mediaCountData.addChangeListener(e -> {
+            final int mediaCount = (Integer) mediaCountData.getValue();
+            for (int i = 0; i < mediaPanels.size(); i++) {
+                mediaPanels.get(i).setVisible(i < mediaCount);
+                pack();
             }
-
         });
 
         if (media.isEmpty()) {
@@ -194,23 +185,9 @@ public class MediaChooseDialog extends JDialog {
             }
         }
 
-        okButton.addActionListener(new ActionListener() {
+        okButton.addActionListener(e -> okAction());
 
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                okAction();
-            }
-
-        });
-
-        cancelButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                cancelAction();
-            }
-
-        });
+        cancelButton.addActionListener(e -> cancelAction());
 
         final GroupLayout layout = new GroupLayout(getRootPane());
         getRootPane().setLayout(layout);

@@ -1,8 +1,5 @@
 package cz.vhromada.catalog.gui.season;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
@@ -142,17 +139,12 @@ public class SeasonsPanel extends AbstractOverviewDataPanel<SeasonTO> {
     @Override
     protected void updateDataOnChange(final JTabbedPane dataPanel, final SeasonTO data) {
         final EpisodesPanel episodesPanel = new EpisodesPanel(episodeFacade, data);
-        episodesPanel.addPropertyChangeListener("update", new PropertyChangeListener() {
-
-            @Override
-            public void propertyChange(final PropertyChangeEvent evt) {
-                if (Boolean.TRUE.equals(evt.getNewValue())) {
-                    updateModel(data);
-                    episodesPanel.setSeason(data);
-                    firePropertyChange("update", false, true);
-                }
+        episodesPanel.addPropertyChangeListener("update", evt -> {
+            if (Boolean.TRUE.equals(evt.getNewValue())) {
+                updateModel(data);
+                episodesPanel.setSeason(data);
+                firePropertyChange("update", false, true);
             }
-
         });
         dataPanel.add("Episodes", episodesPanel);
     }

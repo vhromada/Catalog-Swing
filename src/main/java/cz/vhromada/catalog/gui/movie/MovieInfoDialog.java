@@ -1,8 +1,6 @@
 package cz.vhromada.catalog.gui.movie;
 
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +14,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import cz.vhromada.catalog.commons.Constants;
 import cz.vhromada.catalog.commons.Language;
@@ -279,9 +275,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
             default:
                 throw new IndexOutOfBoundsException("Bad language");
         }
-        for (final Language subtitles : movie.getSubtitles()) {
-            initSubtitles(subtitles);
-        }
+        movie.getSubtitles().forEach(this::initSubtitles);
         this.mediaData.setText(getMedia());
         this.csfdData.setText(movie.getCsfd());
         final int imdbCode = movie.getImdbCode();
@@ -324,32 +318,11 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
         subtitlesLabel.setFocusable(false);
         genreData.setFocusable(false);
 
-        imdbCodeLabel.addChangeListener(new ChangeListener() {
+        imdbCodeLabel.addChangeListener(e -> imdbCodeData.setEnabled(imdbCodeLabel.isSelected()));
 
-            @Override
-            public void stateChanged(final ChangeEvent e) {
-                imdbCodeData.setEnabled(imdbCodeLabel.isSelected());
-            }
+        mediaButton.addActionListener(e -> mediaAction());
 
-        });
-
-        mediaButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                mediaAction();
-            }
-
-        });
-
-        genresButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                genresAction();
-            }
-
-        });
+        genresButton.addActionListener(e -> genresAction());
     }
 
     @Override
@@ -535,20 +508,15 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
      * Performs action for button Change media.
      */
     private void mediaAction() {
-        EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                final MediaChooseDialog dialog = new MediaChooseDialog(new ArrayList<>(media));
-                dialog.setVisible(true);
-                if (dialog.getReturnStatus() == DialogResult.OK) {
-                    media.clear();
-                    media.addAll(dialog.getMedia());
-                    mediaData.setText(getMedia());
-                    setOkButtonEnabled(isInputValid());
-                }
+        EventQueue.invokeLater(() -> {
+            final MediaChooseDialog dialog = new MediaChooseDialog(new ArrayList<>(media));
+            dialog.setVisible(true);
+            if (dialog.getReturnStatus() == DialogResult.OK) {
+                media.clear();
+                media.addAll(dialog.getMedia());
+                mediaData.setText(getMedia());
+                setOkButtonEnabled(isInputValid());
             }
-
         });
     }
 
@@ -556,20 +524,15 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
      * Performs action for button Change genres.
      */
     private void genresAction() {
-        EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                final GenreChooseDialog dialog = new GenreChooseDialog(genreFacade, new ArrayList<>(genres));
-                dialog.setVisible(true);
-                if (dialog.getReturnStatus() == DialogResult.OK) {
-                    genres.clear();
-                    genres.addAll(dialog.getGenres());
-                    genreData.setText(getGenres());
-                    setOkButtonEnabled(isInputValid());
-                }
+        EventQueue.invokeLater(() -> {
+            final GenreChooseDialog dialog = new GenreChooseDialog(genreFacade, new ArrayList<>(genres));
+            dialog.setVisible(true);
+            if (dialog.getReturnStatus() == DialogResult.OK) {
+                genres.clear();
+                genres.addAll(dialog.getGenres());
+                genreData.setText(getGenres());
+                setOkButtonEnabled(isInputValid());
             }
-
         });
     }
 

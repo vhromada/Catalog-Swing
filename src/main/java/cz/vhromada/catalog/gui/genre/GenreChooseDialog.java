@@ -1,7 +1,5 @@
 package cz.vhromada.catalog.gui.genre;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +11,6 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import cz.vhromada.catalog.facade.GenreFacade;
 import cz.vhromada.catalog.facade.to.GenreTO;
@@ -162,33 +158,12 @@ public class GenreChooseDialog extends JDialog {
         list.setModel(genreListDataModel);
         list.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         list.setSelectedIndices(getSelectedIndexes());
-        list.addListSelectionListener(new ListSelectionListener() {
-
-            @Override
-            public void valueChanged(final ListSelectionEvent e) {
-                selectionChangeAction();
-            }
-
-        });
+        list.addListSelectionListener(e -> selectionChangeAction());
 
         okButton.setEnabled(list.getSelectedIndices().length > 0);
-        okButton.addActionListener(new ActionListener() {
+        okButton.addActionListener(e -> okAction());
 
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                okAction();
-            }
-
-        });
-
-        cancelButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                cancelAction();
-            }
-
-        });
+        cancelButton.addActionListener(e -> cancelAction());
 
         final GroupLayout layout = new GroupLayout(getRootPane());
         getRootPane().setLayout(layout);
