@@ -7,9 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import cz.vhromada.catalog.commons.Language;
 import cz.vhromada.catalog.commons.Time;
-import cz.vhromada.catalog.facade.to.GenreTO;
 import cz.vhromada.catalog.facade.to.MediumTO;
 import cz.vhromada.catalog.facade.to.MovieTO;
 import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
@@ -206,10 +204,10 @@ public class MovieDataPanel extends AbstractDataPanel<MovieTO> {
         }
         czechNameData.setText(data.getCzechName());
         originalNameData.setText(data.getOriginalName());
-        genreData.setText(getGenres(data));
+        genreData.setText(getGenres(data.getGenres()));
         yearData.setText(Integer.toString(data.getYear()));
         languageData.setText(data.getLanguage().toString());
-        subtitlesData.setText(getSubtitles(data));
+        subtitlesData.setText(getSubtitles(data.getSubtitles()));
         mediaData.setText(getMedia(data));
         totalLengthData.setText(getMovieLength(data));
         noteData.setText(data.getNote());
@@ -283,50 +281,6 @@ public class MovieDataPanel extends AbstractDataPanel<MovieTO> {
                 .addGroup(createVerticalComponents(layout, noteLabel, noteData))
                 .addGap(VERTICAL_GAP_SIZE)
                 .addGroup(createVerticalButtons(layout, csfdButton, imdbButton, wikiCzButton, wikiEnButton));
-    }
-
-    /**
-     * Returns movie's genres.
-     *
-     * @param movie TO for movie
-     * @return movie's genres
-     */
-    private static String getGenres(final MovieTO movie) {
-        final List<GenreTO> genres = movie.getGenres();
-
-        if (genres == null || genres.isEmpty()) {
-            return "";
-        }
-
-        final StringBuilder subtitlesString = new StringBuilder();
-        for (final GenreTO genre : genres) {
-            subtitlesString.append(genre.getName());
-            subtitlesString.append(", ");
-        }
-
-        return subtitlesString.substring(0, subtitlesString.length() - 2);
-    }
-
-    /**
-     * Returns movie's subtitles.
-     *
-     * @param movie TO for movie
-     * @return movie's subtitles
-     */
-    private static String getSubtitles(final MovieTO movie) {
-        final List<Language> subtitles = movie.getSubtitles();
-
-        if (subtitles == null || subtitles.isEmpty()) {
-            return "";
-        }
-
-        final StringBuilder result = new StringBuilder();
-        for (final Language subtitle : subtitles) {
-            result.append(subtitle);
-            result.append(" / ");
-        }
-
-        return result.substring(0, result.length() - 3);
     }
 
     /**

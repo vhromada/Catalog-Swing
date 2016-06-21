@@ -1,10 +1,6 @@
 package cz.vhromada.catalog.gui.season;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.GroupLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -14,7 +10,6 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 import cz.vhromada.catalog.commons.Constants;
-import cz.vhromada.catalog.commons.Language;
 import cz.vhromada.catalog.facade.to.SeasonTO;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
@@ -143,37 +138,9 @@ public class SeasonInfoDialog extends AbstractInfoDialog<SeasonTO> {
         this.numberData.setValue(season.getNumber());
         this.startYearData.setValue(season.getStartYear());
         this.endYearData.setValue(season.getEndYear());
-        switch (season.getLanguage()) {
-            case CZ:
-                this.czechLanguageData.setSelected(true);
-                break;
-            case EN:
-                this.englishLanguageData.setSelected(true);
-                break;
-            case FR:
-                this.frenchLanguageData.setSelected(true);
-                break;
-            case JP:
-                this.japaneseLanguageData.setSelected(true);
-                break;
-            case SK:
-                this.slovakLanguageData.setSelected(true);
-                break;
-            default:
-                throw new IndexOutOfBoundsException("Bad language");
-        }
-        for (final Language subtitles : season.getSubtitles()) {
-            switch (subtitles) {
-                case CZ:
-                    this.czechSubtitlesData.setSelected(true);
-                    break;
-                case EN:
-                    this.englishSubtitlesData.setSelected(true);
-                    break;
-                default:
-                    throw new IndexOutOfBoundsException("Bad subtitles");
-            }
-        }
+        initLanguage(season.getLanguage(), this.czechLanguageData, this.englishLanguageData, this.frenchLanguageData, this.japaneseLanguageData,
+                this.slovakLanguageData);
+        initSubtitles(season.getSubtitles(), this.czechSubtitlesData, this.englishSubtitlesData);
         this.noteData.setText(season.getNote());
     }
 
@@ -203,8 +170,9 @@ public class SeasonInfoDialog extends AbstractInfoDialog<SeasonTO> {
         season.setNumber((Integer) numberData.getValue());
         season.setStartYear((Integer) startYearData.getValue());
         season.setEndYear((Integer) endYearData.getValue());
-        season.setLanguage(processLanguage(languagesButtonGroup.getSelection()));
-        season.setSubtitles(getSelectedSubtitles());
+        season.setLanguage(getSelectedLanguage(languagesButtonGroup.getSelection(), czechLanguageData, englishLanguageData, frenchLanguageData,
+                japaneseLanguageData));
+        season.setSubtitles(getSelectedSubtitles(czechSubtitlesData, englishSubtitlesData));
         season.setNote(noteData.getText());
 
         return season;
@@ -265,45 +233,6 @@ public class SeasonInfoDialog extends AbstractInfoDialog<SeasonTO> {
                         CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
                 .addGap(VERTICAL_GAP_SIZE)
                 .addGroup(createVerticalComponents(layout, noteLabel, noteData));
-    }
-
-    /**
-     * Returns selected language.
-     *
-     * @param model button model
-     * @return selected language
-     */
-    private Language processLanguage(final ButtonModel model) {
-        if (model.equals(czechLanguageData.getModel())) {
-            return Language.CZ;
-        }
-        if (model.equals(englishLanguageData.getModel())) {
-            return Language.EN;
-        }
-        if (model.equals(frenchLanguageData.getModel())) {
-            return Language.FR;
-        }
-        if (model.equals(japaneseLanguageData.getModel())) {
-            return Language.JP;
-        }
-        return Language.SK;
-    }
-
-    /**
-     * Returns selected subtitles.
-     *
-     * @return selected subtitles
-     */
-    private List<Language> getSelectedSubtitles() {
-        final List<Language> subtitles = new ArrayList<>();
-        if (czechSubtitlesData.isSelected()) {
-            subtitles.add(Language.CZ);
-        }
-        if (englishSubtitlesData.isSelected()) {
-            subtitles.add(Language.EN);
-        }
-
-        return subtitles;
     }
 
 }

@@ -1,15 +1,26 @@
 package cz.vhromada.catalog.gui.commons;
 
+import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.ButtonModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.WindowConstants;
 import javax.swing.text.JTextComponent;
 
+import cz.vhromada.catalog.commons.Language;
+import cz.vhromada.catalog.facade.GenreFacade;
+import cz.vhromada.catalog.facade.to.GenreTO;
+import cz.vhromada.catalog.gui.genre.GenreChooseDialog;
 import cz.vhromada.validators.Validators;
 
 /**
@@ -253,6 +264,146 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
      */
     protected final void setOkButtonEnabled(final boolean enabled) {
         okButton.setEnabled(enabled);
+    }
+
+    /**
+     * Returns genres.
+     *
+     * @param genres list of TO for genre
+     * @return genres
+     */
+    protected static String getGenres(final List<GenreTO> genres) {
+        if (genres == null || genres.isEmpty()) {
+            return "";
+        }
+
+        final StringBuilder genresString = new StringBuilder();
+        for (final GenreTO genre : genres) {
+            genresString.append(genre.getName());
+            genresString.append(", ");
+        }
+
+        return genresString.substring(0, genresString.length() - 2);
+    }
+
+    /**
+     * Performs action for button Genres.
+     */
+    protected final void genresAction(final GenreFacade genreFacade, final List<GenreTO> genres, final JLabel genreData) {
+        EventQueue.invokeLater(() -> {
+            final GenreChooseDialog dialog = new GenreChooseDialog(genreFacade, new ArrayList<>(genres));
+            dialog.setVisible(true);
+            if (dialog.getReturnStatus() == DialogResult.OK) {
+                genres.clear();
+                genres.addAll(dialog.getGenres());
+                genreData.setText(getGenres(genres));
+                setOkButtonEnabled(isInputValid());
+            }
+        });
+    }
+
+    /**
+     * Initializes language.
+     *
+     * @param language             language
+     * @param czechLanguageData    radio button for czech language
+     * @param englishLanguageData  radio button for english language
+     * @param frenchLanguageData   radio button for french language
+     * @param japaneseLanguageData radio button for japanese language
+     * @param slovakLanguageData   radio button for slovak language
+     */
+    protected static void initLanguage(final Language language, final JRadioButton czechLanguageData, final JRadioButton englishLanguageData,
+            final JRadioButton frenchLanguageData, final JRadioButton japaneseLanguageData, final JRadioButton slovakLanguageData) {
+        switch (language) {
+            case CZ:
+                czechLanguageData.setSelected(true);
+                break;
+            case EN:
+                englishLanguageData.setSelected(true);
+                break;
+            case FR:
+                frenchLanguageData.setSelected(true);
+                break;
+            case JP:
+                japaneseLanguageData.setSelected(true);
+                break;
+            case SK:
+                slovakLanguageData.setSelected(true);
+                break;
+            default:
+                throw new IndexOutOfBoundsException("Bad language");
+        }
+    }
+
+    /**
+     * Returns selected language.
+     *
+     * @param model                button model
+     * @param czechLanguageData    radio button for czech language
+     * @param englishLanguageData  radio button for english language
+     * @param frenchLanguageData   radio button for french language
+     * @param japaneseLanguageData radio button for japanese language
+     * @return selected language
+     */
+    protected static Language getSelectedLanguage(final ButtonModel model, final JRadioButton czechLanguageData, final JRadioButton englishLanguageData,
+            final JRadioButton frenchLanguageData, final JRadioButton japaneseLanguageData) {
+        if (model.equals(czechLanguageData.getModel())) {
+            return Language.CZ;
+        }
+        if (model.equals(englishLanguageData.getModel())) {
+            return Language.EN;
+        }
+        if (model.equals(frenchLanguageData.getModel())) {
+            return Language.FR;
+        }
+        if (model.equals(japaneseLanguageData.getModel())) {
+            return Language.JP;
+        }
+
+        return Language.SK;
+    }
+
+    /**
+     * Initializes subtitles.
+     *
+     * @param subtitles            list of subtitles
+     * @param czechSubtitlesData   check box for czech subtitles
+     * @param englishSubtitlesData check box for english subtitles
+     */
+    protected static void initSubtitles(final List<Language> subtitles, final JCheckBox czechSubtitlesData, final JCheckBox englishSubtitlesData) {
+        for (final Language language : subtitles) {
+            if (language != null) {
+                switch (language) {
+                    case CZ:
+                        czechSubtitlesData.setSelected(true);
+                        break;
+                    case EN:
+                        englishSubtitlesData.setSelected(true);
+                        break;
+                    default:
+                        throw new IndexOutOfBoundsException("Bad subtitles");
+                }
+            }
+        }
+    }
+
+    /**
+     * Returns selected subtitles.
+     *
+     * @param czechSubtitlesData   check box for czech subtitles
+     * @param englishSubtitlesData check box for english subtitles
+     * @return selected subtitles
+     */
+    protected static List<Language> getSelectedSubtitles(final JCheckBox czechSubtitlesData, final JCheckBox englishSubtitlesData) {
+        final List<Language> subtitles = new ArrayList<>();
+        if (czechSubtitlesData.isSelected()) {
+            subtitles.add(Language.CZ);
+        }
+        if (englishSubtitlesData.isSelected()) {
+            subtitles.add(Language.EN);
+        }
+
+        return subtitles;
     }
 
     /**

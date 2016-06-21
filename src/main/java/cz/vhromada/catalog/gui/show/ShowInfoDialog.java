@@ -1,6 +1,5 @@
 package cz.vhromada.catalog.gui.show;
 
-import java.awt.EventQueue;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +17,7 @@ import cz.vhromada.catalog.facade.to.GenreTO;
 import cz.vhromada.catalog.facade.to.ShowTO;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
-import cz.vhromada.catalog.gui.commons.DialogResult;
 import cz.vhromada.catalog.gui.commons.Picture;
-import cz.vhromada.catalog.gui.genre.GenreChooseDialog;
 import cz.vhromada.validators.Validators;
 
 /**
@@ -182,7 +179,7 @@ public class ShowInfoDialog extends AbstractInfoDialog<ShowTO> {
         this.wikiEnData.setText(show.getWikiEn());
         this.pictureData.setText(show.getPicture());
         this.noteData.setText(show.getNote());
-        this.genreData.setText(getGenres());
+        this.genreData.setText(getGenres(this.genres));
     }
 
     @Override
@@ -203,7 +200,7 @@ public class ShowInfoDialog extends AbstractInfoDialog<ShowTO> {
 
         imdbCodeLabel.addChangeListener(e -> imdbCodeData.setEnabled(imdbCodeLabel.isSelected()));
 
-        genresButton.addActionListener(e -> genresAction());
+        genresButton.addActionListener(e -> genresAction(genreFacade, genres, genreData));
     }
 
     @Override
@@ -281,41 +278,6 @@ public class ShowInfoDialog extends AbstractInfoDialog<ShowTO> {
         Validators.validateArgumentNotNull(genreFacade, "Facade for genres");
 
         this.genreFacade = genreFacade;
-    }
-
-    /**
-     * Returns genres.
-     *
-     * @return genres
-     */
-    private String getGenres() {
-        if (genres == null || genres.isEmpty()) {
-            return "";
-        }
-
-        final StringBuilder genresString = new StringBuilder();
-        for (final GenreTO genre : genres) {
-            genresString.append(genre.getName());
-            genresString.append(", ");
-        }
-
-        return genresString.substring(0, genresString.length() - 2);
-    }
-
-    /**
-     * Performs action for button Genres.
-     */
-    private void genresAction() {
-        EventQueue.invokeLater(() -> {
-            final GenreChooseDialog dialog = new GenreChooseDialog(genreFacade, new ArrayList<>(genres));
-            dialog.setVisible(true);
-            if (dialog.getReturnStatus() == DialogResult.OK) {
-                genres.clear();
-                genres.addAll(dialog.getGenres());
-                genreData.setText(getGenres());
-                setOkButtonEnabled(isInputValid());
-            }
-        });
     }
 
 }

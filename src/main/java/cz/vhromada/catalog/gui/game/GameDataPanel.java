@@ -169,12 +169,12 @@ public class GameDataPanel extends AbstractDataPanel<GameTO> {
         if (game.getCrack()) {
             result.append("Crack");
         }
-        addToResult(result, game.getSerialKey(), "serial key");
-        addToResult(result, game.getPatch(), "patch");
-        addToResult(result, game.getTrainer(), "trainer");
-        addToResult(result, game.getTrainerData(), "data for trainer");
-        addToResult(result, game.getEditor(), "editor");
-        addToResult(result, game.getSaves(), "saves");
+        addAdditionalDataToResult(result, game.getSerialKey(), "serial key");
+        addAdditionalDataToResult(result, game.getPatch(), "patch");
+        addAdditionalDataToResult(result, game.getTrainer(), "trainer");
+        addAdditionalDataToResult(result, game.getTrainerData(), "data for trainer");
+        addAdditionalDataToResult(result, game.getEditor(), "editor");
+        addAdditionalDataToResult(result, game.getSaves(), "saves");
         if (game.getOtherData() != null && !game.getOtherData().isEmpty()) {
             if (result.length() != 0) {
                 result.append(", ");
@@ -183,25 +183,6 @@ public class GameDataPanel extends AbstractDataPanel<GameTO> {
         }
 
         return result.toString();
-    }
-
-    /**
-     * Adds data to result.
-     *
-     * @param result result
-     * @param value  value
-     * @param data   data
-     */
-    private static void addToResult(final StringBuilder result, final boolean value, final String data) {
-        if (value) {
-            if (result.length() == 0) {
-                result.append(data.substring(0, 1).toUpperCase());
-                result.append(data.substring(1));
-            } else {
-                result.append(", ");
-                result.append(data);
-            }
-        }
     }
 
 }

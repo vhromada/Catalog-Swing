@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -16,7 +15,6 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 import cz.vhromada.catalog.commons.Constants;
-import cz.vhromada.catalog.commons.Language;
 import cz.vhromada.catalog.commons.Time;
 import cz.vhromada.catalog.facade.GenreFacade;
 import cz.vhromada.catalog.facade.to.GenreTO;
@@ -26,7 +24,6 @@ import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
 import cz.vhromada.catalog.gui.commons.DialogResult;
 import cz.vhromada.catalog.gui.commons.Picture;
-import cz.vhromada.catalog.gui.genre.GenreChooseDialog;
 import cz.vhromada.validators.Validators;
 
 /**
@@ -256,26 +253,9 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
         this.czechNameData.setText(movie.getCzechName());
         this.originalNameData.setText(movie.getOriginalName());
         this.yearData.setValue(movie.getYear());
-        switch (movie.getLanguage()) {
-            case CZ:
-                this.czechLanguageData.setSelected(true);
-                break;
-            case EN:
-                this.englishLanguageData.setSelected(true);
-                break;
-            case FR:
-                this.frenchLanguageData.setSelected(true);
-                break;
-            case JP:
-                this.japaneseLanguageData.setSelected(true);
-                break;
-            case SK:
-                this.slovakLanguageData.setSelected(true);
-                break;
-            default:
-                throw new IndexOutOfBoundsException("Bad language");
-        }
-        movie.getSubtitles().forEach(this::initSubtitles);
+        initLanguage(movie.getLanguage(), this.czechLanguageData, this.englishLanguageData, this.frenchLanguageData, this.japaneseLanguageData,
+                this.slovakLanguageData);
+        initSubtitles(movie.getSubtitles(), this.czechSubtitlesData, this.englishSubtitlesData);
         this.mediaData.setText(getMedia());
         this.csfdData.setText(movie.getCsfd());
         final int imdbCode = movie.getImdbCode();
@@ -290,7 +270,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
         this.wikiEnData.setText(movie.getWikiEn());
         this.pictureData.setText(movie.getPicture());
         this.noteData.setText(movie.getNote());
-        this.genreData.setText(getGenres());
+        this.genreData.setText(getGenres(this.genres));
     }
 
     @Override
@@ -322,7 +302,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
 
         mediaButton.addActionListener(e -> mediaAction());
 
-        genresButton.addActionListener(e -> genresAction());
+        genresButton.addActionListener(e -> genresAction(genreFacade, genres, genreData));
     }
 
     @Override
@@ -331,8 +311,9 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
         movie.setCzechName(czechNameData.getText());
         movie.setOriginalName(originalNameData.getText());
         movie.setYear((Integer) yearData.getValue());
-        movie.setLanguage(processLanguage(languagesButtonGroup.getSelection()));
-        movie.setSubtitles(getSelectedSubtitles());
+        movie.setLanguage(getSelectedLanguage(languagesButtonGroup.getSelection(), czechLanguageData, englishLanguageData, frenchLanguageData,
+                japaneseLanguageData));
+        movie.setSubtitles(getSelectedSubtitles(czechSubtitlesData, englishSubtitlesData));
         movie.setMedia(media);
         movie.setCsfd(csfdData.getText());
         movie.setImdbCode(imdbCodeLabel.isSelected() ? (Integer) imdbCodeData.getValue() : -1);
@@ -434,28 +415,6 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
     }
 
     /**
-     * Returns selected language.
-     *
-     * @param model button model
-     * @return selected language
-     */
-    private Language processLanguage(final ButtonModel model) {
-        if (model.equals(czechLanguageData.getModel())) {
-            return Language.CZ;
-        }
-        if (model.equals(englishLanguageData.getModel())) {
-            return Language.EN;
-        }
-        if (model.equals(frenchLanguageData.getModel())) {
-            return Language.FR;
-        }
-        if (model.equals(japaneseLanguageData.getModel())) {
-            return Language.JP;
-        }
-        return Language.SK;
-    }
-
-    /**
      * Initializes facade for genres.
      *
      * @throws IllegalArgumentException if facade for genres is null
@@ -486,25 +445,6 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
     }
 
     /**
-     * Returns genres.
-     *
-     * @return genres
-     */
-    private String getGenres() {
-        if (genres == null || genres.isEmpty()) {
-            return "";
-        }
-
-        final StringBuilder genresString = new StringBuilder();
-        for (final GenreTO genre : genres) {
-            genresString.append(genre.getName());
-            genresString.append(", ");
-        }
-
-        return genresString.substring(0, genresString.length() - 2);
-    }
-
-    /**
      * Performs action for button Change media.
      */
     private void mediaAction() {
@@ -512,65 +452,28 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
             final MediaChooseDialog dialog = new MediaChooseDialog(new ArrayList<>(media));
             dialog.setVisible(true);
             if (dialog.getReturnStatus() == DialogResult.OK) {
-                media.clear();
-                media.addAll(dialog.getMedia());
+                int index = 0;
+                final List<Time> dialogMedia = dialog.getMedia();
+                final List<MediumTO> updatedMedia = new ArrayList<>();
+                final int max = Math.min(media.size(), dialogMedia.size());
+                while (index < max) {
+                    final MediumTO medium = media.get(index);
+                    medium.setLength(dialogMedia.get(index).getLength());
+                    updatedMedia.add(medium);
+                    index++;
+                }
+                while (index < dialogMedia.size()) {
+                    final MediumTO medium = new MediumTO();
+                    medium.setNumber(index + 1);
+                    medium.setLength(dialogMedia.get(index).getLength());
+                    updatedMedia.add(medium);
+                    index++;
+                }
+                media = updatedMedia;
                 mediaData.setText(getMedia());
                 setOkButtonEnabled(isInputValid());
             }
         });
-    }
-
-    /**
-     * Performs action for button Change genres.
-     */
-    private void genresAction() {
-        EventQueue.invokeLater(() -> {
-            final GenreChooseDialog dialog = new GenreChooseDialog(genreFacade, new ArrayList<>(genres));
-            dialog.setVisible(true);
-            if (dialog.getReturnStatus() == DialogResult.OK) {
-                genres.clear();
-                genres.addAll(dialog.getGenres());
-                genreData.setText(getGenres());
-                setOkButtonEnabled(isInputValid());
-            }
-        });
-    }
-
-    /**
-     * Initializes subtitles.
-     *
-     * @param subtitles subtitles
-     */
-    private void initSubtitles(final Language subtitles) {
-        if (subtitles != null) {
-            switch (subtitles) {
-                case CZ:
-                    this.czechSubtitlesData.setSelected(true);
-                    break;
-                case EN:
-                    this.englishSubtitlesData.setSelected(true);
-                    break;
-                default:
-                    throw new IndexOutOfBoundsException("Bad subtitles");
-            }
-        }
-    }
-
-    /**
-     * Returns selected subtitles.
-     *
-     * @return selected subtitles
-     */
-    private List<Language> getSelectedSubtitles() {
-        final List<Language> subtitles = new ArrayList<>();
-        if (czechSubtitlesData.isSelected()) {
-            subtitles.add(Language.CZ);
-        }
-        if (englishSubtitlesData.isSelected()) {
-            subtitles.add(Language.EN);
-        }
-
-        return subtitles;
     }
 
 }

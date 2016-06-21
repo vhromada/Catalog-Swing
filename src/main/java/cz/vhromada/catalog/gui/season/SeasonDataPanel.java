@@ -5,7 +5,6 @@ import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 
-import cz.vhromada.catalog.commons.Language;
 import cz.vhromada.catalog.commons.Time;
 import cz.vhromada.catalog.facade.EpisodeFacade;
 import cz.vhromada.catalog.facade.to.EpisodeTO;
@@ -131,7 +130,7 @@ public class SeasonDataPanel extends AbstractDataPanel<SeasonTO> {
         numberData.setText(Integer.toString(data.getNumber()));
         yearData.setText(getYear(data));
         languageData.setText(data.getLanguage().toString());
-        subtitlesData.setText(getSubtitles(data));
+        subtitlesData.setText(getSubtitles(data.getSubtitles()));
         episodesCountData.setText(getEpisodesCount(data));
         totalLengthData.setText(getSeasonLength(data));
         noteData.setText(data.getNote());
@@ -199,28 +198,6 @@ public class SeasonDataPanel extends AbstractDataPanel<SeasonTO> {
         final int endYear = season.getEndYear();
 
         return startYear == endYear ? Integer.toString(startYear) : startYear + " - " + endYear;
-    }
-
-    /**
-     * Returns season's subtitles.
-     *
-     * @param season TO for season
-     * @return season's subtitles
-     */
-    private static String getSubtitles(final SeasonTO season) {
-        final List<Language> subtitles = season.getSubtitles();
-
-        if (subtitles == null || subtitles.isEmpty()) {
-            return "";
-        }
-
-        final StringBuilder result = new StringBuilder();
-        for (final Language subtitle : subtitles) {
-            result.append(subtitle);
-            result.append(" / ");
-        }
-
-        return result.substring(0, result.length() - 3);
     }
 
     /**

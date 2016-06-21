@@ -1,11 +1,15 @@
 package cz.vhromada.catalog.gui.commons;
 
+import java.util.List;
+
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import cz.vhromada.catalog.commons.Language;
+import cz.vhromada.catalog.facade.to.GenreTO;
 import cz.vhromada.validators.Validators;
 
 /**
@@ -142,6 +146,65 @@ public abstract class AbstractDataPanel<T> extends JPanel {
      * @return URL to IMDB page
      */
     protected abstract int getImdbUrl();
+
+    /**
+     * Adds additional data to result.
+     *
+     * @param result result
+     * @param value  value
+     * @param data   data
+     */
+    protected static void addAdditionalDataToResult(final StringBuilder result, final boolean value, final String data) {
+        if (value) {
+            if (result.length() == 0) {
+                result.append(data.substring(0, 1).toUpperCase());
+                result.append(data.substring(1));
+            } else {
+                result.append(", ");
+                result.append(data);
+            }
+        }
+    }
+
+    /**
+     * Returns genres as string.
+     *
+     * @param genres list of TO for genre
+     * @return genres as string
+     */
+    protected static String getGenres(final List<GenreTO> genres) {
+        if (genres == null || genres.isEmpty()) {
+            return "";
+        }
+
+        final StringBuilder genresString = new StringBuilder();
+        for (final GenreTO genre : genres) {
+            genresString.append(genre.getName());
+            genresString.append(", ");
+        }
+
+        return genresString.substring(0, genresString.length() - 2);
+    }
+
+    /**
+     * Returns subtitles as string.
+     *
+     * @param subtitles list of subtitles
+     * @return subtitles as string
+     */
+    protected static String getSubtitles(final List<Language> subtitles) {
+        if (subtitles == null || subtitles.isEmpty()) {
+            return "";
+        }
+
+        final StringBuilder result = new StringBuilder();
+        for (final Language subtitle : subtitles) {
+            result.append(subtitle);
+            result.append(" / ");
+        }
+
+        return result.substring(0, result.length() - 3);
+    }
 
     /**
      * Creates layout.

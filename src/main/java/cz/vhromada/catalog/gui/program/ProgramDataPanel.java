@@ -169,7 +169,7 @@ public class ProgramDataPanel extends AbstractDataPanel<ProgramTO> {
         if (program.getCrack()) {
             result.append("Crack");
         }
-        addToResult(result, program.getSerialKey(), "serial key");
+        addAdditionalDataToResult(result, program.getSerialKey(), "serial key");
         if (program.getOtherData() != null && !program.getOtherData().isEmpty()) {
             if (result.length() != 0) {
                 result.append(", ");
@@ -178,25 +178,6 @@ public class ProgramDataPanel extends AbstractDataPanel<ProgramTO> {
         }
 
         return result.toString();
-    }
-
-    /**
-     * Adds data to result.
-     *
-     * @param result result
-     * @param value  value
-     * @param data   data
-     */
-    private static void addToResult(final StringBuilder result, final boolean value, final String data) {
-        if (value) {
-            if (result.length() == 0) {
-                result.append(data.substring(0, 1).toUpperCase());
-                result.append(data.substring(1));
-            } else {
-                result.append(", ");
-                result.append(data);
-            }
-        }
     }
 
 }

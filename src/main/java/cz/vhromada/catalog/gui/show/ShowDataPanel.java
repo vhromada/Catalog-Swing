@@ -11,7 +11,6 @@ import cz.vhromada.catalog.commons.Time;
 import cz.vhromada.catalog.facade.EpisodeFacade;
 import cz.vhromada.catalog.facade.SeasonFacade;
 import cz.vhromada.catalog.facade.to.EpisodeTO;
-import cz.vhromada.catalog.facade.to.GenreTO;
 import cz.vhromada.catalog.facade.to.SeasonTO;
 import cz.vhromada.catalog.facade.to.ShowTO;
 import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
@@ -203,7 +202,7 @@ public class ShowDataPanel extends AbstractDataPanel<ShowTO> {
 
         czechNameData.setText(data.getCzechName());
         originalNameData.setText(data.getOriginalName());
-        genreData.setText(getGenres(data));
+        genreData.setText(getGenres(data.getGenres()));
         seasonsCountData.setText(getSeasonsCount(data));
         episodesCountData.setText(getEpisodesCount(data));
         totalLengthData.setText(getShowLength(data));
@@ -274,28 +273,6 @@ public class ShowDataPanel extends AbstractDataPanel<ShowTO> {
                 .addGroup(createVerticalComponents(layout, noteLabel, noteData))
                 .addGap(VERTICAL_GAP_SIZE)
                 .addGroup(createVerticalButtons(layout, csfdButton, imdbButton, wikiCzButton, wikiEnButton));
-    }
-
-    /**
-     * Returns show genres.
-     *
-     * @param show TO for show
-     * @return show genres
-     */
-    private static String getGenres(final ShowTO show) {
-        final List<GenreTO> genres = show.getGenres();
-
-        if (genres == null || genres.isEmpty()) {
-            return "";
-        }
-
-        final StringBuilder subtitlesString = new StringBuilder();
-        for (final GenreTO genre : genres) {
-            subtitlesString.append(genre.getName());
-            subtitlesString.append(", ");
-        }
-
-        return subtitlesString.substring(0, subtitlesString.length() - 2);
     }
 
     /**
