@@ -164,6 +164,11 @@ public class Catalog extends JFrame {
     private ProgramFacade programFacade;
 
     /**
+     * Facade for genres
+     */
+    private GenreFacade genreFacade;
+
+    /**
      * Creates a new instance Catalog.
      *
      * @param context application context
@@ -178,7 +183,6 @@ public class Catalog extends JFrame {
 
         this.context = context;
         initFacades();
-        final GenreFacade genreFacade = context.getBean(GenreFacade.class);
 
         initMenuBar();
         initFileMenu();
@@ -224,6 +228,7 @@ public class Catalog extends JFrame {
         gameFacade = context.getBean(GameFacade.class);
         musicFacade = context.getBean(MusicFacade.class);
         programFacade = context.getBean(ProgramFacade.class);
+        genreFacade = context.getBean(GenreFacade.class);
     }
 
     /**
@@ -373,6 +378,7 @@ public class Catalog extends JFrame {
         gameFacade.updatePositions();
         musicFacade.updatePositions();
         programFacade.updatePositions();
+        gameFacade.updatePositions();
         moviesPanel.save();
         showsPanel.save();
         gamesPanel.save();
