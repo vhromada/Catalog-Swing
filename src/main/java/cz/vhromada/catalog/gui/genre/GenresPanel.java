@@ -32,7 +32,7 @@ public class GenresPanel extends AbstractOverviewDataPanel<GenreTO> {
      * @throws IllegalArgumentException if facade for genres is null
      */
     public GenresPanel(final GenreFacade genreFacade) {
-        super(getGenresListDataModel(genreFacade), getGenresStatsTableDataModel(genreFacade), false);
+        super(getGenresListDataModel(genreFacade), getGenresStatsTableDataModel(genreFacade));
 
         this.genreFacade = genreFacade;
     }
@@ -69,12 +69,12 @@ public class GenresPanel extends AbstractOverviewDataPanel<GenreTO> {
 
     @Override
     protected void moveUpData(final GenreTO data) {
-        throw new UnsupportedOperationException("Data can't be move up is not allowed for genres.");
+        genreFacade.moveUp(data);
     }
 
     @Override
     protected void moveDownData(final GenreTO data) {
-        throw new UnsupportedOperationException("Data can't be move down is not allowed for genres.");
+        genreFacade.moveDown(data);
     }
 
     @Override
