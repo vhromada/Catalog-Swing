@@ -9,6 +9,8 @@
 
     <import resource="classpath:cacheContext.xml"/>
 
+    <import resource="classpath:aopContext.xml"/>
+
     <import resource="classpath:serviceContext.xml"/>
 
     <import resource="classpath:facadeContext.xml"/>
