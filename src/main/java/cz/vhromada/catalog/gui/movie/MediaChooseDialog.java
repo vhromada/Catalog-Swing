@@ -2,7 +2,6 @@ package cz.vhromada.catalog.gui.movie;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -92,7 +91,7 @@ public class MediaChooseDialog extends JDialog {
     /**
      * List of media
      */
-    private List<Time> media;
+    private List<MediumTO> media;
 
     /**
      * Label for media count
@@ -130,8 +129,7 @@ public class MediaChooseDialog extends JDialog {
 
         Validators.validateArgumentNotNull(media, "List of media");
 
-        this.media = new ArrayList<>();
-        this.media.addAll(media.stream().map(medium -> new Time(medium.getLength())).collect(Collectors.toList()));
+        this.media = media;
         initComponents();
         setIconImage(Picture.CHOOSE.getIcon().getImage());
     }
@@ -151,7 +149,7 @@ public class MediaChooseDialog extends JDialog {
      * @return list of media
      * @throws IllegalStateException if list of media for hasn't been set
      */
-    public List<Time> getMedia() {
+    public List<MediumTO> getMedia() {
         Validators.validateFieldNotNull(media, "List of media");
 
         return media;
@@ -183,7 +181,7 @@ public class MediaChooseDialog extends JDialog {
         } else {
             mediaCountData.setValue(media.size());
             for (int i = 0; i < media.size(); i++) {
-                mediaPanels.get(i).setLength(media.get(i));
+                mediaPanels.get(i).setLength(new Time(media.get(i).getLength()));
             }
         }
 
@@ -208,7 +206,10 @@ public class MediaChooseDialog extends JDialog {
         media.clear();
         final int mediaCount = (Integer) mediaCountData.getValue();
         for (int i = 0; i < mediaCount; i++) {
-            media.add(mediaPanels.get(i).getLength());
+            final MediumTO medium = new MediumTO();
+            medium.setNumber(i + 1);
+            medium.setLength(mediaPanels.get(i).getLength().getLength());
+            media.add(medium);
         }
         close();
     }

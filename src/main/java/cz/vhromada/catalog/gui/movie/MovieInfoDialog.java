@@ -452,24 +452,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
             final MediaChooseDialog dialog = new MediaChooseDialog(new ArrayList<>(media));
             dialog.setVisible(true);
             if (dialog.getReturnStatus() == DialogResult.OK) {
-                int index = 0;
-                final List<Time> dialogMedia = dialog.getMedia();
-                final List<MediumTO> updatedMedia = new ArrayList<>();
-                final int max = Math.min(media.size(), dialogMedia.size());
-                while (index < max) {
-                    final MediumTO medium = media.get(index);
-                    medium.setLength(dialogMedia.get(index).getLength());
-                    updatedMedia.add(medium);
-                    index++;
-                }
-                while (index < dialogMedia.size()) {
-                    final MediumTO medium = new MediumTO();
-                    medium.setNumber(index + 1);
-                    medium.setLength(dialogMedia.get(index).getLength());
-                    updatedMedia.add(medium);
-                    index++;
-                }
-                media = updatedMedia;
+                media = dialog.getMedia();
                 mediaData.setText(getMedia());
                 setOkButtonEnabled(isInputValid());
             }
