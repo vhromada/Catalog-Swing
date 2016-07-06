@@ -288,6 +288,10 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
 
     /**
      * Performs action for button Genres.
+     *
+     * @param genreFacade facade for genres
+     * @param genres      list of TO for genre
+     * @param genreData   data with genres
      */
     protected final void genresAction(final GenreFacade genreFacade, final List<GenreTO> genres, final JLabel genreData) {
         EventQueue.invokeLater(() -> {
