@@ -4,7 +4,7 @@ import java.util.List;
 
 import cz.vhromada.catalog.entity.Program;
 import cz.vhromada.catalog.facade.ProgramFacade;
-import cz.vhromada.catalog.gui.commons.AbstractListDataModel;
+import cz.vhromada.catalog.gui.common.AbstractListDataModel;
 import cz.vhromada.result.Result;
 
 import org.springframework.util.Assert;

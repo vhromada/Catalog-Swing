@@ -8,8 +8,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 import cz.vhromada.catalog.entity.Game;
-import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
-import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
+import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
+import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
 
 /**
  * A class represents dialog for game.

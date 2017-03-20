@@ -8,8 +8,8 @@ import javax.swing.SpinnerNumberModel;
 
 import cz.vhromada.catalog.common.Time;
 import cz.vhromada.catalog.entity.Episode;
-import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
-import cz.vhromada.catalog.gui.commons.TimeDataPanel;
+import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
+import cz.vhromada.catalog.gui.common.TimeDataPanel;
 
 /**
  * A class represents dialog for episode.

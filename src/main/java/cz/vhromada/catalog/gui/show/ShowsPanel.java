@@ -8,8 +8,8 @@ import cz.vhromada.catalog.facade.EpisodeFacade;
 import cz.vhromada.catalog.facade.GenreFacade;
 import cz.vhromada.catalog.facade.SeasonFacade;
 import cz.vhromada.catalog.facade.ShowFacade;
-import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
-import cz.vhromada.catalog.gui.commons.AbstractOverviewDataPanel;
+import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
+import cz.vhromada.catalog.gui.common.AbstractOverviewDataPanel;
 import cz.vhromada.catalog.gui.season.SeasonsPanel;
 
 import org.springframework.util.Assert;

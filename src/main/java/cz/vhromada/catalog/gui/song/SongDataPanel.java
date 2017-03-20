@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 
 import cz.vhromada.catalog.common.Time;
 import cz.vhromada.catalog.entity.Song;
-import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
+import cz.vhromada.catalog.gui.common.AbstractDataPanel;
 
 /**
  * A class represents panel with song's data.

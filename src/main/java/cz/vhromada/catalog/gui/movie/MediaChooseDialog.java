@@ -15,10 +15,10 @@ import javax.swing.WindowConstants;
 
 import cz.vhromada.catalog.common.Time;
 import cz.vhromada.catalog.entity.Medium;
-import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
-import cz.vhromada.catalog.gui.commons.DialogResult;
-import cz.vhromada.catalog.gui.commons.Picture;
-import cz.vhromada.catalog.gui.commons.TimeDataPanel;
+import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
+import cz.vhromada.catalog.gui.common.DialogResult;
+import cz.vhromada.catalog.gui.common.Picture;
+import cz.vhromada.catalog.gui.common.TimeDataPanel;
 
 import org.springframework.util.Assert;
 

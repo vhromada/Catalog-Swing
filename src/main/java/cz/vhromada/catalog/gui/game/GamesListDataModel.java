@@ -4,7 +4,7 @@ import java.util.List;
 
 import cz.vhromada.catalog.entity.Game;
 import cz.vhromada.catalog.facade.GameFacade;
-import cz.vhromada.catalog.gui.commons.AbstractListDataModel;
+import cz.vhromada.catalog.gui.common.AbstractListDataModel;
 import cz.vhromada.result.Result;
 
 import org.springframework.util.Assert;

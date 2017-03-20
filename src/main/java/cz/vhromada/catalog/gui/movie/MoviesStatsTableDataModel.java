@@ -5,7 +5,7 @@ import java.util.List;
 import cz.vhromada.catalog.common.Time;
 import cz.vhromada.catalog.entity.Movie;
 import cz.vhromada.catalog.facade.MovieFacade;
-import cz.vhromada.catalog.gui.commons.AbstractStatsTableDataModel;
+import cz.vhromada.catalog.gui.common.AbstractStatsTableDataModel;
 import cz.vhromada.result.Result;
 import cz.vhromada.result.Status;
 

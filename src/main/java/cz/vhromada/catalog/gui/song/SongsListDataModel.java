@@ -5,7 +5,7 @@ import java.util.List;
 import cz.vhromada.catalog.entity.Music;
 import cz.vhromada.catalog.entity.Song;
 import cz.vhromada.catalog.facade.SongFacade;
-import cz.vhromada.catalog.gui.commons.AbstractListDataModel;
+import cz.vhromada.catalog.gui.common.AbstractListDataModel;
 import cz.vhromada.result.Result;
 
 import org.springframework.util.Assert;

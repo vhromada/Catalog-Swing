@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 import cz.vhromada.catalog.entity.Music;
-import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
+import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
 
 /**
  * A class represents dialog for music.

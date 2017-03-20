@@ -10,8 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
-import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
-import cz.vhromada.catalog.gui.commons.Picture;
+import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
+import cz.vhromada.catalog.gui.common.Picture;
 
 /**
  * A class represents dialog about.

@@ -6,8 +6,8 @@ import javax.swing.JTabbedPane;
 import cz.vhromada.catalog.entity.Music;
 import cz.vhromada.catalog.facade.MusicFacade;
 import cz.vhromada.catalog.facade.SongFacade;
-import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
-import cz.vhromada.catalog.gui.commons.AbstractOverviewDataPanel;
+import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
+import cz.vhromada.catalog.gui.common.AbstractOverviewDataPanel;
 import cz.vhromada.catalog.gui.song.SongsPanel;
 
 import org.springframework.util.Assert;

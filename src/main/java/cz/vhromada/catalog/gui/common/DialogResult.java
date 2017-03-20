@@ -1,4 +1,4 @@
-package cz.vhromada.catalog.gui.commons;
+package cz.vhromada.catalog.gui.common;
 
 /**
  * An enumeration represents result of dialog.

@@ -1,4 +1,4 @@
-package cz.vhromada.catalog.gui.commons;
+package cz.vhromada.catalog.gui.common;
 
 /**
  * A class represents constants.

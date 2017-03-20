@@ -13,8 +13,8 @@ import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
 import cz.vhromada.catalog.SwingConfiguration;
-import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
-import cz.vhromada.catalog.gui.commons.DialogResult;
+import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
+import cz.vhromada.catalog.gui.common.DialogResult;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

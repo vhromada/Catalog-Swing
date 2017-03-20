@@ -5,8 +5,8 @@ import javax.swing.JTabbedPane;
 
 import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.facade.GenreFacade;
-import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
-import cz.vhromada.catalog.gui.commons.AbstractOverviewDataPanel;
+import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
+import cz.vhromada.catalog.gui.common.AbstractOverviewDataPanel;
 
 /**
  * A class represents panel with genres' data.

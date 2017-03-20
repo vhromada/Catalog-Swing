@@ -13,8 +13,8 @@ import cz.vhromada.catalog.entity.Season;
 import cz.vhromada.catalog.entity.Show;
 import cz.vhromada.catalog.facade.EpisodeFacade;
 import cz.vhromada.catalog.facade.SeasonFacade;
-import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
-import cz.vhromada.catalog.gui.commons.WebPageButtonType;
+import cz.vhromada.catalog.gui.common.AbstractDataPanel;
+import cz.vhromada.catalog.gui.common.WebPageButtonType;
 import cz.vhromada.result.Result;
 import cz.vhromada.result.Status;
 

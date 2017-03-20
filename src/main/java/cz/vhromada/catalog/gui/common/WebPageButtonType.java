@@ -1,4 +1,4 @@
-package cz.vhromada.catalog.gui.commons;
+package cz.vhromada.catalog.gui.common;
 
 /**
  * An enumeration represents type of button for showing web page.

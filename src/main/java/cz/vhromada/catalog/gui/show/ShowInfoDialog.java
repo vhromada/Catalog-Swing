@@ -14,9 +14,9 @@ import javax.swing.SpinnerNumberModel;
 import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.entity.Show;
 import cz.vhromada.catalog.facade.GenreFacade;
-import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
-import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
-import cz.vhromada.catalog.gui.commons.Picture;
+import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
+import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
+import cz.vhromada.catalog.gui.common.Picture;
 import cz.vhromada.catalog.utils.Constants;
 
 import org.springframework.util.Assert;

@@ -6,8 +6,8 @@ import javax.swing.JTabbedPane;
 import cz.vhromada.catalog.entity.Movie;
 import cz.vhromada.catalog.facade.GenreFacade;
 import cz.vhromada.catalog.facade.MovieFacade;
-import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
-import cz.vhromada.catalog.gui.commons.AbstractOverviewDataPanel;
+import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
+import cz.vhromada.catalog.gui.common.AbstractOverviewDataPanel;
 
 import org.springframework.util.Assert;
 

@@ -5,8 +5,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import cz.vhromada.catalog.entity.Game;
-import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
-import cz.vhromada.catalog.gui.commons.WebPageButtonType;
+import cz.vhromada.catalog.gui.common.AbstractDataPanel;
+import cz.vhromada.catalog.gui.common.WebPageButtonType;
 
 /**
  * A class represents panel with game's data.

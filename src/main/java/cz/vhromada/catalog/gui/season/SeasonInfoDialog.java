@@ -10,8 +10,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
 import cz.vhromada.catalog.entity.Season;
-import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
-import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
+import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
+import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
 import cz.vhromada.catalog.utils.Constants;
 
 /**

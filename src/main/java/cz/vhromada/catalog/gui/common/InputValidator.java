@@ -1,4 +1,4 @@
-package cz.vhromada.catalog.gui.commons;
+package cz.vhromada.catalog.gui.common;
 
 import javax.swing.JButton;
 import javax.swing.event.DocumentEvent;

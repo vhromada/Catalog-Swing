@@ -4,7 +4,7 @@ import java.util.List;
 
 import cz.vhromada.catalog.entity.Game;
 import cz.vhromada.catalog.facade.GameFacade;
-import cz.vhromada.catalog.gui.commons.AbstractStatsTableDataModel;
+import cz.vhromada.catalog.gui.common.AbstractStatsTableDataModel;
 import cz.vhromada.result.Result;
 import cz.vhromada.result.Status;
 

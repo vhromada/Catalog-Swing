@@ -4,7 +4,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 
 import cz.vhromada.catalog.entity.Genre;
-import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
+import cz.vhromada.catalog.gui.common.AbstractDataPanel;
 
 /**
  * A class represents panel with genre's data.

@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import cz.vhromada.catalog.entity.Genre;
-import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
+import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
 
 /**
  * A class represents dialog for genre.

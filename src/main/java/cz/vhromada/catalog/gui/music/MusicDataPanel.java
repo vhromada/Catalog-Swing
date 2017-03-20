@@ -10,8 +10,8 @@ import cz.vhromada.catalog.common.Time;
 import cz.vhromada.catalog.entity.Music;
 import cz.vhromada.catalog.entity.Song;
 import cz.vhromada.catalog.facade.SongFacade;
-import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
-import cz.vhromada.catalog.gui.commons.WebPageButtonType;
+import cz.vhromada.catalog.gui.common.AbstractDataPanel;
+import cz.vhromada.catalog.gui.common.WebPageButtonType;
 import cz.vhromada.result.Result;
 import cz.vhromada.result.Status;
 

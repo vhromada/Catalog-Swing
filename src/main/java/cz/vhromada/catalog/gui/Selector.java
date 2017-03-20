@@ -6,9 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
-import cz.vhromada.catalog.gui.commons.DialogResult;
-import cz.vhromada.catalog.gui.commons.Picture;
+import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
+import cz.vhromada.catalog.gui.common.DialogResult;
+import cz.vhromada.catalog.gui.common.Picture;
 
 /**
  * A class represents main screen for selecting options.
