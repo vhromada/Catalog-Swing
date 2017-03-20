@@ -6,13 +6,13 @@
 
     <parent>
         <groupId>cz.vhromada.maven</groupId>
-        <artifactId>parent</artifactId>
-        <version>1.1.0</version>
+        <artifactId>library</artifactId>
+        <version>1.0.1</version>
     </parent>
 
     <groupId>cz.vhromada.catalog</groupId>
     <artifactId>catalog-swing</artifactId>
-    <version>2.0.1</version>
+    <version>3.0.0</version>
 
     <name>Catalog Swing</name>
     <description>Application in Swing for catalog of movies, games, music and programs</description>
@@ -43,28 +43,13 @@
     <dependencies>
         <dependency>
             <groupId>cz.vhromada.catalog</groupId>
-            <artifactId>catalog-core</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>log4j-over-slf4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
+            <artifactId>catalog</artifactId>
+            <version>4.1.1</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
@@ -78,16 +63,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>cz.vhromada.catalog.Main</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

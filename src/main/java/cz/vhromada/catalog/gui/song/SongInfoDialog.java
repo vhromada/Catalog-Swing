@@ -4,8 +4,8 @@ import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import cz.vhromada.catalog.commons.Time;
-import cz.vhromada.catalog.facade.to.SongTO;
+import cz.vhromada.catalog.common.Time;
+import cz.vhromada.catalog.entity.Song;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.TimeDataPanel;
 
@@ -14,7 +14,7 @@ import cz.vhromada.catalog.gui.commons.TimeDataPanel;
  *
  * @author Vladimir Hromada
  */
-public class SongInfoDialog extends AbstractInfoDialog<SongTO> {
+public class SongInfoDialog extends AbstractInfoDialog<Song> {
 
     /**
      * SerialVersionUID
@@ -24,27 +24,27 @@ public class SongInfoDialog extends AbstractInfoDialog<SongTO> {
     /**
      * Label for name
      */
-    private JLabel nameLabel = new JLabel("Name");
+    private final JLabel nameLabel = new JLabel("Name");
 
     /**
      * Text field for name
      */
-    private JTextField nameData = new JTextField();
+    private final JTextField nameData = new JTextField();
 
     /**
      * Length panel
      */
-    private TimeDataPanel lengthPanel = new TimeDataPanel("Length");
+    private final TimeDataPanel lengthPanel = new TimeDataPanel("Length");
 
     /**
      * Label for note
      */
-    private JLabel noteLabel = new JLabel("Note");
+    private final JLabel noteLabel = new JLabel("Note");
 
     /**
      * Text field for note
      */
-    private JTextField noteData = new JTextField();
+    private final JTextField noteData = new JTextField();
 
     /**
      * Creates a new instance of SongInfoDialog.
@@ -56,10 +56,10 @@ public class SongInfoDialog extends AbstractInfoDialog<SongTO> {
     /**
      * Creates a new instance of SongInfoDialog.
      *
-     * @param song TO for song
-     * @throws IllegalArgumentException if TO for song is null
+     * @param song song
+     * @throws IllegalArgumentException if song is null
      */
-    public SongInfoDialog(final SongTO song) {
+    public SongInfoDialog(final Song song) {
         super(song);
 
         init();
@@ -77,8 +77,8 @@ public class SongInfoDialog extends AbstractInfoDialog<SongTO> {
     }
 
     @Override
-    protected SongTO processData(final SongTO objectData) {
-        final SongTO song = objectData == null ? new SongTO() : objectData;
+    protected Song processData(final Song objectData) {
+        final Song song = objectData == null ? new Song() : objectData;
         song.setName(nameData.getText());
         song.setLength(lengthPanel.getLength().getLength());
         song.setNote(noteData.getText());

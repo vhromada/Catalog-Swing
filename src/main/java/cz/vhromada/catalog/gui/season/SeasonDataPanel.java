@@ -5,19 +5,22 @@ import java.util.List;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 
-import cz.vhromada.catalog.commons.Time;
+import cz.vhromada.catalog.common.Time;
+import cz.vhromada.catalog.entity.Episode;
+import cz.vhromada.catalog.entity.Season;
 import cz.vhromada.catalog.facade.EpisodeFacade;
-import cz.vhromada.catalog.facade.to.EpisodeTO;
-import cz.vhromada.catalog.facade.to.SeasonTO;
 import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+import cz.vhromada.result.Status;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents panel with season's data.
  *
  * @author Vladimir Hromada
  */
-public class SeasonDataPanel extends AbstractDataPanel<SeasonTO> {
+public class SeasonDataPanel extends AbstractDataPanel<Season> {
 
     /**
      * SerialVersionUID
@@ -27,88 +30,88 @@ public class SeasonDataPanel extends AbstractDataPanel<SeasonTO> {
     /**
      * Facade for episodes
      */
-    private EpisodeFacade episodeFacade;
+    private final EpisodeFacade episodeFacade;
 
     /**
      * Label for number
      */
-    private JLabel numberLabel = new JLabel("Number of season");
+    private final JLabel numberLabel = new JLabel("Number of season");
 
     /**
      * Label with number
      */
-    private JLabel numberData = new JLabel();
+    private final JLabel numberData = new JLabel();
 
     /**
      * Label for year
      */
-    private JLabel yearLabel = new JLabel("Year");
+    private final JLabel yearLabel = new JLabel("Year");
 
     /**
      * Label with year
      */
-    private JLabel yearData = new JLabel();
+    private final JLabel yearData = new JLabel();
 
     /**
      * Label for language
      */
-    private JLabel languageLabel = new JLabel("Language");
+    private final JLabel languageLabel = new JLabel("Language");
 
     /**
      * Label with language
      */
-    private JLabel languageData = new JLabel();
+    private final JLabel languageData = new JLabel();
 
     /**
      * Label for subtitles
      */
-    private JLabel subtitlesLabel = new JLabel("Subtitles");
+    private final JLabel subtitlesLabel = new JLabel("Subtitles");
 
     /**
      * Label with subtitles
      */
-    private JLabel subtitlesData = new JLabel();
+    private final JLabel subtitlesData = new JLabel();
 
     /**
      * Label for count of episodes
      */
-    private JLabel episodesCountLabel = new JLabel("Count of episodes");
+    private final JLabel episodesCountLabel = new JLabel("Count of episodes");
 
     /**
      * Label with count of episodes
      */
-    private JLabel episodesCountData = new JLabel();
+    private final JLabel episodesCountData = new JLabel();
 
     /**
      * Label for total length
      */
-    private JLabel totalLengthLabel = new JLabel("Total length");
+    private final JLabel totalLengthLabel = new JLabel("Total length");
 
     /**
      * Label with total length
      */
-    private JLabel totalLengthData = new JLabel();
+    private final JLabel totalLengthData = new JLabel();
 
     /**
      * Label for note
      */
-    private JLabel noteLabel = new JLabel("Note");
+    private final JLabel noteLabel = new JLabel("Note");
 
     /**
      * Label with note
      */
-    private JLabel noteData = new JLabel();
+    private final JLabel noteData = new JLabel();
 
     /**
      * Creates a new instance of SeasonDataPanel.
      *
-     * @param season        TO for season
+     * @param season         season
      * @param episodeFacade facade for episodes
-     * @throws IllegalArgumentException if TO for season is null
+     * @throws IllegalArgumentException if season is null
      *                                  or facade for episodes is null
      */
-    public SeasonDataPanel(final SeasonTO season, final EpisodeFacade episodeFacade) {
-        Validators.validateArgumentNotNull(episodeFacade, "Facade for episodes");
+    public SeasonDataPanel(final Season season, final EpisodeFacade episodeFacade) {
+        Assert.notNull(episodeFacade, "Facade for episodes mustn't be null.");
 
         this.episodeFacade = episodeFacade;
 
@@ -126,7 +129,7 @@ public class SeasonDataPanel extends AbstractDataPanel<SeasonTO> {
     }
 
     @Override
-    protected void updateComponentData(final SeasonTO data) {
+    protected void updateComponentData(final Season data) {
         numberData.setText(Integer.toString(data.getNumber()));
         yearData.setText(getYear(data));
         languageData.setText(data.getLanguage().toString());
@@ -190,10 +193,10 @@ public class SeasonDataPanel extends AbstractDataPanel<SeasonTO> {
     /**
      * Returns season's year.
      *
-     * @param season TO for season
+     * @param season  season
      * @return season's year
      */
-    private static String getYear(final SeasonTO season) {
+    private static String getYear(final Season season) {
         final int startYear = season.getStartYear();
         final int endYear = season.getEndYear();
 
@@ -203,27 +206,37 @@ public class SeasonDataPanel extends AbstractDataPanel<SeasonTO> {
     /**
      * Returns count of season's episodes.
      *
-     * @param season TO for season
+     * @param season  season
      * @return count of season's episodes
      */
-    private String getEpisodesCount(final SeasonTO season) {
-        final List<EpisodeTO> episodes = episodeFacade.findEpisodesBySeason(season);
-        return Integer.toString(episodes.size());
+    private String getEpisodesCount(final Season season) {
+        final Result<List<Episode>> result = episodeFacade.find(season);
+
+        if (Status.OK == result.getStatus()) {
+            return Integer.toString(result.getData().size());
+        } else {
+            throw new IllegalArgumentException("Can't get data. " + result);
+        }
     }
 
     /**
      * Returns total length of all season's episodes.
      *
-     * @param season TO for season
+     * @param season  season
      * @return total length of all season's episodes
      */
-    private String getSeasonLength(final SeasonTO season) {
-        final List<EpisodeTO> episodes = episodeFacade.findEpisodesBySeason(season);
-        int totalLength = 0;
-        for (final EpisodeTO episode : episodes) {
-            totalLength += episode.getLength();
+    private String getSeasonLength(final Season season) {
+        final Result<List<Episode>> result = episodeFacade.find(season);
+
+        if (Status.OK == result.getStatus()) {
+            int totalLength = 0;
+            for (final Episode episode : result.getData()) {
+                totalLength += episode.getLength();
+            }
+            return new Time(totalLength).toString();
+        } else {
+            throw new IllegalArgumentException("Can't get data. " + result);
         }
-        return new Time(totalLength).toString();
     }
 
 }

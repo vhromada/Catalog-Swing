@@ -2,11 +2,14 @@ package cz.vhromada.catalog.gui.music;
 
 import java.util.List;
 
-import cz.vhromada.catalog.commons.Time;
+import cz.vhromada.catalog.common.Time;
+import cz.vhromada.catalog.entity.Music;
 import cz.vhromada.catalog.facade.MusicFacade;
-import cz.vhromada.catalog.facade.to.MusicTO;
 import cz.vhromada.catalog.gui.commons.AbstractStatsTableDataModel;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+import cz.vhromada.result.Status;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents data model for table with stats for music.
@@ -28,12 +31,12 @@ public class MusicStatsTableDataModel extends AbstractStatsTableDataModel {
     /**
      * Facade for music
      */
-    private MusicFacade musicFacade;
+    private final MusicFacade musicFacade;
 
     /**
-     * List of TO for music
+     * List of music
      */
-    private List<MusicTO> musicList;
+    private List<Music> musicList;
 
     /**
      * Total count of media
@@ -57,7 +60,7 @@ public class MusicStatsTableDataModel extends AbstractStatsTableDataModel {
      * @throws IllegalArgumentException if facade for music is null
      */
     public MusicStatsTableDataModel(final MusicFacade musicFacade) {
-        Validators.validateArgumentNotNull(musicFacade, "Facade for music");
+        Assert.notNull(musicFacade, "Facade for music mustn't be null.");
 
         this.musicFacade = musicFacade;
         update();
@@ -123,10 +126,25 @@ public class MusicStatsTableDataModel extends AbstractStatsTableDataModel {
 
     @Override
     public final void update() {
-        musicList = musicFacade.getMusic();
-        totalMediaCount = musicFacade.getTotalMediaCount();
-        songsCount = musicFacade.getSongsCount();
-        totalLength = musicFacade.getTotalLength();
+        final Result<List<Music>> musicResult = musicFacade.getAll();
+        final Result<Integer> totalMediaCountResult = musicFacade.getTotalMediaCount();
+        final Result<Integer> songsCountResult = musicFacade.getSongsCount();
+        final Result<Time> totalLengthResult = musicFacade.getTotalLength();
+
+        final Result<Void> result = new Result<>();
+        result.addEvents(musicResult.getEvents());
+        result.addEvents(totalMediaCountResult.getEvents());
+        result.addEvents(songsCountResult.getEvents());
+        result.addEvents(totalLengthResult.getEvents());
+
+        if (Status.OK == result.getStatus()) {
+            musicList = musicResult.getData();
+            totalMediaCount = totalMediaCountResult.getData();
+            songsCount = songsCountResult.getData();
+            totalLength = totalLengthResult.getData();
+        } else {
+            throw new IllegalArgumentException("Can't get data. " + result);
+        }
     }
 
 }

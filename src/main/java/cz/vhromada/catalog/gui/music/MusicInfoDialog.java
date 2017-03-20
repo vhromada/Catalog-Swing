@@ -6,7 +6,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
-import cz.vhromada.catalog.facade.to.MusicTO;
+import cz.vhromada.catalog.entity.Music;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 
 /**
@@ -14,7 +14,7 @@ import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
  *
  * @author Vladimir Hromada
  */
-public class MusicInfoDialog extends AbstractInfoDialog<MusicTO> {
+public class MusicInfoDialog extends AbstractInfoDialog<Music> {
 
     /**
      * SerialVersionUID
@@ -24,52 +24,52 @@ public class MusicInfoDialog extends AbstractInfoDialog<MusicTO> {
     /**
      * Label for name
      */
-    private JLabel nameLabel = new JLabel("Name");
+    private final JLabel nameLabel = new JLabel("Name");
 
     /**
      * Text field for name
      */
-    private JTextField nameData = new JTextField();
+    private final JTextField nameData = new JTextField();
 
     /**
      * Label for czech Wikipedia
      */
-    private JLabel wikiCzLabel = new JLabel("Czech Wikipedia");
+    private final JLabel wikiCzLabel = new JLabel("Czech Wikipedia");
 
     /**
      * Text field for czech Wikipedia
      */
-    private JTextField wikiCzData = new JTextField();
+    private final JTextField wikiCzData = new JTextField();
 
     /**
      * Label for english Wikipedia
      */
-    private JLabel wikiEnLabel = new JLabel("English Wikipedia");
+    private final JLabel wikiEnLabel = new JLabel("English Wikipedia");
 
     /**
      * Text field for english Wikipedia
      */
-    private JTextField wikiEnData = new JTextField();
+    private final JTextField wikiEnData = new JTextField();
 
     /**
      * Label for count of media
      */
-    private JLabel mediaCountLabel = new JLabel("Count of media");
+    private final JLabel mediaCountLabel = new JLabel("Count of media");
 
     /**
      * Spinner for count of media
      */
-    private JSpinner mediaCountData = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+    private final JSpinner mediaCountData = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
 
     /**
      * Label for note
      */
-    private JLabel noteLabel = new JLabel("Note");
+    private final JLabel noteLabel = new JLabel("Note");
 
     /**
      * Text field for note
      */
-    private JTextField noteData = new JTextField();
+    private final JTextField noteData = new JTextField();
 
     /**
      * Creates a new instance of MusicInfoDialog.
@@ -81,10 +81,10 @@ public class MusicInfoDialog extends AbstractInfoDialog<MusicTO> {
     /**
      * Creates a new instance of MusicInfoDialog.
      *
-     * @param music TO for music
-     * @throws IllegalArgumentException if TO for music is null
+     * @param music music
+     * @throws IllegalArgumentException if music is null
      */
-    public MusicInfoDialog(final MusicTO music) {
+    public MusicInfoDialog(final Music music) {
         super(music);
 
         init();
@@ -107,8 +107,8 @@ public class MusicInfoDialog extends AbstractInfoDialog<MusicTO> {
     }
 
     @Override
-    protected MusicTO processData(final MusicTO objectData) {
-        final MusicTO music = objectData == null ? new MusicTO() : objectData;
+    protected Music processData(final Music objectData) {
+        final Music music = objectData == null ? new Music() : objectData;
         music.setName(nameData.getText());
         music.setWikiCz(wikiCzData.getText());
         music.setWikiEn(wikiEnData.getText());

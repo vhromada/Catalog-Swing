@@ -7,22 +7,25 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import cz.vhromada.catalog.commons.Time;
+import cz.vhromada.catalog.common.Time;
+import cz.vhromada.catalog.entity.Episode;
+import cz.vhromada.catalog.entity.Season;
+import cz.vhromada.catalog.entity.Show;
 import cz.vhromada.catalog.facade.EpisodeFacade;
 import cz.vhromada.catalog.facade.SeasonFacade;
-import cz.vhromada.catalog.facade.to.EpisodeTO;
-import cz.vhromada.catalog.facade.to.SeasonTO;
-import cz.vhromada.catalog.facade.to.ShowTO;
 import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
 import cz.vhromada.catalog.gui.commons.WebPageButtonType;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+import cz.vhromada.result.Status;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents panel with show data.
  *
  * @author Vladimir Hromada
  */
-public class ShowDataPanel extends AbstractDataPanel<ShowTO> {
+public class ShowDataPanel extends AbstractDataPanel<Show> {
 
     /**
      * SerialVersionUID
@@ -32,107 +35,107 @@ public class ShowDataPanel extends AbstractDataPanel<ShowTO> {
     /**
      * Facade for seasons
      */
-    private SeasonFacade seasonFacade;
+    private final SeasonFacade seasonFacade;
 
     /**
      * Facade for episodes
      */
-    private EpisodeFacade episodeFacade;
+    private final EpisodeFacade episodeFacade;
 
     /**
      * Label for picture
      */
-    private JLabel pictureData = new JLabel();
+    private final JLabel pictureData = new JLabel();
 
     /**
      * Label for czech name
      */
-    private JLabel czechNameLabel = new JLabel("Czech name");
+    private final JLabel czechNameLabel = new JLabel("Czech name");
 
     /**
      * Label with czech name
      */
-    private JLabel czechNameData = new JLabel();
+    private final JLabel czechNameData = new JLabel();
 
     /**
      * Label for original name
      */
-    private JLabel originalNameLabel = new JLabel("Original name");
+    private final JLabel originalNameLabel = new JLabel("Original name");
 
     /**
      * Label with original name
      */
-    private JLabel originalNameData = new JLabel();
+    private final JLabel originalNameData = new JLabel();
 
     /**
      * Label for genre
      */
-    private JLabel genreLabel = new JLabel("Genre");
+    private final JLabel genreLabel = new JLabel("Genre");
 
     /**
      * Label with genre
      */
-    private JLabel genreData = new JLabel();
+    private final JLabel genreData = new JLabel();
 
     /**
      * Label for count of seasons
      */
-    private JLabel seasonsCountLabel = new JLabel("Count of seasons");
+    private final JLabel seasonsCountLabel = new JLabel("Count of seasons");
 
     /**
      * Label with count of seasons
      */
-    private JLabel seasonsCountData = new JLabel();
+    private final JLabel seasonsCountData = new JLabel();
 
     /**
      * Label for count of episodes
      */
-    private JLabel episodesCountLabel = new JLabel("Count of episodes");
+    private final JLabel episodesCountLabel = new JLabel("Count of episodes");
 
     /**
      * Label with count of episodes
      */
-    private JLabel episodesCountData = new JLabel();
+    private final JLabel episodesCountData = new JLabel();
 
     /**
      * Label for total length
      */
-    private JLabel totalLengthLabel = new JLabel("Total length");
+    private final JLabel totalLengthLabel = new JLabel("Total length");
 
     /**
      * Label with total length
      */
-    private JLabel totalLengthData = new JLabel();
+    private final JLabel totalLengthData = new JLabel();
 
     /**
      * Label for note
      */
-    private JLabel noteLabel = new JLabel("Note");
+    private final JLabel noteLabel = new JLabel("Note");
 
     /**
      * Label with note
      */
-    private JLabel noteData = new JLabel();
+    private final JLabel noteData = new JLabel();
 
     /**
      * Button for showing show ČSFD page
      */
-    private JButton csfdButton = new JButton("ČSFD");
+    private final JButton csfdButton = new JButton("ČSFD");
 
     /**
      * Button for showing show IMDB page
      */
-    private JButton imdbButton = new JButton("IMDB");
+    private final JButton imdbButton = new JButton("IMDB");
 
     /**
      * Button for showing show czech Wikipedia page
      */
-    private JButton wikiCzButton = new JButton("Czech Wikipedia");
+    private final JButton wikiCzButton = new JButton("Czech Wikipedia");
 
     /**
      * Button for showing show english Wikipedia page
      */
-    private JButton wikiEnButton = new JButton("English Wikipedia");
+    private final JButton wikiEnButton = new JButton("English Wikipedia");
 
     /**
      * URL to ČSFD page about show
@@ -157,16 +160,16 @@ public class ShowDataPanel extends AbstractDataPanel<ShowTO> {
     /**
      * Creates a new instance of ShowDataPanel.
      *
-     * @param show          TO for show
+     * @param show          show
      * @param seasonFacade  facade for seasons
      * @param episodeFacade facade for episodes
      * @throws IllegalArgumentException if show is null
      *                                  or facade for seasons is null
      *                                  or facade for episodes is null
      */
-    public ShowDataPanel(final ShowTO show, final SeasonFacade seasonFacade, final EpisodeFacade episodeFacade) {
-        Validators.validateArgumentNotNull(seasonFacade, "Facade for seasons");
-        Validators.validateArgumentNotNull(episodeFacade, "Facade for episodes");
+    public ShowDataPanel(final Show show, final SeasonFacade seasonFacade, final EpisodeFacade episodeFacade) {
+        Assert.notNull(seasonFacade, "Facade for seasons mustn't be null.");
+        Assert.notNull(episodeFacade, "Facade for episodes mustn't be null.");
 
         this.seasonFacade = seasonFacade;
         this.episodeFacade = episodeFacade;
@@ -192,7 +195,7 @@ public class ShowDataPanel extends AbstractDataPanel<ShowTO> {
     }
 
     @Override
-    protected void updateComponentData(final ShowTO data) {
+    protected void updateComponentData(final Show data) {
         final String picture = data.getPicture();
         if (picture.isEmpty()) {
             pictureData.setIcon(null);
@@ -278,46 +281,69 @@ public class ShowDataPanel extends AbstractDataPanel<ShowTO> {
     /**
      * Returns count of show seasons.
      *
-     * @param show TO for show
+     * @param show show
      * @return count of show seasons
      */
-    private String getSeasonsCount(final ShowTO show) {
-        final List<SeasonTO> seasons = seasonFacade.findSeasonsByShow(show);
-        return Integer.toString(seasons.size());
+    private String getSeasonsCount(final Show show) {
+        final Result<List<Season>> result = seasonFacade.find(show);
+
+        if (Status.OK == result.getStatus()) {
+            return Integer.toString(result.getData().size());
+        } else {
+            throw new IllegalArgumentException("Can't get data. " + result);
+        }
     }
 
     /**
      * Returns count of show episodes.
      *
-     * @param show TO for show
+     * @param show show
      * @return count of show episodes
      */
-    private String getEpisodesCount(final ShowTO show) {
-        final List<SeasonTO> seasons = seasonFacade.findSeasonsByShow(show);
-        int totalCount = 0;
-        for (final SeasonTO season : seasons) {
-            final List<EpisodeTO> episodes = episodeFacade.findEpisodesBySeason(season);
-            totalCount += episodes.size();
+    private String getEpisodesCount(final Show show) {
+        final Result<List<Season>> seasonsResult = seasonFacade.find(show);
+
+        if (Status.OK == seasonsResult.getStatus()) {
+            int totalCount = 0;
+            for (final Season season : seasonsResult.getData()) {
+                final Result<List<Episode>> episodesResult = episodeFacade.find(season);
+                if (Status.OK == episodesResult.getStatus()) {
+                    totalCount += episodesResult.getData().size();
+                } else {
+                    throw new IllegalArgumentException("Can't get data. " + episodesResult);
+                }
+            }
+            return Integer.toString(totalCount);
+        } else {
+            throw new IllegalArgumentException("Can't get data. " + seasonsResult);
         }
-        return Integer.toString(totalCount);
     }
 
     /**
      * Returns total length of all show seasons.
      *
-     * @param show TO for show
+     * @param show show
      * @return total length of all show seasons
      */
-    private String getShowLength(final ShowTO show) {
-        final List<SeasonTO> seasons = seasonFacade.findSeasonsByShow(show);
-        int totalLength = 0;
-        for (final SeasonTO season : seasons) {
-            final List<EpisodeTO> episodes = episodeFacade.findEpisodesBySeason(season);
-            for (final EpisodeTO episode : episodes) {
-                totalLength += episode.getLength();
+    private String getShowLength(final Show show) {
+        final Result<List<Season>> seasonsResult = seasonFacade.find(show);
+
+        if (Status.OK == seasonsResult.getStatus()) {
+            int totalLength = 0;
+            for (final Season season : seasonsResult.getData()) {
+                final Result<List<Episode>> episodesResult = episodeFacade.find(season);
+                if (Status.OK == episodesResult.getStatus()) {
+                    for (final Episode episode : episodesResult.getData()) {
+                        totalLength += episode.getLength();
+                    }
+                } else {
+                    throw new IllegalArgumentException("Can't get data. " + episodesResult);
+                }
             }
+            return new Time(totalLength).toString();
+        } else {
+            throw new IllegalArgumentException("Can't get data. " + seasonsResult);
         }
-        return new Time(totalLength).toString();
     }
 
 }

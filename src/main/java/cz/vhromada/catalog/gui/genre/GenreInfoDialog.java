@@ -4,7 +4,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import cz.vhromada.catalog.facade.to.GenreTO;
+import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 
 /**
@@ -12,7 +12,7 @@ import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
  *
  * @author Vladimir Hromada
  */
-public class GenreInfoDialog extends AbstractInfoDialog<GenreTO> {
+public class GenreInfoDialog extends AbstractInfoDialog<Genre> {
 
     /**
      * SerialVersionUID
@@ -22,12 +22,12 @@ public class GenreInfoDialog extends AbstractInfoDialog<GenreTO> {
     /**
      * Label for name
      */
-    private JLabel nameLabel = new JLabel("Name");
+    private final JLabel nameLabel = new JLabel("Name");
 
     /**
      * Text field for name
      */
-    private JTextField nameData = new JTextField();
+    private final JTextField nameData = new JTextField();
 
     /**
      * Creates a new instance of GenreInfoDialog.
@@ -39,10 +39,10 @@ public class GenreInfoDialog extends AbstractInfoDialog<GenreTO> {
     /**
      * Creates a new instance of GenreInfoDialog.
      *
-     * @param genre TO for genre
-     * @throws IllegalArgumentException if TO for genre is null
+     * @param genre genre
+     * @throws IllegalArgumentException if genre is null
      */
-    public GenreInfoDialog(final GenreTO genre) {
+    public GenreInfoDialog(final Genre genre) {
         super(genre);
 
         init();
@@ -57,8 +57,8 @@ public class GenreInfoDialog extends AbstractInfoDialog<GenreTO> {
     }
 
     @Override
-    protected GenreTO processData(final GenreTO objectData) {
-        final GenreTO genre = objectData == null ? new GenreTO() : objectData;
+    protected Genre processData(final Genre objectData) {
+        final Genre genre = objectData == null ? new Genre() : objectData;
         genre.setName(nameData.getText());
 
         return genre;

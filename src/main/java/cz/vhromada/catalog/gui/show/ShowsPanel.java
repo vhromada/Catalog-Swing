@@ -3,22 +3,23 @@ package cz.vhromada.catalog.gui.show;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import cz.vhromada.catalog.entity.Show;
 import cz.vhromada.catalog.facade.EpisodeFacade;
 import cz.vhromada.catalog.facade.GenreFacade;
 import cz.vhromada.catalog.facade.SeasonFacade;
 import cz.vhromada.catalog.facade.ShowFacade;
-import cz.vhromada.catalog.facade.to.ShowTO;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.AbstractOverviewDataPanel;
 import cz.vhromada.catalog.gui.season.SeasonsPanel;
-import cz.vhromada.validators.Validators;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents panel with shows' data.
  *
  * @author Vladimir Hromada
  */
-public class ShowsPanel extends AbstractOverviewDataPanel<ShowTO> {
+public class ShowsPanel extends AbstractOverviewDataPanel<Show> {
 
     /**
      * SerialVersionUID
@@ -28,22 +29,22 @@ public class ShowsPanel extends AbstractOverviewDataPanel<ShowTO> {
     /**
      * Facade for shows
      */
-    private ShowFacade showFacade;
+    private final ShowFacade showFacade;
 
     /**
      * Facade for seasons
      */
-    private SeasonFacade seasonFacade;
+    private final SeasonFacade seasonFacade;
 
     /**
      * Facade for episodes
      */
-    private EpisodeFacade episodeFacade;
+    private final EpisodeFacade episodeFacade;
 
     /**
      * Facade for genres
      */
-    private GenreFacade genreFacade;
+    private final GenreFacade genreFacade;
 
     /**
      * Creates a new instance of ShowsPanel.
@@ -60,9 +61,9 @@ public class ShowsPanel extends AbstractOverviewDataPanel<ShowTO> {
     public ShowsPanel(final ShowFacade showFacade, final SeasonFacade seasonFacade, final EpisodeFacade episodeFacade, final GenreFacade genreFacade) {
         super(getShowsListDataModel(showFacade), getShowsStatsTableDataModel(showFacade));
 
-        Validators.validateArgumentNotNull(seasonFacade, "Facade for seasons");
-        Validators.validateArgumentNotNull(episodeFacade, "Facade for episodes");
-        Validators.validateArgumentNotNull(genreFacade, "Facade for genres");
+        Assert.notNull(seasonFacade, "Facade for seasons mustn't be null.");
+        Assert.notNull(episodeFacade, "Facade for episodes mustn't be null.");
+        Assert.notNull(genreFacade, "Facade for genres mustn't be null.");
 
         this.showFacade = showFacade;
         this.seasonFacade = seasonFacade;
@@ -71,7 +72,7 @@ public class ShowsPanel extends AbstractOverviewDataPanel<ShowTO> {
     }
 
     @Override
-    protected AbstractInfoDialog<ShowTO> getInfoDialog(final boolean add, final ShowTO data) {
+    protected AbstractInfoDialog<Show> getInfoDialog(final boolean add, final Show data) {
         return add ? new ShowInfoDialog(genreFacade) : new ShowInfoDialog(genreFacade, data);
     }
 
@@ -81,42 +82,42 @@ public class ShowsPanel extends AbstractOverviewDataPanel<ShowTO> {
     }
 
     @Override
-    protected void addData(final ShowTO data) {
+    protected void addData(final Show data) {
         showFacade.add(data);
     }
 
     @Override
-    protected void updateData(final ShowTO data) {
+    protected void updateData(final Show data) {
         showFacade.update(data);
     }
 
     @Override
-    protected void removeData(final ShowTO data) {
+    protected void removeData(final Show data) {
         showFacade.remove(data);
     }
 
     @Override
-    protected void duplicatesData(final ShowTO data) {
+    protected void duplicatesData(final Show data) {
         showFacade.duplicate(data);
     }
 
     @Override
-    protected void moveUpData(final ShowTO data) {
+    protected void moveUpData(final Show data) {
         showFacade.moveUp(data);
     }
 
     @Override
-    protected void moveDownData(final ShowTO data) {
+    protected void moveDownData(final Show data) {
         showFacade.moveDown(data);
     }
 
     @Override
-    protected JPanel getDataPanel(final ShowTO data) {
+    protected JPanel getDataPanel(final Show data) {
         return new ShowDataPanel(data, seasonFacade, episodeFacade);
     }
 
     @Override
-    protected void updateDataOnChange(final JTabbedPane dataPanel, final ShowTO data) {
+    protected void updateDataOnChange(final JTabbedPane dataPanel, final Show data) {
         final SeasonsPanel seasonsPanel = new SeasonsPanel(seasonFacade, episodeFacade, data);
         seasonsPanel.addPropertyChangeListener("update", evt -> {
             if (Boolean.TRUE.equals(evt.getNewValue())) {

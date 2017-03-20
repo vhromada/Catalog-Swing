@@ -3,8 +3,8 @@ package cz.vhromada.catalog.gui.program;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import cz.vhromada.catalog.entity.Program;
 import cz.vhromada.catalog.facade.ProgramFacade;
-import cz.vhromada.catalog.facade.to.ProgramTO;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.AbstractOverviewDataPanel;
 
@@ -13,7 +13,7 @@ import cz.vhromada.catalog.gui.commons.AbstractOverviewDataPanel;
  *
  * @author Vladimir Hromada
  */
-public class ProgramsPanel extends AbstractOverviewDataPanel<ProgramTO> {
+public class ProgramsPanel extends AbstractOverviewDataPanel<Program> {
 
     /**
      * SerialVersionUID
@@ -23,7 +23,7 @@ public class ProgramsPanel extends AbstractOverviewDataPanel<ProgramTO> {
     /**
      * Facade for programs
      */
-    private ProgramFacade programFacade;
+    private final ProgramFacade programFacade;
 
     /**
      * Creates a new instance of ProgramsPanel.
@@ -38,7 +38,7 @@ public class ProgramsPanel extends AbstractOverviewDataPanel<ProgramTO> {
     }
 
     @Override
-    protected AbstractInfoDialog<ProgramTO> getInfoDialog(final boolean add, final ProgramTO data) {
+    protected AbstractInfoDialog<Program> getInfoDialog(final boolean add, final Program data) {
         return add ? new ProgramInfoDialog() : new ProgramInfoDialog(data);
     }
 
@@ -48,42 +48,42 @@ public class ProgramsPanel extends AbstractOverviewDataPanel<ProgramTO> {
     }
 
     @Override
-    protected void addData(final ProgramTO data) {
+    protected void addData(final Program data) {
         programFacade.add(data);
     }
 
     @Override
-    protected void updateData(final ProgramTO data) {
+    protected void updateData(final Program data) {
         programFacade.update(data);
     }
 
     @Override
-    protected void removeData(final ProgramTO data) {
+    protected void removeData(final Program data) {
         programFacade.remove(data);
     }
 
     @Override
-    protected void duplicatesData(final ProgramTO data) {
+    protected void duplicatesData(final Program data) {
         programFacade.duplicate(data);
     }
 
     @Override
-    protected void moveUpData(final ProgramTO data) {
+    protected void moveUpData(final Program data) {
         programFacade.moveUp(data);
     }
 
     @Override
-    protected void moveDownData(final ProgramTO data) {
+    protected void moveDownData(final Program data) {
         programFacade.moveDown(data);
     }
 
     @Override
-    protected JPanel getDataPanel(final ProgramTO data) {
+    protected JPanel getDataPanel(final Program data) {
         return new ProgramDataPanel(data);
     }
 
     @Override
-    protected void updateDataOnChange(final JTabbedPane dataPanel, final ProgramTO data) {
+    protected void updateDataOnChange(final JTabbedPane dataPanel, final Program data) {
     }
 
     /**

@@ -3,7 +3,7 @@ package cz.vhromada.catalog.gui.genre;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 
-import cz.vhromada.catalog.facade.to.GenreTO;
+import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
 
 /**
@@ -11,7 +11,7 @@ import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
  *
  * @author Vladimir Hromada
  */
-public class GenreDataPanel extends AbstractDataPanel<GenreTO> {
+public class GenreDataPanel extends AbstractDataPanel<Genre> {
 
     /**
      * SerialVersionUID
@@ -21,20 +21,20 @@ public class GenreDataPanel extends AbstractDataPanel<GenreTO> {
     /**
      * Label for name
      */
-    private JLabel nameLabel = new JLabel("Name");
+    private final JLabel nameLabel = new JLabel("Name");
 
     /**
      * Label with name
      */
-    private JLabel nameData = new JLabel();
+    private final JLabel nameData = new JLabel();
 
     /**
      * Creates a new instance of GenreDataPanel.
      *
-     * @param genre TO for genre
-     * @throws IllegalArgumentException if TO for genre is null
+     * @param genre genre
+     * @throws IllegalArgumentException if genre is null
      */
-    public GenreDataPanel(final GenreTO genre) {
+    public GenreDataPanel(final Genre genre) {
         updateData(genre);
 
         initData(nameLabel, nameData);
@@ -43,7 +43,7 @@ public class GenreDataPanel extends AbstractDataPanel<GenreTO> {
     }
 
     @Override
-    protected void updateComponentData(final GenreTO data) {
+    protected void updateComponentData(final Genre data) {
         nameData.setText(data.getName());
     }
 

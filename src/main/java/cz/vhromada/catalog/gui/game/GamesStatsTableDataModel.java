@@ -2,10 +2,13 @@ package cz.vhromada.catalog.gui.game;
 
 import java.util.List;
 
+import cz.vhromada.catalog.entity.Game;
 import cz.vhromada.catalog.facade.GameFacade;
-import cz.vhromada.catalog.facade.to.GameTO;
 import cz.vhromada.catalog.gui.commons.AbstractStatsTableDataModel;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+import cz.vhromada.result.Status;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents data model for table with stats for games.
@@ -22,12 +25,12 @@ public class GamesStatsTableDataModel extends AbstractStatsTableDataModel {
     /**
      * Facade for games
      */
-    private GameFacade gameFacade;
+    private final GameFacade gameFacade;
 
     /**
-     * List of TO for game
+     * List of games
      */
-    private List<GameTO> games;
+    private List<Game> games;
 
     /**
      * Total count of media
@@ -41,7 +44,7 @@ public class GamesStatsTableDataModel extends AbstractStatsTableDataModel {
      * @throws IllegalArgumentException if facade for games is null
      */
     public GamesStatsTableDataModel(final GameFacade gameFacade) {
-        Validators.validateArgumentNotNull(gameFacade, "Facade for games");
+        Assert.notNull(gameFacade, "Facade for games mustn't be null.");
 
         this.gameFacade = gameFacade;
         update();
@@ -88,8 +91,19 @@ public class GamesStatsTableDataModel extends AbstractStatsTableDataModel {
 
     @Override
     public final void update() {
-        games = gameFacade.getGames();
-        totalMediaCount = gameFacade.getTotalMediaCount();
+        final Result<List<Game>> gamesResult = gameFacade.getAll();
+        final Result<Integer> totalMediaCountResult = gameFacade.getTotalMediaCount();
+
+        final Result<Void> result = new Result<>();
+        result.addEvents(gamesResult.getEvents());
+        result.addEvents(totalMediaCountResult.getEvents());
+
+        if (Status.OK == result.getStatus()) {
+            games = gamesResult.getData();
+            totalMediaCount = totalMediaCountResult.getData();
+        } else {
+            throw new IllegalArgumentException("Can't get data. " + result);
+        }
     }
 
 }

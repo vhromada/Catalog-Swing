@@ -2,17 +2,19 @@ package cz.vhromada.catalog.gui.show;
 
 import java.util.List;
 
+import cz.vhromada.catalog.entity.Show;
 import cz.vhromada.catalog.facade.ShowFacade;
-import cz.vhromada.catalog.facade.to.ShowTO;
 import cz.vhromada.catalog.gui.commons.AbstractListDataModel;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents data model for list with shows.
  *
  * @author Vladimir Hromada
  */
-public class ShowsListDataModel extends AbstractListDataModel<ShowTO> {
+public class ShowsListDataModel extends AbstractListDataModel<Show> {
 
     /**
      * SerialVersionUID
@@ -22,7 +24,7 @@ public class ShowsListDataModel extends AbstractListDataModel<ShowTO> {
     /**
      * Facade for shows
      */
-    private ShowFacade showFacade;
+    private final ShowFacade showFacade;
 
     /**
      * Creates a new instance of ShowsListDataModel.
@@ -31,19 +33,19 @@ public class ShowsListDataModel extends AbstractListDataModel<ShowTO> {
      * @throws IllegalArgumentException if service is null
      */
     public ShowsListDataModel(final ShowFacade showFacade) {
-        Validators.validateArgumentNotNull(showFacade, "Facade for shows");
+        Assert.notNull(showFacade, "Facade for shows mustn't be null.");
 
         this.showFacade = showFacade;
         update();
     }
 
     @Override
-    protected List<ShowTO> getData() {
-        return showFacade.getShows();
+    protected Result<List<Show>> getData() {
+        return showFacade.getAll();
     }
 
     @Override
-    protected String getDisplayValue(final ShowTO dataObject) {
+    protected String getDisplayValue(final Show dataObject) {
         return dataObject.getCzechName();
     }
 

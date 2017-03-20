@@ -6,20 +6,23 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import cz.vhromada.catalog.commons.Time;
+import cz.vhromada.catalog.common.Time;
+import cz.vhromada.catalog.entity.Music;
+import cz.vhromada.catalog.entity.Song;
 import cz.vhromada.catalog.facade.SongFacade;
-import cz.vhromada.catalog.facade.to.MusicTO;
-import cz.vhromada.catalog.facade.to.SongTO;
 import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
 import cz.vhromada.catalog.gui.commons.WebPageButtonType;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+import cz.vhromada.result.Status;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents panel with music data.
  *
  * @author Vladimir Hromada
  */
-public class MusicDataPanel extends AbstractDataPanel<MusicTO> {
+public class MusicDataPanel extends AbstractDataPanel<Music> {
 
     /**
      * SerialVersionUID
@@ -29,67 +32,67 @@ public class MusicDataPanel extends AbstractDataPanel<MusicTO> {
     /**
      * Facade for songs
      */
-    private SongFacade songFacade;
+    private final SongFacade songFacade;
 
     /**
      * Label for name
      */
-    private JLabel nameLabel = new JLabel("Name");
+    private final JLabel nameLabel = new JLabel("Name");
 
     /**
      * Label with name
      */
-    private JLabel nameData = new JLabel();
+    private final JLabel nameData = new JLabel();
 
     /**
      * Label for count of media
      */
-    private JLabel mediaCountLabel = new JLabel("Count of media");
+    private final JLabel mediaCountLabel = new JLabel("Count of media");
 
     /**
      * Label with count of media
      */
-    private JLabel mediaCountData = new JLabel();
+    private final JLabel mediaCountData = new JLabel();
 
     /**
      * Label for count of songs
      */
-    private JLabel songsCountLabel = new JLabel("Count of songs");
+    private final JLabel songsCountLabel = new JLabel("Count of songs");
 
     /**
      * Label with count of songs
      */
-    private JLabel songsCountData = new JLabel();
+    private final JLabel songsCountData = new JLabel();
 
     /**
      * Label for total length
      */
-    private JLabel totalLengthLabel = new JLabel("Total length");
+    private final JLabel totalLengthLabel = new JLabel("Total length");
 
     /**
      * Label with total length
      */
-    private JLabel totalLengthData = new JLabel();
+    private final JLabel totalLengthData = new JLabel();
 
     /**
      * Label for note
      */
-    private JLabel noteLabel = new JLabel("Note");
+    private final JLabel noteLabel = new JLabel("Note");
 
     /**
      * Label with note
      */
-    private JLabel noteData = new JLabel();
+    private final JLabel noteData = new JLabel();
 
     /**
      * Button for showing music czech Wikipedia page
      */
-    private JButton wikiCzButton = new JButton("Czech Wikipedia");
+    private final JButton wikiCzButton = new JButton("Czech Wikipedia");
 
     /**
      * Button for showing music english Wikipedia page
      */
-    private JButton wikiEnButton = new JButton("English Wikipedia");
+    private final JButton wikiEnButton = new JButton("English Wikipedia");
 
     /**
      * URL to czech Wikipedia page about music
@@ -104,13 +107,13 @@ public class MusicDataPanel extends AbstractDataPanel<MusicTO> {
     /**
      * Creates a new instance of MusicDataPanel.
      *
-     * @param music      TO for music
+     * @param music      music
      * @param songFacade facade for songs
-     * @throws IllegalArgumentException if TO for music is null
+     * @throws IllegalArgumentException if music is null
      *                                  or facade for songs is null
      */
-    public MusicDataPanel(final MusicTO music, final SongFacade songFacade) {
-        Validators.validateArgumentNotNull(songFacade, "Facade for songs");
+    public MusicDataPanel(final Music music, final SongFacade songFacade) {
+        Assert.notNull(songFacade, "Facade for songs mustn't be null.");
 
         this.songFacade = songFacade;
 
@@ -129,7 +132,7 @@ public class MusicDataPanel extends AbstractDataPanel<MusicTO> {
     }
 
     @Override
-    protected void updateComponentData(final MusicTO data) {
+    protected void updateComponentData(final Music data) {
         nameData.setText(data.getName());
         mediaCountData.setText(Integer.toString(data.getMediaCount()));
         songsCountData.setText(getSongsCount(data));
@@ -193,27 +196,37 @@ public class MusicDataPanel extends AbstractDataPanel<MusicTO> {
     /**
      * Returns count of music songs.
      *
-     * @param music TO for music
+     * @param music music
      * @return count of music songs
      */
-    private String getSongsCount(final MusicTO music) {
-        final List<SongTO> songs = songFacade.findSongsByMusic(music);
-        return Integer.toString(songs.size());
+    private String getSongsCount(final Music music) {
+        final Result<List<Song>> result = songFacade.find(music);
+
+        if (Status.OK == result.getStatus()) {
+            return Integer.toString(result.getData().size());
+        } else {
+            throw new IllegalArgumentException("Can't get data. " + result);
+        }
     }
 
     /**
      * Returns total length of all music songs.
      *
-     * @param music TO for music
+     * @param music music
      * @return total length of all music songs
      */
-    private String getMusicLength(final MusicTO music) {
-        final List<SongTO> songs = songFacade.findSongsByMusic(music);
-        int totalLength = 0;
-        for (final SongTO song : songs) {
-            totalLength += song.getLength();
+    private String getMusicLength(final Music music) {
+        final Result<List<Song>> result = songFacade.find(music);
+
+        if (Status.OK == result.getStatus()) {
+            int totalLength = 0;
+            for (final Song song : result.getData()) {
+                totalLength += song.getLength();
+            }
+            return new Time(totalLength).toString();
+        } else {
+            throw new IllegalArgumentException("Can't get data. " + result);
         }
-        return new Time(totalLength).toString();
     }
 
 }

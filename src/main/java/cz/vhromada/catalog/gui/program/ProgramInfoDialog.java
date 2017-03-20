@@ -7,7 +7,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
-import cz.vhromada.catalog.facade.to.ProgramTO;
+import cz.vhromada.catalog.entity.Program;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
 
@@ -16,7 +16,7 @@ import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
  *
  * @author Vladimir Hromada
  */
-public class ProgramInfoDialog extends AbstractInfoDialog<ProgramTO> {
+public class ProgramInfoDialog extends AbstractInfoDialog<Program> {
 
     /**
      * SerialVersionUID
@@ -26,72 +26,72 @@ public class ProgramInfoDialog extends AbstractInfoDialog<ProgramTO> {
     /**
      * Label for name
      */
-    private JLabel nameLabel = new JLabel("Name");
+    private final JLabel nameLabel = new JLabel("Name");
 
     /**
      * Text field for name
      */
-    private JTextField nameData = new JTextField();
+    private final JTextField nameData = new JTextField();
 
     /**
      * Label for czech Wikipedia
      */
-    private JLabel wikiCzLabel = new JLabel("Czech Wikipedia");
+    private final JLabel wikiCzLabel = new JLabel("Czech Wikipedia");
 
     /**
      * Text field for czech Wikipedia
      */
-    private JTextField wikiCzData = new JTextField();
+    private final JTextField wikiCzData = new JTextField();
 
     /**
      * Label for english Wikipedia
      */
-    private JLabel wikiEnLabel = new JLabel("English Wikipedia");
+    private final JLabel wikiEnLabel = new JLabel("English Wikipedia");
 
     /**
      * Text field for english Wikipedia
      */
-    private JTextField wikiEnData = new JTextField();
+    private final JTextField wikiEnData = new JTextField();
 
     /**
      * Label for count of media
      */
-    private JLabel mediaCountLabel = new JLabel("Count of media");
+    private final JLabel mediaCountLabel = new JLabel("Count of media");
 
     /**
      * Spinner for count of media
      */
-    private JSpinner mediaCountData = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+    private final JSpinner mediaCountData = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
 
     /**
      * Check box for crack
      */
-    private JCheckBox crackData = new JCheckBox("Crack");
+    private final JCheckBox crackData = new JCheckBox("Crack");
 
     /**
      * Check box for serial key
      */
-    private JCheckBox serialData = new JCheckBox("Serial key");
+    private final JCheckBox serialData = new JCheckBox("Serial key");
 
     /**
      * Label for other data
      */
-    private JLabel otherDataLabel = new JLabel("Other data");
+    private final JLabel otherDataLabel = new JLabel("Other data");
 
     /**
      * Text field for other data
      */
-    private JTextField otherDataData = new JTextField();
+    private final JTextField otherDataData = new JTextField();
 
     /**
      * Label for note
      */
-    private JLabel noteLabel = new JLabel("Note");
+    private final JLabel noteLabel = new JLabel("Note");
 
     /**
      * Text field for note
      */
-    private JTextField noteData = new JTextField();
+    private final JTextField noteData = new JTextField();
 
     /**
      * Creates a new instance of ProgramInfoDialog.
@@ -103,10 +103,10 @@ public class ProgramInfoDialog extends AbstractInfoDialog<ProgramTO> {
     /**
      * Creates a new instance of ProgramInfoDialog.
      *
-     * @param program TO for program
-     * @throws IllegalArgumentException if TO for program is null
+     * @param program program
+     * @throws IllegalArgumentException if program is null
      */
-    public ProgramInfoDialog(final ProgramTO program) {
+    public ProgramInfoDialog(final Program program) {
         super(program);
 
         init();
@@ -133,8 +133,8 @@ public class ProgramInfoDialog extends AbstractInfoDialog<ProgramTO> {
     }
 
     @Override
-    protected ProgramTO processData(final ProgramTO objectData) {
-        final ProgramTO program = objectData == null ? new ProgramTO() : objectData;
+    protected Program processData(final Program objectData) {
+        final Program program = objectData == null ? new Program() : objectData;
         program.setName(nameData.getText());
         program.setWikiCz(wikiCzData.getText());
         program.setWikiEn(wikiEnData.getText());

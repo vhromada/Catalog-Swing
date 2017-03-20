@@ -3,8 +3,8 @@ package cz.vhromada.catalog.gui.song;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 
-import cz.vhromada.catalog.commons.Time;
-import cz.vhromada.catalog.facade.to.SongTO;
+import cz.vhromada.catalog.common.Time;
+import cz.vhromada.catalog.entity.Song;
 import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
 
 /**
@@ -12,7 +12,7 @@ import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
  *
  * @author Vladimir Hromada
  */
-public class SongDataPanel extends AbstractDataPanel<SongTO> {
+public class SongDataPanel extends AbstractDataPanel<Song> {
 
     /**
      * SerialVersionUID
@@ -22,40 +22,40 @@ public class SongDataPanel extends AbstractDataPanel<SongTO> {
     /**
      * Label for name
      */
-    private JLabel nameLabel = new JLabel("Name");
+    private final JLabel nameLabel = new JLabel("Name");
 
     /**
      * Label with name
      */
-    private JLabel nameData = new JLabel();
+    private final JLabel nameData = new JLabel();
 
     /**
      * Label for length
      */
-    private JLabel lengthLabel = new JLabel("Length");
+    private final JLabel lengthLabel = new JLabel("Length");
 
     /**
      * Label with length
      */
-    private JLabel lengthData = new JLabel();
+    private final JLabel lengthData = new JLabel();
 
     /**
      * Label for note
      */
-    private JLabel noteLabel = new JLabel("Note");
+    private final JLabel noteLabel = new JLabel("Note");
 
     /**
      * Label with note
      */
-    private JLabel noteData = new JLabel();
+    private final JLabel noteData = new JLabel();
 
     /**
      * Creates a new instance of SongDataPanel.
      *
-     * @param song TO for song
-     * @throws IllegalArgumentException if TO for song is null
+     * @param song song
+     * @throws IllegalArgumentException if song is null
      */
-    public SongDataPanel(final SongTO song) {
+    public SongDataPanel(final Song song) {
         updateData(song);
 
         initData(nameLabel, nameData);
@@ -66,7 +66,7 @@ public class SongDataPanel extends AbstractDataPanel<SongTO> {
     }
 
     @Override
-    protected void updateComponentData(final SongTO data) {
+    protected void updateComponentData(final Song data) {
         nameData.setText(data.getName());
         lengthData.setText(new Time(data.getLength()).toString());
         noteData.setText(data.getNote());

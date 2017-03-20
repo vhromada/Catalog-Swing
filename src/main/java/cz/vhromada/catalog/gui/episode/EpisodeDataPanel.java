@@ -3,8 +3,8 @@ package cz.vhromada.catalog.gui.episode;
 import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 
-import cz.vhromada.catalog.commons.Time;
-import cz.vhromada.catalog.facade.to.EpisodeTO;
+import cz.vhromada.catalog.common.Time;
+import cz.vhromada.catalog.entity.Episode;
 import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
 
 /**
@@ -12,7 +12,7 @@ import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
  *
  * @author Vladimir Hromada
  */
-public class EpisodeDataPanel extends AbstractDataPanel<EpisodeTO> {
+public class EpisodeDataPanel extends AbstractDataPanel<Episode> {
 
     /**
      * SerialVersionUID
@@ -22,50 +22,50 @@ public class EpisodeDataPanel extends AbstractDataPanel<EpisodeTO> {
     /**
      * Label for number
      */
-    private JLabel numberLabel = new JLabel("Number of episode");
+    private final JLabel numberLabel = new JLabel("Number of episode");
 
     /**
      * Label with number
      */
-    private JLabel numberData = new JLabel();
+    private final JLabel numberData = new JLabel();
 
     /**
      * Label for name
      */
-    private JLabel nameLabel = new JLabel("Name");
+    private final JLabel nameLabel = new JLabel("Name");
 
     /**
      * Label with name
      */
-    private JLabel nameData = new JLabel();
+    private final JLabel nameData = new JLabel();
 
     /**
      * Label for length
      */
-    private JLabel lengthLabel = new JLabel("Length");
+    private final JLabel lengthLabel = new JLabel("Length");
 
     /**
      * Label with length
      */
-    private JLabel lengthData = new JLabel();
+    private final JLabel lengthData = new JLabel();
 
     /**
      * Label for note
      */
-    private JLabel noteLabel = new JLabel("Note");
+    private final JLabel noteLabel = new JLabel("Note");
 
     /**
      * Label with note
      */
-    private JLabel noteData = new JLabel();
+    private final JLabel noteData = new JLabel();
 
     /**
      * Creates a new instance of EpisodeDataPanel.
      *
-     * @param episode TO for episode
-     * @throws IllegalArgumentException if TO for episode is null
+     * @param episode episode
+     * @throws IllegalArgumentException if episode is null
      */
-    public EpisodeDataPanel(final EpisodeTO episode) {
+    public EpisodeDataPanel(final Episode episode) {
         updateData(episode);
 
         initData(numberLabel, numberData);
@@ -77,7 +77,7 @@ public class EpisodeDataPanel extends AbstractDataPanel<EpisodeTO> {
     }
 
     @Override
-    protected void updateComponentData(final EpisodeTO data) {
+    protected void updateComponentData(final Episode data) {
         numberData.setText(Integer.toString(data.getNumber()));
         nameData.setText(data.getName());
         lengthData.setText(new Time(data.getLength()).toString());

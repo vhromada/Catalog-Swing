@@ -3,19 +3,20 @@ package cz.vhromada.catalog.gui.song;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import cz.vhromada.catalog.entity.Music;
+import cz.vhromada.catalog.entity.Song;
 import cz.vhromada.catalog.facade.SongFacade;
-import cz.vhromada.catalog.facade.to.MusicTO;
-import cz.vhromada.catalog.facade.to.SongTO;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.AbstractOverviewDataPanel;
-import cz.vhromada.validators.Validators;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents panel with songs' data.
  *
  * @author Vladimir Hromada
  */
-public class SongsPanel extends AbstractOverviewDataPanel<SongTO> {
+public class SongsPanel extends AbstractOverviewDataPanel<Song> {
 
     /**
      * SerialVersionUID
@@ -25,22 +26,22 @@ public class SongsPanel extends AbstractOverviewDataPanel<SongTO> {
     /**
      * Facade for songs
      */
-    private SongFacade songFacade;
+    private final SongFacade songFacade;
 
     /**
-     * TO for music
+     * Music
      */
-    private MusicTO music;
+    private Music music;
 
     /**
      * Creates a new instance of SongsPanel.
      *
      * @param songFacade facade for songs
-     * @param music      TO for music
+     * @param music      music
      * @throws IllegalArgumentException if facade for songs is null
-     *                                  or TO for music is null
+     *                                  or music is null
      */
-    public SongsPanel(final SongFacade songFacade, final MusicTO music) {
+    public SongsPanel(final SongFacade songFacade, final Music music) {
         super(getSongsListDataModel(songFacade, music));
 
         this.songFacade = songFacade;
@@ -48,13 +49,13 @@ public class SongsPanel extends AbstractOverviewDataPanel<SongTO> {
     }
 
     /**
-     * Sets a new value to TO for music.
+     * Sets a new value to music.
      *
      * @param music new value
-     * @throws IllegalArgumentException if TO for music is null
+     * @throws IllegalArgumentException if music is null
      */
-    public void setMusic(final MusicTO music) {
-        Validators.validateArgumentNotNull(music, "TO for music");
+    public void setMusic(final Music music) {
+        Assert.notNull(music, "Music mustn't be null.");
 
         this.music = music;
     }
@@ -80,12 +81,12 @@ public class SongsPanel extends AbstractOverviewDataPanel<SongTO> {
     }
 
     @Override
-    protected AbstractInfoDialog<SongTO> getInfoDialog(final boolean add, final SongTO data) {
+    protected AbstractInfoDialog<Song> getInfoDialog(final boolean add, final Song data) {
         return add ? new SongInfoDialog() : new SongInfoDialog(data);
     }
 
     @Override
-    protected void addData(final SongTO data) {
+    protected void addData(final Song data) {
         songFacade.add(music, data);
     }
 
@@ -95,49 +96,49 @@ public class SongsPanel extends AbstractOverviewDataPanel<SongTO> {
     }
 
     @Override
-    protected void updateData(final SongTO data) {
+    protected void updateData(final Song data) {
         songFacade.update(data);
     }
 
     @Override
-    protected void removeData(final SongTO data) {
+    protected void removeData(final Song data) {
         songFacade.remove(data);
     }
 
     @Override
-    protected void duplicatesData(final SongTO data) {
+    protected void duplicatesData(final Song data) {
         songFacade.duplicate(data);
     }
 
     @Override
-    protected void moveUpData(final SongTO data) {
+    protected void moveUpData(final Song data) {
         songFacade.moveUp(data);
     }
 
     @Override
-    protected void moveDownData(final SongTO data) {
+    protected void moveDownData(final Song data) {
         songFacade.moveDown(data);
     }
 
     @Override
-    protected JPanel getDataPanel(final SongTO data) {
+    protected JPanel getDataPanel(final Song data) {
         return new SongDataPanel(data);
     }
 
     @Override
-    protected void updateDataOnChange(final JTabbedPane dataPanel, final SongTO data) {
+    protected void updateDataOnChange(final JTabbedPane dataPanel, final Song data) {
     }
 
     /**
      * Returns data model for list with songs.
      *
      * @param facade      facade for songs
-     * @param musicObject TO for music
+     * @param musicObject music
      * @return data model for list with songs
      * @throws IllegalArgumentException if facade for songs is null
-     *                                  or TO for music is null
+     *                                  or music is null
      */
-    private static SongsListDataModel getSongsListDataModel(final SongFacade facade, final MusicTO musicObject) {
+    private static SongsListDataModel getSongsListDataModel(final SongFacade facade, final Music musicObject) {
         return new SongsListDataModel(facade, musicObject);
     }
 

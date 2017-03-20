@@ -3,8 +3,8 @@ package cz.vhromada.catalog.gui.genre;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.facade.GenreFacade;
-import cz.vhromada.catalog.facade.to.GenreTO;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.AbstractOverviewDataPanel;
 
@@ -13,7 +13,7 @@ import cz.vhromada.catalog.gui.commons.AbstractOverviewDataPanel;
  *
  * @author Vladimir Hromada
  */
-public class GenresPanel extends AbstractOverviewDataPanel<GenreTO> {
+public class GenresPanel extends AbstractOverviewDataPanel<Genre> {
 
     /**
      * SerialVersionUID
@@ -23,7 +23,7 @@ public class GenresPanel extends AbstractOverviewDataPanel<GenreTO> {
     /**
      * Facade for genres
      */
-    private GenreFacade genreFacade;
+    private final GenreFacade genreFacade;
 
     /**
      * Creates a new instance of GenresPanel.
@@ -38,7 +38,7 @@ public class GenresPanel extends AbstractOverviewDataPanel<GenreTO> {
     }
 
     @Override
-    protected AbstractInfoDialog<GenreTO> getInfoDialog(final boolean add, final GenreTO data) {
+    protected AbstractInfoDialog<Genre> getInfoDialog(final boolean add, final Genre data) {
         return add ? new GenreInfoDialog() : new GenreInfoDialog(data);
     }
 
@@ -48,42 +48,42 @@ public class GenresPanel extends AbstractOverviewDataPanel<GenreTO> {
     }
 
     @Override
-    protected void addData(final GenreTO data) {
+    protected void addData(final Genre data) {
         genreFacade.add(data);
     }
 
     @Override
-    protected void updateData(final GenreTO data) {
+    protected void updateData(final Genre data) {
         genreFacade.update(data);
     }
 
     @Override
-    protected void removeData(final GenreTO data) {
+    protected void removeData(final Genre data) {
         genreFacade.remove(data);
     }
 
     @Override
-    protected void duplicatesData(final GenreTO data) {
+    protected void duplicatesData(final Genre data) {
         genreFacade.duplicate(data);
     }
 
     @Override
-    protected void moveUpData(final GenreTO data) {
+    protected void moveUpData(final Genre data) {
         genreFacade.moveUp(data);
     }
 
     @Override
-    protected void moveDownData(final GenreTO data) {
+    protected void moveDownData(final Genre data) {
         genreFacade.moveDown(data);
     }
 
     @Override
-    protected JPanel getDataPanel(final GenreTO data) {
+    protected JPanel getDataPanel(final Genre data) {
         return new GenreDataPanel(data);
     }
 
     @Override
-    protected void updateDataOnChange(final JTabbedPane dataPanel, final GenreTO data) {
+    protected void updateDataOnChange(final JTabbedPane dataPanel, final Genre data) {
     }
 
     /**

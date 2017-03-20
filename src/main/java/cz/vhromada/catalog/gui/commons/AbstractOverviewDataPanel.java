@@ -15,7 +15,7 @@ import javax.swing.KeyStroke;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
 
-import cz.vhromada.validators.Validators;
+import org.springframework.util.Assert;
 
 /**
  * An abstract class represents overview panel with data.
@@ -63,72 +63,72 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
     /**
      * Popup menu
      */
-    private JPopupMenu popupMenu = new JPopupMenu();
+    private final JPopupMenu popupMenu = new JPopupMenu();
 
     /**
      * Menu item for adding data
      */
-    private JMenuItem addPopupMenuItem = new JMenuItem("Add", Picture.ADD.getIcon());
+    private final JMenuItem addPopupMenuItem = new JMenuItem("Add", Picture.ADD.getIcon());
 
     /**
      * Menu item for updating data
      */
-    private JMenuItem updatePopupMenuItem = new JMenuItem("Update", Picture.UPDATE.getIcon());
+    private final JMenuItem updatePopupMenuItem = new JMenuItem("Update", Picture.UPDATE.getIcon());
 
     /**
      * Menu item for removing data
      */
-    private JMenuItem removePopupMenuItem = new JMenuItem("Remove", Picture.REMOVE.getIcon());
+    private final JMenuItem removePopupMenuItem = new JMenuItem("Remove", Picture.REMOVE.getIcon());
 
     /**
      * Menu item for duplicating data
      */
-    private JMenuItem duplicatePopupMenuItem = new JMenuItem("Duplicate", Picture.DUPLICATE.getIcon());
+    private final JMenuItem duplicatePopupMenuItem = new JMenuItem("Duplicate", Picture.DUPLICATE.getIcon());
 
     /**
      * Menu item for moving up data
      */
-    private JMenuItem moveUpPopupMenuItem = new JMenuItem("Move up", Picture.UP.getIcon());
+    private final JMenuItem moveUpPopupMenuItem = new JMenuItem("Move up", Picture.UP.getIcon());
 
     /**
      * Menu item for moving down data
      */
-    private JMenuItem moveDownPopupMenuItem = new JMenuItem("Move down", Picture.DOWN.getIcon());
+    private final JMenuItem moveDownPopupMenuItem = new JMenuItem("Move down", Picture.DOWN.getIcon());
 
     /**
      * List with data
      */
-    private JList<String> list = new JList<>();
+    private final JList<String> list = new JList<>();
 
     /**
      * ScrollPane for list with data
      */
-    private JScrollPane listScrollPane = new JScrollPane(list);
+    private final JScrollPane listScrollPane = new JScrollPane(list);
 
     /**
      * Tabbed pane with data
      */
-    private JTabbedPane tabbedPane = new JTabbedPane();
+    private final JTabbedPane tabbedPane = new JTabbedPane();
 
     /**
      * Table with with stats
      */
-    private JTable statsTable = new JTable();
+    private final JTable statsTable = new JTable();
 
     /**
      * ScrollPane for table with stats
      */
-    private JScrollPane statsTableScrollPane = new JScrollPane(statsTable);
+    private final JScrollPane statsTableScrollPane = new JScrollPane(statsTable);
 
     /**
      * Data model for list
      */
-    private AbstractListDataModel<T> listDataModel;
+    private final AbstractListDataModel<T> listDataModel;
 
     /**
      * Data model for table with stats
      */
-    private AbstractStatsTableDataModel statsTableDataModel;
+    private final AbstractStatsTableDataModel statsTableDataModel;
 
     /**
      * True if data is saved
@@ -142,7 +142,7 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
      * @throws IllegalArgumentException if data model for list is null
      */
     public AbstractOverviewDataPanel(final AbstractListDataModel<T> listDataModel) {
-        Validators.validateArgumentNotNull(listDataModel, "Data model for list");
+        Assert.notNull(listDataModel, "Data model for list mustn't be null.");
 
         this.listDataModel = listDataModel;
         this.statsTableDataModel = null;
@@ -159,8 +159,8 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
      *                                  or data model for table with stats is null
      */
     public AbstractOverviewDataPanel(final AbstractListDataModel<T> listDataModel, final AbstractStatsTableDataModel statsTableDataModel) {
-        Validators.validateArgumentNotNull(listDataModel, "Data model for list");
-        Validators.validateArgumentNotNull(statsTableDataModel, "Data model for table with stats");
+        Assert.notNull(listDataModel, "Data model for list mustn't be null.");
+        Assert.notNull(statsTableDataModel, "Data model for table with stats mustn't be null.");
 
         this.listDataModel = listDataModel;
         this.statsTableDataModel = statsTableDataModel;
@@ -213,7 +213,7 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
      * @param data data
      * @return info dialog
      */
-    protected abstract AbstractInfoDialog<T> getInfoDialog(final boolean add, final T data);
+    protected abstract AbstractInfoDialog<T> getInfoDialog(boolean add, T data);
 
     /**
      * Deletes data.
@@ -225,42 +225,42 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
      *
      * @param data data
      */
-    protected abstract void addData(final T data);
+    protected abstract void addData(T data);
 
     /**
      * Updates data.
      *
      * @param data data
      */
-    protected abstract void updateData(final T data);
+    protected abstract void updateData(T data);
 
     /**
      * Removes data.
      *
      * @param data data
      */
-    protected abstract void removeData(final T data);
+    protected abstract void removeData(T data);
 
     /**
      * Duplicates data.
      *
      * @param data data
      */
-    protected abstract void duplicatesData(final T data);
+    protected abstract void duplicatesData(T data);
 
     /**
      * Moves up data.
      *
      * @param data data
      */
-    protected abstract void moveUpData(final T data);
+    protected abstract void moveUpData(T data);
 
     /**
      * Moves down data.
      *
      * @param data data
      */
-    protected abstract void moveDownData(final T data);
+    protected abstract void moveDownData(T data);
 
     /**
      * Returns data panel.
@@ -268,7 +268,7 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
      * @param data data
      * @return data panel
      */
-    protected abstract JPanel getDataPanel(final T data);
+    protected abstract JPanel getDataPanel(T data);
 
     /**
      * Updates data on change.
@@ -276,7 +276,7 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
      * @param dataPanel tabbed pane with data
      * @param data      data
      */
-    protected abstract void updateDataOnChange(final JTabbedPane dataPanel, final T data);
+    protected abstract void updateDataOnChange(JTabbedPane dataPanel, T data);
 
     /**
      * Updates model.

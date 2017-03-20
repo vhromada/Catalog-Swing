@@ -12,14 +12,15 @@ import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
+import cz.vhromada.catalog.SwingConfiguration;
 import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
 import cz.vhromada.catalog.gui.commons.DialogResult;
-import cz.vhromada.validators.Validators;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.util.Assert;
 
 /**
  * A class represents dialog for loading.
@@ -56,7 +57,7 @@ public class LoadingDialog extends JDialog {
     /**
      * Label with time passed.
      */
-    private JLabel progress = new JLabel("0 s");
+    private final JLabel progress = new JLabel("0 s");
 
     /**
      * Creates a new instance of LoadingDialog.
@@ -97,7 +98,7 @@ public class LoadingDialog extends JDialog {
      * @throws IllegalStateException if application context hasn't been set
      */
     public ConfigurableApplicationContext getContext() {
-        Validators.validateFieldNotNull(context, "Application context");
+        Assert.state(context != null, "Application context mustn't be null.");
 
         return context;
     }
@@ -142,7 +143,7 @@ public class LoadingDialog extends JDialog {
         protected ConfigurableApplicationContext doInBackground() throws Exception {
             timer = new Timer(1000, e -> timerAction());
             timer.start();
-            return new ClassPathXmlApplicationContext("applicationContext.xml");
+            return new AnnotationConfigApplicationContext(SwingConfiguration.class);
         }
 
         @Override

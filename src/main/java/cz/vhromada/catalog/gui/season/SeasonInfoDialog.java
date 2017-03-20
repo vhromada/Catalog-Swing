@@ -9,17 +9,17 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
-import cz.vhromada.catalog.commons.Constants;
-import cz.vhromada.catalog.facade.to.SeasonTO;
+import cz.vhromada.catalog.entity.Season;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
+import cz.vhromada.catalog.utils.Constants;
 
 /**
  * A class represents dialog for season.
  *
  * @author Vladimir Hromada
  */
-public class SeasonInfoDialog extends AbstractInfoDialog<SeasonTO> {
+public class SeasonInfoDialog extends AbstractInfoDialog<Season> {
 
     /**
      * SerialVersionUID
@@ -29,92 +29,92 @@ public class SeasonInfoDialog extends AbstractInfoDialog<SeasonTO> {
     /**
      * Label for season's number
      */
-    private JLabel numberLabel = new JLabel("Number of season");
+    private final JLabel numberLabel = new JLabel("Number of season");
 
     /**
      * Spinner for season's number
      */
-    private JSpinner numberData = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+    private final JSpinner numberData = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
 
     /**
      * Label for starting year
      */
-    private JLabel startYearLabel = new JLabel("Starting year");
+    private final JLabel startYearLabel = new JLabel("Starting year");
 
     /**
      * Spinner for starting year
      */
-    private JSpinner startYearData = new JSpinner(new SpinnerNumberModel(Constants.CURRENT_YEAR, Constants.MIN_YEAR, Constants.CURRENT_YEAR, 1));
+    private final JSpinner startYearData = new JSpinner(new SpinnerNumberModel(Constants.CURRENT_YEAR, Constants.MIN_YEAR, Constants.CURRENT_YEAR, 1));
 
     /**
      * Label for ending year
      */
-    private JLabel endYearLabel = new JLabel("Ending year");
+    private final JLabel endYearLabel = new JLabel("Ending year");
 
     /**
      * Spinner for ending year
      */
-    private JSpinner endYearData = new JSpinner(new SpinnerNumberModel(Constants.CURRENT_YEAR, Constants.MIN_YEAR, Constants.CURRENT_YEAR, 1));
+    private final JSpinner endYearData = new JSpinner(new SpinnerNumberModel(Constants.CURRENT_YEAR, Constants.MIN_YEAR, Constants.CURRENT_YEAR, 1));
 
     /**
      * Label for language
      */
-    private JLabel languageLabel = new JLabel("Language");
+    private final JLabel languageLabel = new JLabel("Language");
 
     /**
      * Button group for languages
      */
-    private ButtonGroup languagesButtonGroup = new ButtonGroup();
+    private final ButtonGroup languagesButtonGroup = new ButtonGroup();
 
     /**
      * Radio button for czech language
      */
-    private JRadioButton czechLanguageData = new JRadioButton("Czech", true);
+    private final JRadioButton czechLanguageData = new JRadioButton("Czech", true);
 
     /**
      * Radio button for english language
      */
-    private JRadioButton englishLanguageData = new JRadioButton("English");
+    private final JRadioButton englishLanguageData = new JRadioButton("English");
 
     /**
      * Radio button for french language
      */
-    private JRadioButton frenchLanguageData = new JRadioButton("French");
+    private final JRadioButton frenchLanguageData = new JRadioButton("French");
 
     /**
      * Radio button for japanese language
      */
-    private JRadioButton japaneseLanguageData = new JRadioButton("Japanese");
+    private final JRadioButton japaneseLanguageData = new JRadioButton("Japanese");
 
     /**
      * Radio button for slovak language
      */
-    private JRadioButton slovakLanguageData = new JRadioButton("Slovak");
+    private final JRadioButton slovakLanguageData = new JRadioButton("Slovak");
 
     /**
      * Label for subtitles
      */
-    private JLabel subtitlesLabel = new JLabel("Subtitles");
+    private final JLabel subtitlesLabel = new JLabel("Subtitles");
 
     /**
      * Check box for czech subtitles
      */
-    private JCheckBox czechSubtitlesData = new JCheckBox("Czech");
+    private final JCheckBox czechSubtitlesData = new JCheckBox("Czech");
 
     /**
      * Check box for english subtitles
      */
-    private JCheckBox englishSubtitlesData = new JCheckBox("English");
+    private final JCheckBox englishSubtitlesData = new JCheckBox("English");
 
     /**
      * Label for note
      */
-    private JLabel noteLabel = new JLabel("Note");
+    private final JLabel noteLabel = new JLabel("Note");
 
     /**
      * Text field for note
      */
-    private JTextField noteData = new JTextField();
+    private final JTextField noteData = new JTextField();
 
     /**
      * Creates a new instance of SeasonInfoDialog.
@@ -128,10 +128,10 @@ public class SeasonInfoDialog extends AbstractInfoDialog<SeasonTO> {
     /**
      * Creates a new instance of SeasonInfoDialog.
      *
-     * @param season TO for season
-     * @throws IllegalArgumentException if TO for season is null
+     * @param season  season
+     * @throws IllegalArgumentException if season is null
      */
-    public SeasonInfoDialog(final SeasonTO season) {
+    public SeasonInfoDialog(final Season season) {
         super(season);
 
         init();
@@ -165,8 +165,8 @@ public class SeasonInfoDialog extends AbstractInfoDialog<SeasonTO> {
     }
 
     @Override
-    protected SeasonTO processData(final SeasonTO objectData) {
-        final SeasonTO season = objectData == null ? new SeasonTO() : objectData;
+    protected Season processData(final Season objectData) {
+        final Season season = objectData == null ? new Season() : objectData;
         season.setNumber((Integer) numberData.getValue());
         season.setStartYear((Integer) startYearData.getValue());
         season.setEndYear((Integer) endYearData.getValue());

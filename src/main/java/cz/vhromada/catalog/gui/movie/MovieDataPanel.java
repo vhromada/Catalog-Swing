@@ -7,19 +7,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import cz.vhromada.catalog.commons.Time;
-import cz.vhromada.catalog.facade.to.MediumTO;
-import cz.vhromada.catalog.facade.to.MovieTO;
+import cz.vhromada.catalog.common.Time;
+import cz.vhromada.catalog.entity.Medium;
+import cz.vhromada.catalog.entity.Movie;
 import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
 import cz.vhromada.catalog.gui.commons.WebPageButtonType;
-import cz.vhromada.validators.Validators;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents panel with movie's data.
  *
  * @author Vladimir Hromada
  */
-public class MovieDataPanel extends AbstractDataPanel<MovieTO> {
+public class MovieDataPanel extends AbstractDataPanel<Movie> {
 
     /**
      * SerialVersionUID
@@ -29,117 +30,117 @@ public class MovieDataPanel extends AbstractDataPanel<MovieTO> {
     /**
      * Label for picture
      */
-    private JLabel pictureData = new JLabel();
+    private final JLabel pictureData = new JLabel();
 
     /**
      * Label for czech name
      */
-    private JLabel czechNameLabel = new JLabel("Czech name");
+    private final JLabel czechNameLabel = new JLabel("Czech name");
 
     /**
      * Label with czech name
      */
-    private JLabel czechNameData = new JLabel();
+    private final JLabel czechNameData = new JLabel();
 
     /**
      * Label for original name
      */
-    private JLabel originalNameLabel = new JLabel("Original name");
+    private final JLabel originalNameLabel = new JLabel("Original name");
 
     /**
      * Label with original name
      */
-    private JLabel originalNameData = new JLabel();
+    private final JLabel originalNameData = new JLabel();
 
     /**
      * Label for genre
      */
-    private JLabel genreLabel = new JLabel("Genre");
+    private final JLabel genreLabel = new JLabel("Genre");
 
     /**
      * Label with genre
      */
-    private JLabel genreData = new JLabel();
+    private final JLabel genreData = new JLabel();
 
     /**
      * Label for year
      */
-    private JLabel yearLabel = new JLabel("Year");
+    private final JLabel yearLabel = new JLabel("Year");
 
     /**
      * Label with year
      */
-    private JLabel yearData = new JLabel();
+    private final JLabel yearData = new JLabel();
 
     /**
      * Label for language
      */
-    private JLabel languageLabel = new JLabel("Language");
+    private final JLabel languageLabel = new JLabel("Language");
 
     /**
      * Label with language
      */
-    private JLabel languageData = new JLabel();
+    private final JLabel languageData = new JLabel();
 
     /**
      * Label for subtitles
      */
-    private JLabel subtitlesLabel = new JLabel("Subtitles");
+    private final JLabel subtitlesLabel = new JLabel("Subtitles");
 
     /**
      * Label with subtitles
      */
-    private JLabel subtitlesData = new JLabel();
+    private final JLabel subtitlesData = new JLabel();
 
     /**
      * Label for media
      */
-    private JLabel mediaLabel = new JLabel("Length of media");
+    private final JLabel mediaLabel = new JLabel("Length of media");
 
     /**
      * Label with media
      */
-    private JLabel mediaData = new JLabel();
+    private final JLabel mediaData = new JLabel();
 
     /**
      * Label for total length
      */
-    private JLabel totalLengthLabel = new JLabel("Total length");
+    private final JLabel totalLengthLabel = new JLabel("Total length");
 
     /**
      * Label with total length
      */
-    private JLabel totalLengthData = new JLabel();
+    private final JLabel totalLengthData = new JLabel();
 
     /**
      * Label for note
      */
-    private JLabel noteLabel = new JLabel("Note");
+    private final JLabel noteLabel = new JLabel("Note");
 
     /**
      * Label with note
      */
-    private JLabel noteData = new JLabel();
+    private final JLabel noteData = new JLabel();
 
     /**
      * Button for showing movie's ČSFD page
      */
-    private JButton csfdButton = new JButton("ČSFD");
+    private final JButton csfdButton = new JButton("ČSFD");
 
     /**
      * Button for showing movie's IMDB page
      */
-    private JButton imdbButton = new JButton("IMDB");
+    private final JButton imdbButton = new JButton("IMDB");
 
     /**
      * Button for showing movie's czech Wikipedia page
      */
-    private JButton wikiCzButton = new JButton("Czech Wikipedia");
+    private final JButton wikiCzButton = new JButton("Czech Wikipedia");
 
     /**
      * Button for showing movie's english Wikipedia page
      */
-    private JButton wikiEnButton = new JButton("English Wikipedia");
+    private final JButton wikiEnButton = new JButton("English Wikipedia");
 
     /**
      * URL to ČSFD page about movie
@@ -164,13 +165,13 @@ public class MovieDataPanel extends AbstractDataPanel<MovieTO> {
     /**
      * Creates a new instance of MovieDataPanel.
      *
-     * @param movie TO for movie
+     * @param movie movie
      * @throws IllegalArgumentException if movie is null
      */
-    public MovieDataPanel(final MovieTO movie) {
+    public MovieDataPanel(final Movie movie) {
         updateData(movie);
 
-        Validators.validateArgumentNotNull(movie, "TO for movie");
+        Assert.notNull(movie, "Movie mustn't be null.");
 
         pictureData.setFocusable(false);
 
@@ -193,8 +194,8 @@ public class MovieDataPanel extends AbstractDataPanel<MovieTO> {
     }
 
     @Override
-    protected void updateComponentData(final MovieTO data) {
-        Validators.validateArgumentNotNull(data, "TO for movie");
+    protected void updateComponentData(final Movie data) {
+        Assert.notNull(data, "movie");
 
         final String picture = data.getPicture();
         if (picture.isEmpty()) {
@@ -286,18 +287,18 @@ public class MovieDataPanel extends AbstractDataPanel<MovieTO> {
     /**
      * Returns movie's media.
      *
-     * @param movie TO for movie
+     * @param movie movie
      * @return movie's media
      */
-    private static String getMedia(final MovieTO movie) {
-        final List<MediumTO> media = movie.getMedia();
+    private static String getMedia(final Movie movie) {
+        final List<Medium> media = movie.getMedia();
 
         if (media == null || media.isEmpty()) {
             return "";
         }
 
         final StringBuilder subtitlesString = new StringBuilder();
-        for (final MediumTO medium : media) {
+        for (final Medium medium : media) {
             subtitlesString.append(new Time(medium.getLength()));
             subtitlesString.append(", ");
         }
@@ -308,18 +309,18 @@ public class MovieDataPanel extends AbstractDataPanel<MovieTO> {
     /**
      * Returns total length of movie.
      *
-     * @param movie TO for movie
+     * @param movie movie
      * @return total length of movie
      */
-    private static String getMovieLength(final MovieTO movie) {
-        final List<MediumTO> media = movie.getMedia();
+    private static String getMovieLength(final Movie movie) {
+        final List<Medium> media = movie.getMedia();
 
         if (media == null || media.isEmpty()) {
             return new Time(0).toString();
         }
 
         int totalLength = 0;
-        for (final MediumTO medium : media) {
+        for (final Medium medium : media) {
             totalLength += medium.getLength();
         }
         return new Time(totalLength).toString();

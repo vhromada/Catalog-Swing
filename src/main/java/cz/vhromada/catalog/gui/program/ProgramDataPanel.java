@@ -4,7 +4,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import cz.vhromada.catalog.facade.to.ProgramTO;
+import cz.vhromada.catalog.entity.Program;
 import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
 import cz.vhromada.catalog.gui.commons.WebPageButtonType;
 
@@ -13,7 +13,7 @@ import cz.vhromada.catalog.gui.commons.WebPageButtonType;
  *
  * @author Vladimir Hromada
  */
-public class ProgramDataPanel extends AbstractDataPanel<ProgramTO> {
+public class ProgramDataPanel extends AbstractDataPanel<Program> {
 
     /**
      * SerialVersionUID
@@ -23,52 +23,52 @@ public class ProgramDataPanel extends AbstractDataPanel<ProgramTO> {
     /**
      * Label for name
      */
-    private JLabel nameLabel = new JLabel("Name");
+    private final JLabel nameLabel = new JLabel("Name");
 
     /**
      * Label with name
      */
-    private JLabel nameData = new JLabel();
+    private final JLabel nameData = new JLabel();
 
     /**
      * Label for additional data
      */
-    private JLabel dataLabel = new JLabel("Additional data");
+    private final JLabel dataLabel = new JLabel("Additional data");
 
     /**
      * Label with additional data
      */
-    private JLabel dataData = new JLabel();
+    private final JLabel dataData = new JLabel();
 
     /**
      * Label for count of media
      */
-    private JLabel mediaCountLabel = new JLabel("Count of media");
+    private final JLabel mediaCountLabel = new JLabel("Count of media");
 
     /**
      * Label with count of media
      */
-    private JLabel mediaCountData = new JLabel();
+    private final JLabel mediaCountData = new JLabel();
 
     /**
      * Label for note
      */
-    private JLabel noteLabel = new JLabel("Note");
+    private final JLabel noteLabel = new JLabel("Note");
 
     /**
      * Label with note
      */
-    private JLabel noteData = new JLabel();
+    private final JLabel noteData = new JLabel();
 
     /**
      * Button for showing program's czech Wikipedia page
      */
-    private JButton wikiCzButton = new JButton("Czech Wikipedia");
+    private final JButton wikiCzButton = new JButton("Czech Wikipedia");
 
     /**
      * Button for showing program's english Wikipedia page
      */
-    private JButton wikiEnButton = new JButton("English Wikipedia");
+    private final JButton wikiEnButton = new JButton("English Wikipedia");
 
     /**
      * URL to czech Wikipedia page about program
@@ -83,10 +83,10 @@ public class ProgramDataPanel extends AbstractDataPanel<ProgramTO> {
     /**
      * Creates a new instance of ProgramDataPanel.
      *
-     * @param program TO for program
-     * @throws IllegalArgumentException if TO for program is null
+     * @param program program
+     * @throws IllegalArgumentException if program is null
      */
-    public ProgramDataPanel(final ProgramTO program) {
+    public ProgramDataPanel(final Program program) {
         updateData(program);
 
         initData(nameLabel, nameData);
@@ -101,7 +101,7 @@ public class ProgramDataPanel extends AbstractDataPanel<ProgramTO> {
     }
 
     @Override
-    protected void updateComponentData(final ProgramTO data) {
+    protected void updateComponentData(final Program data) {
         nameData.setText(data.getName());
         dataData.setText(getAdditionalData(data));
         mediaCountData.setText(Integer.toString(data.getMediaCount()));
@@ -161,10 +161,10 @@ public class ProgramDataPanel extends AbstractDataPanel<ProgramTO> {
     /**
      * Returns additional data.
      *
-     * @param program TO for program
+     * @param program program
      * @return additional data
      */
-    private static String getAdditionalData(final ProgramTO program) {
+    private static String getAdditionalData(final Program program) {
         final StringBuilder result = new StringBuilder();
         if (program.getCrack()) {
             result.append("Crack");

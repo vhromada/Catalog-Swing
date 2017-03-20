@@ -63,27 +63,27 @@ public class AboutDialog extends JDialog {
     /**
      * Label for name
      */
-    private JLabel nameLabel = new JLabel("Catalog", Picture.CATALOG.getIcon(), SwingConstants.LEADING);
+    private final JLabel nameLabel = new JLabel("Catalog", Picture.CATALOG.getIcon(), SwingConstants.LEADING);
 
     /**
      * Label for version
      */
-    private JLabel versionLabel = new JLabel("Version: 2.0.1");
+    private final JLabel versionLabel = new JLabel("Version: 3.0.0");
 
     /**
      * Label for author
      */
-    private JLabel authorLabel = new JLabel("Author: Vladimír Hromada");
+    private final JLabel authorLabel = new JLabel("Author: Vladimír Hromada");
 
     /**
      * Label for copyrights
      */
-    private JLabel rightsLabel = new JLabel("All rights reserved.");
+    private final JLabel rightsLabel = new JLabel("All rights reserved.");
 
     /**
      * Button OK
      */
-    private JButton okButton = new JButton("OK", Picture.OK.getIcon());
+    private final JButton okButton = new JButton("OK", Picture.OK.getIcon());
 
     /**
      * Creates a new instance of AboutDialog.

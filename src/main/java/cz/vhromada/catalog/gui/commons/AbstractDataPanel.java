@@ -8,9 +8,10 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import cz.vhromada.catalog.commons.Language;
-import cz.vhromada.catalog.facade.to.GenreTO;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.catalog.common.Language;
+import cz.vhromada.catalog.entity.Genre;
+
+import org.springframework.util.Assert;
 
 /**
  * An abstract class represents panel with data.
@@ -67,7 +68,7 @@ public abstract class AbstractDataPanel<T> extends JPanel {
      * @throws IllegalArgumentException if data are null
      */
     public final void updateData(final T data) {
-        Validators.validateArgumentNotNull(data, "Data");
+        Assert.notNull(data, "Data mustn't be null.");
 
         updateComponentData(data);
     }
@@ -77,7 +78,7 @@ public abstract class AbstractDataPanel<T> extends JPanel {
      *
      * @param data data
      */
-    protected abstract void updateComponentData(final T data);
+    protected abstract void updateComponentData(T data);
 
     /**
      * Initializes data.
@@ -169,16 +170,16 @@ public abstract class AbstractDataPanel<T> extends JPanel {
     /**
      * Returns genres as string.
      *
-     * @param genres list of TO for genre
+     * @param genres list of genres
      * @return genres as string
      */
-    protected static String getGenres(final List<GenreTO> genres) {
+    protected static String getGenres(final List<Genre> genres) {
         if (genres == null || genres.isEmpty()) {
             return "";
         }
 
         final StringBuilder genresString = new StringBuilder();
-        for (final GenreTO genre : genres) {
+        for (final Genre genre : genres) {
             genresString.append(genre.getName());
             genresString.append(", ");
         }
@@ -223,7 +224,7 @@ public abstract class AbstractDataPanel<T> extends JPanel {
      * @param group  group
      * @return horizontal layout for components
      */
-    protected abstract GroupLayout.Group getHorizontalLayoutWithComponents(final GroupLayout layout, GroupLayout.Group group);
+    protected abstract GroupLayout.Group getHorizontalLayoutWithComponents(GroupLayout layout, GroupLayout.Group group);
 
     /**
      * Returns horizontal layout for label component with data component.
@@ -264,7 +265,7 @@ public abstract class AbstractDataPanel<T> extends JPanel {
      * @param group  group
      * @return vertical layout for components
      */
-    protected abstract GroupLayout.Group getVerticalLayoutWithComponents(final GroupLayout layout, GroupLayout.Group group);
+    protected abstract GroupLayout.Group getVerticalLayoutWithComponents(GroupLayout layout, GroupLayout.Group group);
 
     /**
      * Returns vertical layout for label component with data component.

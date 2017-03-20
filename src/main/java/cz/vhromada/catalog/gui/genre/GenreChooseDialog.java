@@ -12,12 +12,13 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.WindowConstants;
 
+import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.facade.GenreFacade;
-import cz.vhromada.catalog.facade.to.GenreTO;
 import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
 import cz.vhromada.catalog.gui.commons.DialogResult;
 import cz.vhromada.catalog.gui.commons.Picture;
-import cz.vhromada.validators.Validators;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents dialog for choosing genre.
@@ -74,32 +75,32 @@ public class GenreChooseDialog extends JDialog {
     /**
      * Facade for genres
      */
-    private GenreFacade genreFacade;
+    private final GenreFacade genreFacade;
 
     /**
-     * List of TO for genre
+     * List of genres
      */
-    private List<GenreTO> genres;
+    private List<Genre> genres;
 
     /**
      * List with genres
      */
-    private JList<String> list = new JList<>();
+    private final JList<String> list = new JList<>();
 
     /**
      * ScrollPane for list with genres
      */
-    private JScrollPane listScrollPane = new JScrollPane(list);
+    private final JScrollPane listScrollPane = new JScrollPane(list);
 
     /**
      * Button OK
      */
-    private JButton okButton = new JButton("OK", Picture.OK.getIcon());
+    private final JButton okButton = new JButton("OK", Picture.OK.getIcon());
 
     /**
      * Button Cancel
      */
-    private JButton cancelButton = new JButton("Cancel", Picture.CANCEL.getIcon());
+    private final JButton cancelButton = new JButton("Cancel", Picture.CANCEL.getIcon());
 
     /**
      * Data model for list for genres
@@ -110,15 +111,15 @@ public class GenreChooseDialog extends JDialog {
      * Creates a new instance of GenreChooseDialog.
      *
      * @param genreFacade facade for genres
-     * @param genres      list of TO for genre
+     * @param genres      list of genres
      * @throws IllegalArgumentException if facade for genres is null
-     *                                  or list of TO for genre is null
+     *                                  or list of genres is null
      */
-    public GenreChooseDialog(final GenreFacade genreFacade, final List<GenreTO> genres) {
+    public GenreChooseDialog(final GenreFacade genreFacade, final List<Genre> genres) {
         super(new JFrame(), "Choose", true);
 
-        Validators.validateArgumentNotNull(genreFacade, "Facade for genres");
-        Validators.validateArgumentNotNull(genres, "List of TO for genre");
+        Assert.notNull(genreFacade, "Facade for genres mustn't be null.");
+        Assert.notNull(genres, "List of genres mustn't be null.");
 
         this.genreFacade = genreFacade;
         this.genres = genres;
@@ -136,13 +137,13 @@ public class GenreChooseDialog extends JDialog {
     }
 
     /**
-     * Returns list of TO for genre.
+     * Returns list of genres.
      *
-     * @return list of TO for genre
-     * @throws IllegalStateException if list of TO for genre for hasn't been set
+     * @return list of genres
+     * @throws IllegalStateException if list of genres for hasn't been set
      */
-    public List<GenreTO> getGenres() {
-        Validators.validateFieldNotNull(genres, "List of TO for genre");
+    public List<Genre> getGenres() {
+        Assert.state(genres != null, "List of genres mustn't be null.");
 
         return genres;
     }

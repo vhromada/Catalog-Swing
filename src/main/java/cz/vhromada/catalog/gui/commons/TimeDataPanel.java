@@ -6,8 +6,10 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import cz.vhromada.catalog.commons.Time;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.catalog.common.Time;
+
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 /**
  * A class represents TimeDataPanel.
@@ -54,33 +56,33 @@ public class TimeDataPanel extends JPanel {
     /**
      * Label for length
      */
-    private JLabel lengthLabel = new JLabel();
+    private final JLabel lengthLabel = new JLabel();
 
     /**
      * Spinner for length - hours
      */
-    private JSpinner lengthHoursData = new JSpinner(new SpinnerNumberModel(0, 0, MAX_HOURS, 1));
+    private final JSpinner lengthHoursData = new JSpinner(new SpinnerNumberModel(0, 0, MAX_HOURS, 1));
 
     /**
      * Spinner for length - minutes
      */
-    private JSpinner lengthMinutesData = new JSpinner(new SpinnerNumberModel(0, 0, MAX_MINUTES, 1));
+    private final JSpinner lengthMinutesData = new JSpinner(new SpinnerNumberModel(0, 0, MAX_MINUTES, 1));
 
     /**
      * Spinner for length - seconds
      */
-    private JSpinner lengthSecondsData = new JSpinner(new SpinnerNumberModel(0, 0, MAX_SECONDS, 1));
+    private final JSpinner lengthSecondsData = new JSpinner(new SpinnerNumberModel(0, 0, MAX_SECONDS, 1));
 
     /**
      * Creates a new instance of TimeDataPanel.
      *
      * @param labelText text of label
      * @throws IllegalArgumentException                              if text of label is null
-     * @throws cz.vhromada.validators.exceptions.ValidationException if text of label is empty string
+     *                                                               or text of label is empty string
      */
     public TimeDataPanel(final String labelText) {
-        Validators.validateArgumentNotNull(labelText, "Label text");
-        Validators.validateNotEmptyString(labelText, "Label text");
+        Assert.notNull(labelText, "Label text mustn't be null.");
+        Assert.isTrue(!StringUtils.isEmpty(labelText) && !StringUtils.isEmpty(labelText.trim()), "Label text mustn't be empty string.");
 
         this.lengthLabel.setFocusable(false);
         this.lengthLabel.setText(labelText);
@@ -111,7 +113,7 @@ public class TimeDataPanel extends JPanel {
      * @throws IllegalArgumentException if length is null
      */
     public void setLength(final Time length) {
-        Validators.validateArgumentNotNull(length, "Length");
+        Assert.notNull(length, "Length mustn't be null.");
 
         lengthHoursData.setValue(length.getData(Time.TimeData.HOUR));
         lengthMinutesData.setValue(length.getData(Time.TimeData.MINUTE));

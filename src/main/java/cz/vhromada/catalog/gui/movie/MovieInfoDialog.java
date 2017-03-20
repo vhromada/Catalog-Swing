@@ -14,24 +14,25 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
-import cz.vhromada.catalog.commons.Constants;
-import cz.vhromada.catalog.commons.Time;
+import cz.vhromada.catalog.common.Time;
+import cz.vhromada.catalog.entity.Genre;
+import cz.vhromada.catalog.entity.Medium;
+import cz.vhromada.catalog.entity.Movie;
 import cz.vhromada.catalog.facade.GenreFacade;
-import cz.vhromada.catalog.facade.to.GenreTO;
-import cz.vhromada.catalog.facade.to.MediumTO;
-import cz.vhromada.catalog.facade.to.MovieTO;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
 import cz.vhromada.catalog.gui.commons.DialogResult;
 import cz.vhromada.catalog.gui.commons.Picture;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.catalog.utils.Constants;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents dialog for movie.
  *
  * @author Vladimir Hromada
  */
-public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
+public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
 
     /**
      * SerialVersionUID
@@ -44,184 +45,184 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
     private GenreFacade genreFacade;
 
     /**
-     * List of TO for genre
+     * List of genres
      */
-    private List<GenreTO> genres = new ArrayList<>();
+    private List<Genre> genres = new ArrayList<>();
 
     /**
      * List of media
      */
-    private List<MediumTO> media = new ArrayList<>();
+    private List<Medium> media = new ArrayList<>();
 
     /**
      * Label for czech name
      */
-    private JLabel czechNameLabel = new JLabel("Czech name");
+    private final JLabel czechNameLabel = new JLabel("Czech name");
 
     /**
      * Text field for czech name
      */
-    private JTextField czechNameData = new JTextField();
+    private final JTextField czechNameData = new JTextField();
 
     /**
      * Label for original name
      */
-    private JLabel originalNameLabel = new JLabel("Original name");
+    private final JLabel originalNameLabel = new JLabel("Original name");
 
     /**
      * Text field for original name
      */
-    private JTextField originalNameData = new JTextField();
+    private final JTextField originalNameData = new JTextField();
 
     /**
      * Label for year
      */
-    private JLabel yearLabel = new JLabel("Year");
+    private final JLabel yearLabel = new JLabel("Year");
 
     /**
      * Spinner for year
      */
-    private JSpinner yearData = new JSpinner(new SpinnerNumberModel(Constants.CURRENT_YEAR, Constants.MIN_YEAR, Constants.CURRENT_YEAR, 1));
+    private final JSpinner yearData = new JSpinner(new SpinnerNumberModel(Constants.CURRENT_YEAR, Constants.MIN_YEAR, Constants.CURRENT_YEAR, 1));
 
     /**
      * Label for language
      */
-    private JLabel languageLabel = new JLabel("Language");
+    private final JLabel languageLabel = new JLabel("Language");
 
     /**
      * Button group for languages
      */
-    private ButtonGroup languagesButtonGroup = new ButtonGroup();
+    private final ButtonGroup languagesButtonGroup = new ButtonGroup();
 
     /**
      * Radio button for czech language
      */
-    private JRadioButton czechLanguageData = new JRadioButton("Czech", true);
+    private final JRadioButton czechLanguageData = new JRadioButton("Czech", true);
 
     /**
      * Radio button for english language
      */
-    private JRadioButton englishLanguageData = new JRadioButton("English");
+    private final JRadioButton englishLanguageData = new JRadioButton("English");
 
     /**
      * Radio button for french language
      */
-    private JRadioButton frenchLanguageData = new JRadioButton("French");
+    private final JRadioButton frenchLanguageData = new JRadioButton("French");
 
     /**
      * Radio button for japanese language
      */
-    private JRadioButton japaneseLanguageData = new JRadioButton("Japanese");
+    private final JRadioButton japaneseLanguageData = new JRadioButton("Japanese");
 
     /**
      * Radio button for slovak language
      */
-    private JRadioButton slovakLanguageData = new JRadioButton("Slovak");
+    private final JRadioButton slovakLanguageData = new JRadioButton("Slovak");
 
     /**
      * Label for subtitles
      */
-    private JLabel subtitlesLabel = new JLabel("Subtitles");
+    private final JLabel subtitlesLabel = new JLabel("Subtitles");
 
     /**
      * Check box for czech subtitles
      */
-    private JCheckBox czechSubtitlesData = new JCheckBox("Czech");
+    private final JCheckBox czechSubtitlesData = new JCheckBox("Czech");
 
     /**
      * Check box for english subtitles
      */
-    private JCheckBox englishSubtitlesData = new JCheckBox("English");
+    private final JCheckBox englishSubtitlesData = new JCheckBox("English");
 
     /**
      * Label for media
      */
-    private JLabel mediaLabel = new JLabel("Media");
+    private final JLabel mediaLabel = new JLabel("Media");
 
     /**
      * Data with media
      */
-    private JLabel mediaData = new JLabel();
+    private final JLabel mediaData = new JLabel();
 
     /**
      * Button for changing media
      */
-    private JButton mediaButton = new JButton("Change media", Picture.CHOOSE.getIcon());
+    private final JButton mediaButton = new JButton("Change media", Picture.CHOOSE.getIcon());
 
     /**
      * Label for ČSFD
      */
-    private JLabel csfdLabel = new JLabel("ČSFD");
+    private final JLabel csfdLabel = new JLabel("ČSFD");
 
     /**
      * Text field for ČSFD
      */
-    private JTextField csfdData = new JTextField();
+    private final JTextField csfdData = new JTextField();
 
     /**
      * Check box for IMDB code
      */
-    private JCheckBox imdbCodeLabel = new JCheckBox("IMDB code");
+    private final JCheckBox imdbCodeLabel = new JCheckBox("IMDB code");
 
     /**
      * Spinner for IMDB code
      */
-    private JSpinner imdbCodeData = new JSpinner(new SpinnerNumberModel(1, 1, Constants.MAX_IMDB_CODE, 1));
+    private final JSpinner imdbCodeData = new JSpinner(new SpinnerNumberModel(1, 1, Constants.MAX_IMDB_CODE, 1));
 
     /**
      * Label for czech Wikipedia
      */
-    private JLabel wikiCzLabel = new JLabel("Czech Wikipedia");
+    private final JLabel wikiCzLabel = new JLabel("Czech Wikipedia");
 
     /**
      * Text field for czech Wikipedia
      */
-    private JTextField wikiCzData = new JTextField();
+    private final JTextField wikiCzData = new JTextField();
 
     /**
      * Label for english Wikipedia
      */
-    private JLabel wikiEnLabel = new JLabel("English Wikipedia");
+    private final JLabel wikiEnLabel = new JLabel("English Wikipedia");
 
     /**
      * Text field for english Wikipedia
      */
-    private JTextField wikiEnData = new JTextField();
+    private final JTextField wikiEnData = new JTextField();
 
     /**
      * Label for picture
      */
-    private JLabel pictureLabel = new JLabel("Picture");
+    private final JLabel pictureLabel = new JLabel("Picture");
 
     /**
      * Text field for picture
      */
-    private JTextField pictureData = new JTextField();
+    private final JTextField pictureData = new JTextField();
 
     /**
      * Label for note
      */
-    private JLabel noteLabel = new JLabel("Note");
+    private final JLabel noteLabel = new JLabel("Note");
 
     /**
      * Text field for note
      */
-    private JTextField noteData = new JTextField();
+    private final JTextField noteData = new JTextField();
 
     /**
      * Label for genres
      */
-    private JLabel genreLabel = new JLabel("Genres");
+    private final JLabel genreLabel = new JLabel("Genres");
 
     /**
      * Data with genres
      */
-    private JLabel genreData = new JLabel();
+    private final JLabel genreData = new JLabel();
 
     /**
      * Button for changing genres
      */
-    private JButton genresButton = new JButton("Change genres", Picture.CHOOSE.getIcon());
+    private final JButton genresButton = new JButton("Change genres", Picture.CHOOSE.getIcon());
 
     /**
      * Creates a new instance of MovieInfoDialog.
@@ -239,11 +240,11 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
      * Creates a new instance of MovieInfoDialog.
      *
      * @param genreFacade facade for genres
-     * @param movie       TO for movie
+     * @param movie       movie
      * @throws IllegalArgumentException if facade for genres is null
-     *                                  or TO for movie is null
+     *                                  or movie is null
      */
-    public MovieInfoDialog(final GenreFacade genreFacade, final MovieTO movie) {
+    public MovieInfoDialog(final GenreFacade genreFacade, final Movie movie) {
         super(movie);
 
         init();
@@ -306,8 +307,8 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
     }
 
     @Override
-    protected MovieTO processData(final MovieTO objectData) {
-        final MovieTO movie = objectData == null ? new MovieTO() : objectData;
+    protected Movie processData(final Movie objectData) {
+        final Movie movie = objectData == null ? new Movie() : objectData;
         movie.setCzechName(czechNameData.getText());
         movie.setOriginalName(originalNameData.getText());
         movie.setYear((Integer) yearData.getValue());
@@ -420,7 +421,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
      * @throws IllegalArgumentException if facade for genres is null
      */
     private void setGenreFacade(final GenreFacade genreFacade) {
-        Validators.validateArgumentNotNull(genreFacade, "Facade for genres");
+        Assert.notNull(genreFacade, "Facade for genres mustn't be null.");
 
         this.genreFacade = genreFacade;
     }
@@ -436,7 +437,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<MovieTO> {
         }
 
         final StringBuilder mediaString = new StringBuilder();
-        for (final MediumTO medium : media) {
+        for (final Medium medium : media) {
             mediaString.append(new Time(medium.getLength()));
             mediaString.append(", ");
         }

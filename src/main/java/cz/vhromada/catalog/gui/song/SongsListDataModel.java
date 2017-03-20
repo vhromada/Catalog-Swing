@@ -2,18 +2,20 @@ package cz.vhromada.catalog.gui.song;
 
 import java.util.List;
 
+import cz.vhromada.catalog.entity.Music;
+import cz.vhromada.catalog.entity.Song;
 import cz.vhromada.catalog.facade.SongFacade;
-import cz.vhromada.catalog.facade.to.MusicTO;
-import cz.vhromada.catalog.facade.to.SongTO;
 import cz.vhromada.catalog.gui.commons.AbstractListDataModel;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents data model for list with songs.
  *
  * @author Vladimir Hromada
  */
-public class SongsListDataModel extends AbstractListDataModel<SongTO> {
+public class SongsListDataModel extends AbstractListDataModel<Song> {
 
     /**
      * SerialVersionUID
@@ -23,24 +25,24 @@ public class SongsListDataModel extends AbstractListDataModel<SongTO> {
     /**
      * Facade for songs
      */
-    private SongFacade songFacade;
+    private final SongFacade songFacade;
 
     /**
-     * TO for music
+     * Music
      */
-    private MusicTO music;
+    private final Music music;
 
     /**
      * Creates a new instance of SongsListDataModel.
      *
      * @param songFacade facade for songs
-     * @param music      TO for music
+     * @param music      music
      * @throws IllegalArgumentException if facade for songs is null
-     *                                  or TO for music is null
+     *                                  or music is null
      */
-    public SongsListDataModel(final SongFacade songFacade, final MusicTO music) {
-        Validators.validateArgumentNotNull(songFacade, "Facade for songs");
-        Validators.validateArgumentNotNull(music, "TO for music");
+    public SongsListDataModel(final SongFacade songFacade, final Music music) {
+        Assert.notNull(songFacade, "Facade for songs mustn't be null.");
+        Assert.notNull(music, "Music mustn't be null.");
 
         this.songFacade = songFacade;
         this.music = music;
@@ -48,12 +50,12 @@ public class SongsListDataModel extends AbstractListDataModel<SongTO> {
     }
 
     @Override
-    protected List<SongTO> getData() {
-        return songFacade.findSongsByMusic(music);
+    protected Result<List<Song>> getData() {
+        return songFacade.find(music);
     }
 
     @Override
-    protected String getDisplayValue(final SongTO dataObject) {
+    protected String getDisplayValue(final Song dataObject) {
         return dataObject.getName();
     }
 

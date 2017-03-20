@@ -11,21 +11,22 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
-import cz.vhromada.catalog.commons.Constants;
+import cz.vhromada.catalog.entity.Genre;
+import cz.vhromada.catalog.entity.Show;
 import cz.vhromada.catalog.facade.GenreFacade;
-import cz.vhromada.catalog.facade.to.GenreTO;
-import cz.vhromada.catalog.facade.to.ShowTO;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
 import cz.vhromada.catalog.gui.commons.Picture;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.catalog.utils.Constants;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents dialog for show.
  *
  * @author Vladimir Hromada
  */
-public class ShowInfoDialog extends AbstractInfoDialog<ShowTO> {
+public class ShowInfoDialog extends AbstractInfoDialog<Show> {
 
     /**
      * SerialVersionUID
@@ -38,104 +39,104 @@ public class ShowInfoDialog extends AbstractInfoDialog<ShowTO> {
     private GenreFacade genreFacade;
 
     /**
-     * List of TO for genre
+     * List of genres
      */
-    private List<GenreTO> genres = new ArrayList<>();
+    private List<Genre> genres = new ArrayList<>();
 
     /**
      * Label for czech name
      */
-    private JLabel czechNameLabel = new JLabel("Czech name");
+    private final JLabel czechNameLabel = new JLabel("Czech name");
 
     /**
      * Text field for czech name
      */
-    private JTextField czechNameData = new JTextField();
+    private final JTextField czechNameData = new JTextField();
 
     /**
      * Label for original name
      */
-    private JLabel originalNameLabel = new JLabel("Original name");
+    private final JLabel originalNameLabel = new JLabel("Original name");
 
     /**
      * Text field for original name
      */
-    private JTextField originalNameData = new JTextField();
+    private final JTextField originalNameData = new JTextField();
 
     /**
      * Label for ČSFD
      */
-    private JLabel csfdLabel = new JLabel("ČSFD");
+    private final JLabel csfdLabel = new JLabel("ČSFD");
 
     /**
      * Text field for ČSFD
      */
-    private JTextField csfdData = new JTextField();
+    private final JTextField csfdData = new JTextField();
 
     /**
      * Check box for IMDB code
      */
-    private JCheckBox imdbCodeLabel = new JCheckBox("IMDB code");
+    private final JCheckBox imdbCodeLabel = new JCheckBox("IMDB code");
 
     /**
      * Spinner for IMDB code
      */
-    private JSpinner imdbCodeData = new JSpinner(new SpinnerNumberModel(1, 1, Constants.MAX_IMDB_CODE, 1));
+    private final JSpinner imdbCodeData = new JSpinner(new SpinnerNumberModel(1, 1, Constants.MAX_IMDB_CODE, 1));
 
     /**
      * Label for czech Wikipedia
      */
-    private JLabel wikiCzLabel = new JLabel("Czech Wikipedia");
+    private final JLabel wikiCzLabel = new JLabel("Czech Wikipedia");
 
     /**
      * Text field for czech Wikipedia
      */
-    private JTextField wikiCzData = new JTextField();
+    private final JTextField wikiCzData = new JTextField();
 
     /**
      * Label for english Wikipedia
      */
-    private JLabel wikiEnLabel = new JLabel("English Wikipedia");
+    private final JLabel wikiEnLabel = new JLabel("English Wikipedia");
 
     /**
      * Text field for english Wikipedia
      */
-    private JTextField wikiEnData = new JTextField();
+    private final JTextField wikiEnData = new JTextField();
 
     /**
      * Label for picture
      */
-    private JLabel pictureLabel = new JLabel("Picture");
+    private final JLabel pictureLabel = new JLabel("Picture");
 
     /**
      * Text field for picture
      */
-    private JTextField pictureData = new JTextField();
+    private final JTextField pictureData = new JTextField();
 
     /**
      * Label for note
      */
-    private JLabel noteLabel = new JLabel("Note");
+    private final JLabel noteLabel = new JLabel("Note");
 
     /**
      * Text field for note
      */
-    private JTextField noteData = new JTextField();
+    private final JTextField noteData = new JTextField();
 
     /**
      * Label for genres
      */
-    private JLabel genreLabel = new JLabel("Genres");
+    private final JLabel genreLabel = new JLabel("Genres");
 
     /**
      * Data with genres
      */
-    private JLabel genreData = new JLabel();
+    private final JLabel genreData = new JLabel();
 
     /**
      * Button for genres
      */
-    private JButton genresButton = new JButton("Change genres", Picture.CHOOSE.getIcon());
+    private final JButton genresButton = new JButton("Change genres", Picture.CHOOSE.getIcon());
 
     /**
      * Creates a new instance of ShowInfoDialog.
@@ -154,11 +155,11 @@ public class ShowInfoDialog extends AbstractInfoDialog<ShowTO> {
      * Creates a new instance of ShowInfoDialog.
      *
      * @param genreFacade facade for genres
-     * @param show        TO for show
+     * @param show        show
      * @throws IllegalArgumentException if facade for genres is null
-     *                                  or TO for show is null
+     *                                  or show is null
      */
-    public ShowInfoDialog(final GenreFacade genreFacade, final ShowTO show) {
+    public ShowInfoDialog(final GenreFacade genreFacade, final Show show) {
         super(show);
 
         init();
@@ -204,8 +205,8 @@ public class ShowInfoDialog extends AbstractInfoDialog<ShowTO> {
     }
 
     @Override
-    protected ShowTO processData(final ShowTO objectData) {
-        final ShowTO show = objectData == null ? new ShowTO() : objectData;
+    protected Show processData(final Show objectData) {
+        final Show show = objectData == null ? new Show() : objectData;
         show.setCzechName(czechNameData.getText());
         show.setOriginalName(originalNameData.getText());
         show.setCsfd(csfdData.getText());
@@ -275,7 +276,7 @@ public class ShowInfoDialog extends AbstractInfoDialog<ShowTO> {
      * @throws IllegalArgumentException if facade for genres is null
      */
     private void setGenreFacade(final GenreFacade genreFacade) {
-        Validators.validateArgumentNotNull(genreFacade, "Facade for genres");
+        Assert.notNull(genreFacade, "Facade for genres mustn't be null.");
 
         this.genreFacade = genreFacade;
     }

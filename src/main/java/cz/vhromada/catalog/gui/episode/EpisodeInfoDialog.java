@@ -6,8 +6,8 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
-import cz.vhromada.catalog.commons.Time;
-import cz.vhromada.catalog.facade.to.EpisodeTO;
+import cz.vhromada.catalog.common.Time;
+import cz.vhromada.catalog.entity.Episode;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.TimeDataPanel;
 
@@ -16,7 +16,7 @@ import cz.vhromada.catalog.gui.commons.TimeDataPanel;
  *
  * @author Vladimir Hromada
  */
-public class EpisodeInfoDialog extends AbstractInfoDialog<EpisodeTO> {
+public class EpisodeInfoDialog extends AbstractInfoDialog<Episode> {
 
     /**
      * SerialVersionUID
@@ -26,37 +26,37 @@ public class EpisodeInfoDialog extends AbstractInfoDialog<EpisodeTO> {
     /**
      * Label for episode's number
      */
-    private JLabel numberLabel = new JLabel("Number of episode");
+    private final JLabel numberLabel = new JLabel("Number of episode");
 
     /**
      * Spinner for episode's number
      */
-    private JSpinner numberData = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+    private final JSpinner numberData = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
 
     /**
      * Label for name
      */
-    private JLabel nameLabel = new JLabel("Name");
+    private final JLabel nameLabel = new JLabel("Name");
 
     /**
      * Text field for name
      */
-    private JTextField nameData = new JTextField();
+    private final JTextField nameData = new JTextField();
 
     /**
      * Panel for length
      */
-    private TimeDataPanel lengthPanel = new TimeDataPanel("Length");
+    private final TimeDataPanel lengthPanel = new TimeDataPanel("Length");
 
     /**
      * Label for note
      */
-    private JLabel noteLabel = new JLabel("Note");
+    private final JLabel noteLabel = new JLabel("Note");
 
     /**
      * Text field for note
      */
-    private JTextField noteData = new JTextField();
+    private final JTextField noteData = new JTextField();
 
     /**
      * Creates a new instance of EpisodeInfoDialog.
@@ -68,10 +68,10 @@ public class EpisodeInfoDialog extends AbstractInfoDialog<EpisodeTO> {
     /**
      * Creates a new instance of EpisodeInfoDialog.
      *
-     * @param episode TO for episode
-     * @throws IllegalArgumentException if TO for episode is null
+     * @param episode episode
+     * @throws IllegalArgumentException if episode is null
      */
-    public EpisodeInfoDialog(final EpisodeTO episode) {
+    public EpisodeInfoDialog(final Episode episode) {
         super(episode);
 
         init();
@@ -91,8 +91,8 @@ public class EpisodeInfoDialog extends AbstractInfoDialog<EpisodeTO> {
     }
 
     @Override
-    protected EpisodeTO processData(final EpisodeTO objectData) {
-        final EpisodeTO episode = objectData == null ? new EpisodeTO() : objectData;
+    protected Episode processData(final Episode objectData) {
+        final Episode episode = objectData == null ? new Episode() : objectData;
         episode.setNumber((Integer) numberData.getValue());
         episode.setName(nameData.getText());
         episode.setLength(lengthPanel.getLength().getLength());

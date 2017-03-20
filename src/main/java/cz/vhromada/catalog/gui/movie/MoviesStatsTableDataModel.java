@@ -2,11 +2,14 @@ package cz.vhromada.catalog.gui.movie;
 
 import java.util.List;
 
-import cz.vhromada.catalog.commons.Time;
+import cz.vhromada.catalog.common.Time;
+import cz.vhromada.catalog.entity.Movie;
 import cz.vhromada.catalog.facade.MovieFacade;
-import cz.vhromada.catalog.facade.to.MovieTO;
 import cz.vhromada.catalog.gui.commons.AbstractStatsTableDataModel;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+import cz.vhromada.result.Status;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents data model for table with stats for movies.
@@ -28,12 +31,12 @@ public class MoviesStatsTableDataModel extends AbstractStatsTableDataModel {
     /**
      * Facade for movies
      */
-    private MovieFacade movieFacade;
+    private final MovieFacade movieFacade;
 
     /**
-     * List of TO for movie
+     * List of movies
      */
-    private List<MovieTO> movies;
+    private List<Movie> movies;
 
     /**
      * Total length of all movies
@@ -52,7 +55,7 @@ public class MoviesStatsTableDataModel extends AbstractStatsTableDataModel {
      * @throws IllegalArgumentException if facade for movies is null
      */
     public MoviesStatsTableDataModel(final MovieFacade movieFacade) {
-        Validators.validateArgumentNotNull(movieFacade, "Facade for movies");
+        Assert.notNull(movieFacade, "Facade for movies mustn't be null.");
 
         this.movieFacade = movieFacade;
         update();
@@ -112,9 +115,22 @@ public class MoviesStatsTableDataModel extends AbstractStatsTableDataModel {
 
     @Override
     public final void update() {
-        movies = movieFacade.getMovies();
-        totalLength = movieFacade.getTotalLength();
-        totalMediaCount = movieFacade.getTotalMediaCount();
+        final Result<List<Movie>> showsResult = movieFacade.getAll();
+        final Result<Time> totalLengthResult = movieFacade.getTotalLength();
+        final Result<Integer> totalMediaCountResult = movieFacade.getTotalMediaCount();
+
+        final Result<Void> result = new Result<>();
+        result.addEvents(showsResult.getEvents());
+        result.addEvents(totalLengthResult.getEvents());
+        result.addEvents(totalMediaCountResult.getEvents());
+
+        if (Status.OK == result.getStatus()) {
+            movies = showsResult.getData();
+            totalLength = totalLengthResult.getData();
+            totalMediaCount = totalMediaCountResult.getData();
+        } else {
+            throw new IllegalArgumentException("Can't get data. " + result);
+        }
     }
 
 }

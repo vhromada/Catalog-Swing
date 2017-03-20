@@ -4,7 +4,7 @@ import javax.swing.JButton;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import cz.vhromada.validators.Validators;
+import org.springframework.util.Assert;
 
 /**
  * An abstract class represents input validator.
@@ -16,7 +16,7 @@ public abstract class InputValidator implements DocumentListener {
     /**
      * Button
      */
-    private JButton button;
+    private final JButton button;
 
     /**
      * Creates a new instance of InputValidator.
@@ -25,7 +25,7 @@ public abstract class InputValidator implements DocumentListener {
      * @throws IllegalArgumentException if button is null
      */
     public InputValidator(final JButton button) {
-        Validators.validateArgumentNotNull(button, "Button");
+        Assert.notNull(button, "Button mustn't be null.");
 
         this.button = button;
     }

@@ -32,9 +32,9 @@ import cz.vhromada.catalog.gui.movie.MoviesPanel;
 import cz.vhromada.catalog.gui.music.MusicPanel;
 import cz.vhromada.catalog.gui.program.ProgramsPanel;
 import cz.vhromada.catalog.gui.show.ShowsPanel;
-import cz.vhromada.validators.Validators;
 
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.util.Assert;
 
 /**
  * A class represents catalog.
@@ -111,32 +111,32 @@ public class Catalog extends JFrame {
     /**
      * Panel for movies
      */
-    private MoviesPanel moviesPanel;
+    private final MoviesPanel moviesPanel;
 
     /**
      * Panel for shows
      */
-    private ShowsPanel showsPanel;
+    private final ShowsPanel showsPanel;
 
     /**
      * Panel for games
      */
-    private GamesPanel gamesPanel;
+    private final GamesPanel gamesPanel;
 
     /**
      * Panel for music
      */
-    private MusicPanel musicPanel;
+    private final MusicPanel musicPanel;
 
     /**
      * Panel for programs
      */
-    private ProgramsPanel programsPanel;
+    private final ProgramsPanel programsPanel;
 
     /**
      * Panel for genres
      */
-    private GenresPanel genresPanel;
+    private final GenresPanel genresPanel;
 
     /**
      * Facade for movies
@@ -175,7 +175,7 @@ public class Catalog extends JFrame {
      * @throws IllegalArgumentException if application context is null
      */
     public Catalog(final ConfigurableApplicationContext context) {
-        Validators.validateArgumentNotNull(context, "Application context");
+        Assert.notNull(context, "Application context mustn't be null.");
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Catalog");

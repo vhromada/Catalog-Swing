@@ -3,19 +3,20 @@ package cz.vhromada.catalog.gui.movie;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import cz.vhromada.catalog.entity.Movie;
 import cz.vhromada.catalog.facade.GenreFacade;
 import cz.vhromada.catalog.facade.MovieFacade;
-import cz.vhromada.catalog.facade.to.MovieTO;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.AbstractOverviewDataPanel;
-import cz.vhromada.validators.Validators;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents panel with movies' data.
  *
  * @author Vladimir Hromada
  */
-public class MoviesPanel extends AbstractOverviewDataPanel<MovieTO> {
+public class MoviesPanel extends AbstractOverviewDataPanel<Movie> {
 
     /**
      * SerialVersionUID
@@ -25,12 +26,12 @@ public class MoviesPanel extends AbstractOverviewDataPanel<MovieTO> {
     /**
      * Facade for movies
      */
-    private MovieFacade movieFacade;
+    private final MovieFacade movieFacade;
 
     /**
      * Facade for genres
      */
-    private GenreFacade genreFacade;
+    private final GenreFacade genreFacade;
 
     /**
      * Creates a new instance of MoviesPanel.
@@ -43,14 +44,14 @@ public class MoviesPanel extends AbstractOverviewDataPanel<MovieTO> {
     public MoviesPanel(final MovieFacade movieFacade, final GenreFacade genreFacade) {
         super(getMoviesListDataModel(movieFacade), getMoviesStatsTableDataModel(movieFacade));
 
-        Validators.validateArgumentNotNull(genreFacade, "Facade for genres");
+        Assert.notNull(genreFacade, "Facade for genres mustn't be null.");
 
         this.movieFacade = movieFacade;
         this.genreFacade = genreFacade;
     }
 
     @Override
-    protected AbstractInfoDialog<MovieTO> getInfoDialog(final boolean add, final MovieTO data) {
+    protected AbstractInfoDialog<Movie> getInfoDialog(final boolean add, final Movie data) {
         return add ? new MovieInfoDialog(genreFacade) : new MovieInfoDialog(genreFacade, data);
     }
 
@@ -60,42 +61,42 @@ public class MoviesPanel extends AbstractOverviewDataPanel<MovieTO> {
     }
 
     @Override
-    protected void addData(final MovieTO data) {
+    protected void addData(final Movie data) {
         movieFacade.add(data);
     }
 
     @Override
-    protected void updateData(final MovieTO data) {
+    protected void updateData(final Movie data) {
         movieFacade.update(data);
     }
 
     @Override
-    protected void removeData(final MovieTO data) {
+    protected void removeData(final Movie data) {
         movieFacade.remove(data);
     }
 
     @Override
-    protected void duplicatesData(final MovieTO data) {
+    protected void duplicatesData(final Movie data) {
         movieFacade.duplicate(data);
     }
 
     @Override
-    protected void moveUpData(final MovieTO data) {
+    protected void moveUpData(final Movie data) {
         movieFacade.moveUp(data);
     }
 
     @Override
-    protected void moveDownData(final MovieTO data) {
+    protected void moveDownData(final Movie data) {
         movieFacade.moveDown(data);
     }
 
     @Override
-    protected JPanel getDataPanel(final MovieTO data) {
+    protected JPanel getDataPanel(final Movie data) {
         return new MovieDataPanel(data);
     }
 
     @Override
-    protected void updateDataOnChange(final JTabbedPane dataPanel, final MovieTO data) {
+    protected void updateDataOnChange(final JTabbedPane dataPanel, final Movie data) {
     }
 
     /**

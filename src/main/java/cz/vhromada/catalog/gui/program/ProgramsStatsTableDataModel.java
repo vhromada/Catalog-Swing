@@ -2,10 +2,13 @@ package cz.vhromada.catalog.gui.program;
 
 import java.util.List;
 
+import cz.vhromada.catalog.entity.Program;
 import cz.vhromada.catalog.facade.ProgramFacade;
-import cz.vhromada.catalog.facade.to.ProgramTO;
 import cz.vhromada.catalog.gui.commons.AbstractStatsTableDataModel;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+import cz.vhromada.result.Status;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents data model for table with stats for programs.
@@ -22,12 +25,12 @@ public class ProgramsStatsTableDataModel extends AbstractStatsTableDataModel {
     /**
      * Facade for programs
      */
-    private ProgramFacade programFacade;
+    private final ProgramFacade programFacade;
 
     /**
-     * List of TO for program
+     * List of programs
      */
-    private List<ProgramTO> programs;
+    private List<Program> programs;
 
     /**
      * Total count of media
@@ -41,7 +44,7 @@ public class ProgramsStatsTableDataModel extends AbstractStatsTableDataModel {
      * @throws IllegalArgumentException if facade for programs is null
      */
     public ProgramsStatsTableDataModel(final ProgramFacade programFacade) {
-        Validators.validateArgumentNotNull(programFacade, "Facade for programs");
+        Assert.notNull(programFacade, "Facade for programs mustn't be null.");
 
         this.programFacade = programFacade;
         update();
@@ -88,8 +91,19 @@ public class ProgramsStatsTableDataModel extends AbstractStatsTableDataModel {
 
     @Override
     public final void update() {
-        programs = programFacade.getPrograms();
-        totalMediaCount = programFacade.getTotalMediaCount();
+        final Result<List<Program>> programsResult = programFacade.getAll();
+        final Result<Integer> totalMediaCountResult = programFacade.getTotalMediaCount();
+
+        final Result<Void> result = new Result<>();
+        result.addEvents(programsResult.getEvents());
+        result.addEvents(totalMediaCountResult.getEvents());
+
+        if (Status.OK == result.getStatus()) {
+            programs = programsResult.getData();
+            totalMediaCount = totalMediaCountResult.getData();
+        } else {
+            throw new IllegalArgumentException("Can't get data. " + result);
+        }
     }
 
 }

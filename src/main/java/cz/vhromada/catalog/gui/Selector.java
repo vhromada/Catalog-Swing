@@ -40,12 +40,12 @@ public class Selector extends JFrame {
     /**
      * Button Catalog
      */
-    private JButton catalogButton = new JButton("Catalog");
+    private final JButton catalogButton = new JButton("Catalog");
 
     /**
      * Button Exit
      */
-    private JButton exitButton = new JButton("Exit");
+    private final JButton exitButton = new JButton("Exit");
 
     /**
      * Creates a new instance of Selector.

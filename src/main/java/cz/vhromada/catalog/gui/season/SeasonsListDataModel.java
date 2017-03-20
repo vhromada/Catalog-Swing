@@ -2,18 +2,20 @@ package cz.vhromada.catalog.gui.season;
 
 import java.util.List;
 
+import cz.vhromada.catalog.entity.Season;
+import cz.vhromada.catalog.entity.Show;
 import cz.vhromada.catalog.facade.SeasonFacade;
-import cz.vhromada.catalog.facade.to.SeasonTO;
-import cz.vhromada.catalog.facade.to.ShowTO;
 import cz.vhromada.catalog.gui.commons.AbstractListDataModel;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents data model for list with seasons.
  *
  * @author Vladimir Hromada
  */
-public class SeasonsListDataModel extends AbstractListDataModel<SeasonTO> {
+public class SeasonsListDataModel extends AbstractListDataModel<Season> {
 
     /**
      * SerialVersionUID
@@ -23,24 +25,24 @@ public class SeasonsListDataModel extends AbstractListDataModel<SeasonTO> {
     /**
      * Facade for seasons
      */
-    private SeasonFacade seasonFacade;
+    private final SeasonFacade seasonFacade;
 
     /**
-     * TO for show
+     * Show
      */
-    private ShowTO show;
+    private final Show show;
 
     /**
      * Creates a new instance of SeasonsListDataModel.
      *
      * @param seasonFacade facade for seasons
-     * @param show         TO for show
+     * @param show          show
      * @throws IllegalArgumentException if facade for seasons is null
-     *                                  or TO for show is null
+     *                                  or show is null
      */
-    public SeasonsListDataModel(final SeasonFacade seasonFacade, final ShowTO show) {
-        Validators.validateArgumentNotNull(seasonFacade, "Facade for seasons");
-        Validators.validateArgumentNotNull(show, "TO for show");
+    public SeasonsListDataModel(final SeasonFacade seasonFacade, final Show show) {
+        Assert.notNull(seasonFacade, "Facade for seasons mustn't be null.");
+        Assert.notNull(show, "Show mustn't be null.");
 
         this.seasonFacade = seasonFacade;
         this.show = show;
@@ -48,12 +50,12 @@ public class SeasonsListDataModel extends AbstractListDataModel<SeasonTO> {
     }
 
     @Override
-    protected List<SeasonTO> getData() {
-        return seasonFacade.findSeasonsByShow(show);
+    protected Result<List<Season>> getData() {
+        return seasonFacade.find(show);
     }
 
     @Override
-    protected String getDisplayValue(final SeasonTO dataObject) {
+    protected String getDisplayValue(final Season dataObject) {
         return Integer.toString(dataObject.getNumber());
     }
 

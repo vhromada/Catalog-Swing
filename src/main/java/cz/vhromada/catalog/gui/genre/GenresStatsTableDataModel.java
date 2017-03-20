@@ -2,10 +2,13 @@ package cz.vhromada.catalog.gui.genre;
 
 import java.util.List;
 
+import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.facade.GenreFacade;
-import cz.vhromada.catalog.facade.to.GenreTO;
 import cz.vhromada.catalog.gui.commons.AbstractStatsTableDataModel;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+import cz.vhromada.result.Status;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents data model for table with stats for genres.
@@ -22,12 +25,12 @@ public class GenresStatsTableDataModel extends AbstractStatsTableDataModel {
     /**
      * Facade for genres
      */
-    private GenreFacade genreFacade;
+    private final GenreFacade genreFacade;
 
     /**
-     * List of TO for genre
+     * List of genres
      */
-    private List<GenreTO> genres;
+    private List<Genre> genres;
 
     /**
      * Creates a new instance of GenresStatsTableDataModel.
@@ -36,7 +39,7 @@ public class GenresStatsTableDataModel extends AbstractStatsTableDataModel {
      * @throws IllegalArgumentException if facade for genres is null
      */
     public GenresStatsTableDataModel(final GenreFacade genreFacade) {
-        Validators.validateArgumentNotNull(genreFacade, "Facade for genres");
+        Assert.notNull(genreFacade, "Facade for genres mustn't be null.");
 
         this.genreFacade = genreFacade;
         update();
@@ -79,7 +82,13 @@ public class GenresStatsTableDataModel extends AbstractStatsTableDataModel {
 
     @Override
     public final void update() {
-        genres = genreFacade.getGenres();
+        final Result<List<Genre>> result = genreFacade.getAll();
+
+        if (Status.OK == result.getStatus()) {
+            genres = result.getData();
+        } else {
+            throw new IllegalArgumentException("Can't get data. " + result);
+        }
     }
 
 }

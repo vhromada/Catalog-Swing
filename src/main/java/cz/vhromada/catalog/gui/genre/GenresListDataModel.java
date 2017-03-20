@@ -2,17 +2,19 @@ package cz.vhromada.catalog.gui.genre;
 
 import java.util.List;
 
+import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.facade.GenreFacade;
-import cz.vhromada.catalog.facade.to.GenreTO;
 import cz.vhromada.catalog.gui.commons.AbstractListDataModel;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents data model for list with genres.
  *
  * @author Vladimir Hromada
  */
-public class GenresListDataModel extends AbstractListDataModel<GenreTO> {
+public class GenresListDataModel extends AbstractListDataModel<Genre> {
 
     /**
      * SerialVersionUID
@@ -22,7 +24,7 @@ public class GenresListDataModel extends AbstractListDataModel<GenreTO> {
     /**
      * Facade for genres
      */
-    private GenreFacade genreFacade;
+    private final GenreFacade genreFacade;
 
     /**
      * Creates a new instance of GenresListDataModel.
@@ -31,19 +33,19 @@ public class GenresListDataModel extends AbstractListDataModel<GenreTO> {
      * @throws IllegalArgumentException if facade for genres is null
      */
     public GenresListDataModel(final GenreFacade genreFacade) {
-        Validators.validateArgumentNotNull(genreFacade, "Facade for genres");
+        Assert.notNull(genreFacade, "Facade for genres mustn't be null.");
 
         this.genreFacade = genreFacade;
         update();
     }
 
     @Override
-    protected List<GenreTO> getData() {
-        return genreFacade.getGenres();
+    protected Result<List<Genre>> getData() {
+        return genreFacade.getAll();
     }
 
     @Override
-    protected String getDisplayValue(final GenreTO dataObject) {
+    protected String getDisplayValue(final Genre dataObject) {
         return dataObject.getName();
     }
 

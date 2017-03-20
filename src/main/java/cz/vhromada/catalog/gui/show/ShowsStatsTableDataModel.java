@@ -2,11 +2,14 @@ package cz.vhromada.catalog.gui.show;
 
 import java.util.List;
 
-import cz.vhromada.catalog.commons.Time;
+import cz.vhromada.catalog.common.Time;
+import cz.vhromada.catalog.entity.Show;
 import cz.vhromada.catalog.facade.ShowFacade;
-import cz.vhromada.catalog.facade.to.ShowTO;
 import cz.vhromada.catalog.gui.commons.AbstractStatsTableDataModel;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+import cz.vhromada.result.Status;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents data model for table with stats for shows.
@@ -28,12 +31,12 @@ public class ShowsStatsTableDataModel extends AbstractStatsTableDataModel {
     /**
      * Facade for shows
      */
-    private ShowFacade showFacade;
+    private final ShowFacade showFacade;
 
     /**
-     * List of TO for show
+     * List of shows
      */
-    private List<ShowTO> shows;
+    private List<Show> shows;
 
     /**
      * Count of seasons from all shows
@@ -57,7 +60,7 @@ public class ShowsStatsTableDataModel extends AbstractStatsTableDataModel {
      * @throws IllegalArgumentException if service is null
      */
     public ShowsStatsTableDataModel(final ShowFacade showFacade) {
-        Validators.validateArgumentNotNull(showFacade, "Facade for shows");
+        Assert.notNull(showFacade, "Facade for shows mustn't be null.");
 
         this.showFacade = showFacade;
         update();
@@ -123,10 +126,25 @@ public class ShowsStatsTableDataModel extends AbstractStatsTableDataModel {
 
     @Override
     public final void update() {
-        shows = showFacade.getShows();
-        seasonsCount = showFacade.getSeasonsCount();
-        episodesCount = showFacade.getEpisodesCount();
-        totalLength = showFacade.getTotalLength();
+        final Result<List<Show>> showsResult = showFacade.getAll();
+        final Result<Integer> seasonsCountResult = showFacade.getSeasonsCount();
+        final Result<Integer> episodesCountResult = showFacade.getEpisodesCount();
+        final Result<Time> totalLengthResult = showFacade.getTotalLength();
+
+        final Result<Void> result = new Result<>();
+        result.addEvents(showsResult.getEvents());
+        result.addEvents(seasonsCountResult.getEvents());
+        result.addEvents(episodesCountResult.getEvents());
+        result.addEvents(totalLengthResult.getEvents());
+
+        if (Status.OK == result.getStatus()) {
+            shows = showsResult.getData();
+            seasonsCount = seasonsCountResult.getData();
+            episodesCount = episodesCountResult.getData();
+            totalLength = totalLengthResult.getData();
+        } else {
+            throw new IllegalArgumentException("Can't get data. " + result);
+        }
     }
 
 }

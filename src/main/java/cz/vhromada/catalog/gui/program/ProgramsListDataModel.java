@@ -2,17 +2,19 @@ package cz.vhromada.catalog.gui.program;
 
 import java.util.List;
 
+import cz.vhromada.catalog.entity.Program;
 import cz.vhromada.catalog.facade.ProgramFacade;
-import cz.vhromada.catalog.facade.to.ProgramTO;
 import cz.vhromada.catalog.gui.commons.AbstractListDataModel;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents data model for list with programs.
  *
  * @author Vladimir Hromada
  */
-public class ProgramsListDataModel extends AbstractListDataModel<ProgramTO> {
+public class ProgramsListDataModel extends AbstractListDataModel<Program> {
 
     /**
      * SerialVersionUID
@@ -31,19 +33,19 @@ public class ProgramsListDataModel extends AbstractListDataModel<ProgramTO> {
      * @throws IllegalArgumentException if facade for programs is null
      */
     public ProgramsListDataModel(final ProgramFacade programFacade) {
-        Validators.validateArgumentNotNull(programFacade, "Facade for programs");
+        Assert.notNull(programFacade, "Facade for programs mustn't be null");
 
         this.programFacade = programFacade;
         update();
     }
 
     @Override
-    protected List<ProgramTO> getData() {
-        return programFacade.getPrograms();
+    protected Result<List<Program>> getData() {
+        return programFacade.getAll();
     }
 
     @Override
-    protected String getDisplayValue(final ProgramTO dataObject) {
+    protected String getDisplayValue(final Program dataObject) {
         return dataObject.getName();
     }
 

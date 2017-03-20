@@ -2,17 +2,19 @@ package cz.vhromada.catalog.gui.game;
 
 import java.util.List;
 
+import cz.vhromada.catalog.entity.Game;
 import cz.vhromada.catalog.facade.GameFacade;
-import cz.vhromada.catalog.facade.to.GameTO;
 import cz.vhromada.catalog.gui.commons.AbstractListDataModel;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents data model for list with games.
  *
  * @author Vladimir Hromada
  */
-public class GamesListDataModel extends AbstractListDataModel<GameTO> {
+public class GamesListDataModel extends AbstractListDataModel<Game> {
 
     /**
      * SerialVersionUID
@@ -31,19 +33,19 @@ public class GamesListDataModel extends AbstractListDataModel<GameTO> {
      * @throws IllegalArgumentException if facade for games is null
      */
     public GamesListDataModel(final GameFacade gameFacade) {
-        Validators.validateArgumentNotNull(gameFacade, "Facade for games");
+        Assert.notNull(gameFacade, "Facade for games mustn't be null");
 
         this.gameFacade = gameFacade;
         update();
     }
 
     @Override
-    protected List<GameTO> getData() {
-        return gameFacade.getGames();
+    protected Result<List<Game>> getData() {
+        return gameFacade.getAll();
     }
 
     @Override
-    protected String getDisplayValue(final GameTO dataObject) {
+    protected String getDisplayValue(final Game dataObject) {
         return dataObject.getName();
     }
 

@@ -4,10 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import cz.vhromada.validators.Validators;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
 
 /**
  * Abstract class represents action listener for button fow showing web page.
@@ -24,7 +23,7 @@ public abstract class WebPageButtonActionListener implements ActionListener {
     /**
      * Type pf button
      */
-    private WebPageButtonType buttonType;
+    private final WebPageButtonType buttonType;
 
     /**
      * Creates a new instance of WebPageButtonActionListener.
@@ -33,7 +32,7 @@ public abstract class WebPageButtonActionListener implements ActionListener {
      * @throws IllegalArgumentException if type of button is null
      */
     public WebPageButtonActionListener(final WebPageButtonType buttonType) {
-        Validators.validateArgumentNotNull(buttonType, "Type of button");
+        Assert.notNull(buttonType, "Type of button mustn't be null.");
 
         this.buttonType = buttonType;
     }

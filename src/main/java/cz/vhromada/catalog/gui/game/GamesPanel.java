@@ -3,8 +3,8 @@ package cz.vhromada.catalog.gui.game;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import cz.vhromada.catalog.entity.Game;
 import cz.vhromada.catalog.facade.GameFacade;
-import cz.vhromada.catalog.facade.to.GameTO;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.AbstractOverviewDataPanel;
 
@@ -13,7 +13,7 @@ import cz.vhromada.catalog.gui.commons.AbstractOverviewDataPanel;
  *
  * @author Vladimir Hromada
  */
-public class GamesPanel extends AbstractOverviewDataPanel<GameTO> {
+public class GamesPanel extends AbstractOverviewDataPanel<Game> {
 
     /**
      * SerialVersionUID
@@ -23,7 +23,7 @@ public class GamesPanel extends AbstractOverviewDataPanel<GameTO> {
     /**
      * Facade for games
      */
-    private GameFacade gameFacade;
+    private final GameFacade gameFacade;
 
     /**
      * Creates a new instance of GamesPanel.
@@ -38,7 +38,7 @@ public class GamesPanel extends AbstractOverviewDataPanel<GameTO> {
     }
 
     @Override
-    protected AbstractInfoDialog<GameTO> getInfoDialog(final boolean add, final GameTO data) {
+    protected AbstractInfoDialog<Game> getInfoDialog(final boolean add, final Game data) {
         return add ? new GameInfoDialog() : new GameInfoDialog(data);
     }
 
@@ -48,42 +48,42 @@ public class GamesPanel extends AbstractOverviewDataPanel<GameTO> {
     }
 
     @Override
-    protected void addData(final GameTO data) {
+    protected void addData(final Game data) {
         gameFacade.add(data);
     }
 
     @Override
-    protected void updateData(final GameTO data) {
+    protected void updateData(final Game data) {
         gameFacade.update(data);
     }
 
     @Override
-    protected void removeData(final GameTO data) {
+    protected void removeData(final Game data) {
         gameFacade.remove(data);
     }
 
     @Override
-    protected void duplicatesData(final GameTO data) {
+    protected void duplicatesData(final Game data) {
         gameFacade.duplicate(data);
     }
 
     @Override
-    protected void moveUpData(final GameTO data) {
+    protected void moveUpData(final Game data) {
         gameFacade.moveUp(data);
     }
 
     @Override
-    protected void moveDownData(final GameTO data) {
+    protected void moveDownData(final Game data) {
         gameFacade.moveDown(data);
     }
 
     @Override
-    protected JPanel getDataPanel(final GameTO data) {
+    protected JPanel getDataPanel(final Game data) {
         return new GameDataPanel(data);
     }
 
     @Override
-    protected void updateDataOnChange(final JTabbedPane dataPanel, final GameTO data) {
+    protected void updateDataOnChange(final JTabbedPane dataPanel, final Game data) {
     }
 
     /**

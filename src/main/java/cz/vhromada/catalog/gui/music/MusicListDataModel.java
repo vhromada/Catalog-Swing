@@ -2,17 +2,19 @@ package cz.vhromada.catalog.gui.music;
 
 import java.util.List;
 
+import cz.vhromada.catalog.entity.Music;
 import cz.vhromada.catalog.facade.MusicFacade;
-import cz.vhromada.catalog.facade.to.MusicTO;
 import cz.vhromada.catalog.gui.commons.AbstractListDataModel;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents data model for list with music.
  *
  * @author Vladimir Hromada
  */
-public class MusicListDataModel extends AbstractListDataModel<MusicTO> {
+public class MusicListDataModel extends AbstractListDataModel<Music> {
 
     /**
      * SerialVersionUID
@@ -22,7 +24,7 @@ public class MusicListDataModel extends AbstractListDataModel<MusicTO> {
     /**
      * Facade for music
      */
-    private MusicFacade musicFacade;
+    private final MusicFacade musicFacade;
 
     /**
      * Creates a new instance of MusicListDataModel.
@@ -31,19 +33,19 @@ public class MusicListDataModel extends AbstractListDataModel<MusicTO> {
      * @throws IllegalArgumentException if facade for music is null
      */
     public MusicListDataModel(final MusicFacade musicFacade) {
-        Validators.validateArgumentNotNull(musicFacade, "Facade for music");
+        Assert.notNull(musicFacade, "Facade for music mustn't be null.");
 
         this.musicFacade = musicFacade;
         update();
     }
 
     @Override
-    protected List<MusicTO> getData() {
-        return musicFacade.getMusic();
+    protected Result<List<Music>> getData() {
+        return musicFacade.getAll();
     }
 
     @Override
-    protected String getDisplayValue(final MusicTO dataObject) {
+    protected String getDisplayValue(final Music dataObject) {
         return dataObject.getName();
     }
 

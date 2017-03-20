@@ -2,18 +2,20 @@ package cz.vhromada.catalog.gui.episode;
 
 import java.util.List;
 
+import cz.vhromada.catalog.entity.Episode;
+import cz.vhromada.catalog.entity.Season;
 import cz.vhromada.catalog.facade.EpisodeFacade;
-import cz.vhromada.catalog.facade.to.EpisodeTO;
-import cz.vhromada.catalog.facade.to.SeasonTO;
 import cz.vhromada.catalog.gui.commons.AbstractListDataModel;
-import cz.vhromada.validators.Validators;
+import cz.vhromada.result.Result;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents data model for list with episodes.
  *
  * @author Vladimir Hromada
  */
-public class EpisodesListDataModel extends AbstractListDataModel<EpisodeTO> {
+public class EpisodesListDataModel extends AbstractListDataModel<Episode> {
 
     /**
      * SerialVersionUID
@@ -23,24 +25,24 @@ public class EpisodesListDataModel extends AbstractListDataModel<EpisodeTO> {
     /**
      * Facade for episodes
      */
-    private EpisodeFacade episodeFacade;
+    private final EpisodeFacade episodeFacade;
 
     /**
-     * TO for season
+     * Season
      */
-    private SeasonTO season;
+    private final Season season;
 
     /**
      * Creates a new instance of EpisodesListDataModel.
      *
      * @param episodeFacade facade for episodes
-     * @param season        TO for season
+     * @param season        season
      * @throws IllegalArgumentException if facade for episodes is null
-     *                                  or TO for season is null
+     *                                  or season is null
      */
-    public EpisodesListDataModel(final EpisodeFacade episodeFacade, final SeasonTO season) {
-        Validators.validateArgumentNotNull(episodeFacade, "Facade for episodes");
-        Validators.validateArgumentNotNull(season, "TO for season");
+    public EpisodesListDataModel(final EpisodeFacade episodeFacade, final Season season) {
+        Assert.notNull(episodeFacade, "Facade for episode mustn't be null.");
+        Assert.notNull(season, "Season mustn't be null.");
 
         this.episodeFacade = episodeFacade;
         this.season = season;
@@ -48,12 +50,12 @@ public class EpisodesListDataModel extends AbstractListDataModel<EpisodeTO> {
     }
 
     @Override
-    protected List<EpisodeTO> getData() {
-        return episodeFacade.findEpisodesBySeason(season);
+    protected Result<List<Episode>> getData() {
+        return episodeFacade.find(season);
     }
 
     @Override
-    protected String getDisplayValue(final EpisodeTO dataObject) {
+    protected String getDisplayValue(final Episode dataObject) {
         return dataObject.getName();
     }
 

@@ -17,11 +17,12 @@ import javax.swing.JSpinner;
 import javax.swing.WindowConstants;
 import javax.swing.text.JTextComponent;
 
-import cz.vhromada.catalog.commons.Language;
+import cz.vhromada.catalog.common.Language;
+import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.facade.GenreFacade;
-import cz.vhromada.catalog.facade.to.GenreTO;
 import cz.vhromada.catalog.gui.genre.GenreChooseDialog;
-import cz.vhromada.validators.Validators;
+
+import org.springframework.util.Assert;
 
 /**
  * An abstract class represents dialog for adding or updating data.
@@ -104,12 +105,12 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
     /**
      * Button OK
      */
-    private JButton okButton = new JButton("OK", Picture.OK.getIcon());
+    private final JButton okButton = new JButton("OK", Picture.OK.getIcon());
 
     /**
      * Button Cancel
      */
-    private JButton cancelButton = new JButton("Cancel", Picture.CANCEL.getIcon());
+    private final JButton cancelButton = new JButton("Cancel", Picture.CANCEL.getIcon());
 
     /**
      * Creates a new instance of AbstractInfoDialog.
@@ -129,7 +130,7 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
     public AbstractInfoDialog(final T data) {
         this("Update", Picture.UPDATE);
 
-        Validators.validateArgumentNotNull(data, "Data");
+        Assert.notNull(data, "Data mustn't be null.");
 
         this.data = data;
     }
@@ -168,7 +169,7 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
      * @throws IllegalStateException if data haven't been set
      */
     public T getData() {
-        Validators.validateFieldNotNull(data, "Data");
+        Assert.state(data != null, "Data mustn't be null.");
 
         return data;
     }
@@ -184,7 +185,7 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
      * @param objectData object for filling data
      * @return object with filled data
      */
-    protected abstract T processData(final T objectData);
+    protected abstract T processData(T objectData);
 
     /**
      * Returns horizontal layout with added components.
@@ -193,7 +194,7 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
      * @param group  group in vertical layout
      * @return horizontal layout with added components
      */
-    protected abstract GroupLayout.Group getHorizontalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group);
+    protected abstract GroupLayout.Group getHorizontalLayoutWithComponents(GroupLayout layout, GroupLayout.Group group);
 
     /**
      * Returns vertical layout with added components.
@@ -202,7 +203,7 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
      * @param group  group in vertical layout
      * @return vertical layout with added components
      */
-    protected abstract GroupLayout.Group getVerticalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group);
+    protected abstract GroupLayout.Group getVerticalLayoutWithComponents(GroupLayout layout, GroupLayout.Group group);
 
     /**
      * Initializes.
@@ -269,16 +270,16 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
     /**
      * Returns genres.
      *
-     * @param genres list of TO for genre
+     * @param genres list of genres
      * @return genres
      */
-    protected static String getGenres(final List<GenreTO> genres) {
+    protected static String getGenres(final List<Genre> genres) {
         if (genres == null || genres.isEmpty()) {
             return "";
         }
 
         final StringBuilder genresString = new StringBuilder();
-        for (final GenreTO genre : genres) {
+        for (final Genre genre : genres) {
             genresString.append(genre.getName());
             genresString.append(", ");
         }
@@ -290,10 +291,10 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
      * Performs action for button Genres.
      *
      * @param genreFacade facade for genres
-     * @param genres      list of TO for genre
+     * @param genres      list of genres
      * @param genreData   data with genres
      */
-    protected final void genresAction(final GenreFacade genreFacade, final List<GenreTO> genres, final JLabel genreData) {
+    protected final void genresAction(final GenreFacade genreFacade, final List<Genre> genres, final JLabel genreData) {
         EventQueue.invokeLater(() -> {
             final GenreChooseDialog dialog = new GenreChooseDialog(genreFacade, new ArrayList<>(genres));
             dialog.setVisible(true);

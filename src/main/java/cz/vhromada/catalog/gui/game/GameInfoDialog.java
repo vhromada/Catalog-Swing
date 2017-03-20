@@ -7,7 +7,7 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
-import cz.vhromada.catalog.facade.to.GameTO;
+import cz.vhromada.catalog.entity.Game;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
 
@@ -16,7 +16,7 @@ import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
  *
  * @author Vladimir Hromada
  */
-public class GameInfoDialog extends AbstractInfoDialog<GameTO> {
+public class GameInfoDialog extends AbstractInfoDialog<Game> {
 
     /**
      * SerialVersionUID
@@ -26,97 +26,97 @@ public class GameInfoDialog extends AbstractInfoDialog<GameTO> {
     /**
      * Label for name
      */
-    private JLabel nameLabel = new JLabel("Name");
+    private final JLabel nameLabel = new JLabel("Name");
 
     /**
      * Text field for name
      */
-    private JTextField nameData = new JTextField();
+    private final JTextField nameData = new JTextField();
 
     /**
      * Label for czech Wikipedia
      */
-    private JLabel wikiCzLabel = new JLabel("Czech Wikipedia");
+    private final JLabel wikiCzLabel = new JLabel("Czech Wikipedia");
 
     /**
      * Text field for czech Wikipedia
      */
-    private JTextField wikiCzData = new JTextField();
+    private final JTextField wikiCzData = new JTextField();
 
     /**
      * Label for english Wikipedia
      */
-    private JLabel wikiEnLabel = new JLabel("English Wikipedia");
+    private final JLabel wikiEnLabel = new JLabel("English Wikipedia");
 
     /**
      * Text field for english Wikipedia
      */
-    private JTextField wikiEnData = new JTextField();
+    private final JTextField wikiEnData = new JTextField();
 
     /**
      * Label for count of media
      */
-    private JLabel mediaCountLabel = new JLabel("Count of media");
+    private final JLabel mediaCountLabel = new JLabel("Count of media");
 
     /**
      * Spinner for count of media
      */
-    private JSpinner mediaCountData = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+    private final JSpinner mediaCountData = new JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
 
     /**
      * Check box for crack
      */
-    private JCheckBox crackData = new JCheckBox("Crack");
+    private final JCheckBox crackData = new JCheckBox("Crack");
 
     /**
      * Check box for serial key
      */
-    private JCheckBox serialData = new JCheckBox("Serial key");
+    private final JCheckBox serialData = new JCheckBox("Serial key");
 
     /**
      * Check box for patch
      */
-    private JCheckBox patchData = new JCheckBox("Patch");
+    private final JCheckBox patchData = new JCheckBox("Patch");
 
     /**
      * Check box for trainer
      */
-    private JCheckBox trainerData = new JCheckBox("Trainer");
+    private final JCheckBox trainerData = new JCheckBox("Trainer");
 
     /**
      * Check box for data for trainer
      */
-    private JCheckBox trainerDataData = new JCheckBox("Data for trainer");
+    private final JCheckBox trainerDataData = new JCheckBox("Data for trainer");
 
     /**
      * Check box for editor
      */
-    private JCheckBox editorData = new JCheckBox("Editor");
+    private final JCheckBox editorData = new JCheckBox("Editor");
 
     /**
      * Check box for saves
      */
-    private JCheckBox savesData = new JCheckBox("Saves");
+    private final JCheckBox savesData = new JCheckBox("Saves");
 
     /**
      * Label for other data
      */
-    private JLabel otherDataLabel = new JLabel("Other data");
+    private final JLabel otherDataLabel = new JLabel("Other data");
 
     /**
      * Text field for other data
      */
-    private JTextField otherDataData = new JTextField();
+    private final JTextField otherDataData = new JTextField();
 
     /**
      * Label for note
      */
-    private JLabel noteLabel = new JLabel("Note");
+    private final JLabel noteLabel = new JLabel("Note");
 
     /**
      * Text field for note
      */
-    private JTextField noteData = new JTextField();
+    private final JTextField noteData = new JTextField();
 
     /**
      * Creates a new instance of GameInfoDialog.
@@ -128,10 +128,10 @@ public class GameInfoDialog extends AbstractInfoDialog<GameTO> {
     /**
      * Creates a new instance of GameInfoDialog.
      *
-     * @param game TO for game
-     * @throws IllegalArgumentException if TO for game is null
+     * @param game game
+     * @throws IllegalArgumentException if game is null
      */
-    public GameInfoDialog(final GameTO game) {
+    public GameInfoDialog(final Game game) {
         super(game);
 
         init();
@@ -163,8 +163,8 @@ public class GameInfoDialog extends AbstractInfoDialog<GameTO> {
     }
 
     @Override
-    protected GameTO processData(final GameTO objectData) {
-        final GameTO game = objectData == null ? new GameTO() : objectData;
+    protected Game processData(final Game objectData) {
+        final Game game = objectData == null ? new Game() : objectData;
         game.setName(nameData.getText());
         game.setWikiCz(wikiCzData.getText());
         game.setWikiEn(wikiEnData.getText());

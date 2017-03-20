@@ -4,7 +4,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import cz.vhromada.catalog.facade.to.GameTO;
+import cz.vhromada.catalog.entity.Game;
 import cz.vhromada.catalog.gui.commons.AbstractDataPanel;
 import cz.vhromada.catalog.gui.commons.WebPageButtonType;
 
@@ -13,7 +13,7 @@ import cz.vhromada.catalog.gui.commons.WebPageButtonType;
  *
  * @author Vladimir Hromada
  */
-public class GameDataPanel extends AbstractDataPanel<GameTO> {
+public class GameDataPanel extends AbstractDataPanel<Game> {
 
     /**
      * SerialVersionUID
@@ -23,52 +23,52 @@ public class GameDataPanel extends AbstractDataPanel<GameTO> {
     /**
      * Label for name
      */
-    private JLabel nameLabel = new JLabel("Name");
+    private final JLabel nameLabel = new JLabel("Name");
 
     /**
      * Label with name
      */
-    private JLabel nameData = new JLabel();
+    private final JLabel nameData = new JLabel();
 
     /**
      * Label for additional data
      */
-    private JLabel dataLabel = new JLabel("Additional data");
+    private final JLabel dataLabel = new JLabel("Additional data");
 
     /**
      * Label with additional data
      */
-    private JLabel dataData = new JLabel();
+    private final JLabel dataData = new JLabel();
 
     /**
      * Label for count of media
      */
-    private JLabel mediaCountLabel = new JLabel("Count of media");
+    private final JLabel mediaCountLabel = new JLabel("Count of media");
 
     /**
      * Label with count of media
      */
-    private JLabel mediaCountData = new JLabel();
+    private final JLabel mediaCountData = new JLabel();
 
     /**
      * Label for note
      */
-    private JLabel noteLabel = new JLabel("Note");
+    private final JLabel noteLabel = new JLabel("Note");
 
     /**
      * Label with note
      */
-    private JLabel noteData = new JLabel();
+    private final JLabel noteData = new JLabel();
 
     /**
      * Button for showing game's czech Wikipedia page
      */
-    private JButton wikiCzButton = new JButton("Czech Wikipedia");
+    private final JButton wikiCzButton = new JButton("Czech Wikipedia");
 
     /**
      * Button for showing game's english Wikipedia page
      */
-    private JButton wikiEnButton = new JButton("English Wikipedia");
+    private final JButton wikiEnButton = new JButton("English Wikipedia");
 
     /**
      * URL to czech Wikipedia page about game
@@ -83,10 +83,10 @@ public class GameDataPanel extends AbstractDataPanel<GameTO> {
     /**
      * Creates a new instance of GameDataPanel.
      *
-     * @param game TO for game
-     * @throws IllegalArgumentException if TO for game is null
+     * @param game game
+     * @throws IllegalArgumentException if game is null
      */
-    public GameDataPanel(final GameTO game) {
+    public GameDataPanel(final Game game) {
         updateData(game);
 
         initData(nameLabel, nameData);
@@ -101,7 +101,7 @@ public class GameDataPanel extends AbstractDataPanel<GameTO> {
     }
 
     @Override
-    protected void updateComponentData(final GameTO data) {
+    protected void updateComponentData(final Game data) {
         nameData.setText(data.getName());
         dataData.setText(getAdditionalData(data));
         mediaCountData.setText(Integer.toString(data.getMediaCount()));
@@ -161,10 +161,10 @@ public class GameDataPanel extends AbstractDataPanel<GameTO> {
     /**
      * Returns additional data.
      *
-     * @param game TO for game
+     * @param game game
      * @return additional data
      */
-    private static String getAdditionalData(final GameTO game) {
+    private static String getAdditionalData(final Game game) {
         final StringBuilder result = new StringBuilder();
         if (game.getCrack()) {
             result.append("Crack");

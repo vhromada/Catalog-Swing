@@ -3,21 +3,22 @@ package cz.vhromada.catalog.gui.season;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import cz.vhromada.catalog.entity.Season;
+import cz.vhromada.catalog.entity.Show;
 import cz.vhromada.catalog.facade.EpisodeFacade;
 import cz.vhromada.catalog.facade.SeasonFacade;
-import cz.vhromada.catalog.facade.to.SeasonTO;
-import cz.vhromada.catalog.facade.to.ShowTO;
 import cz.vhromada.catalog.gui.commons.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.commons.AbstractOverviewDataPanel;
 import cz.vhromada.catalog.gui.episode.EpisodesPanel;
-import cz.vhromada.validators.Validators;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents panel with seasons' data.
  *
  * @author Vladimir Hromada
  */
-public class SeasonsPanel extends AbstractOverviewDataPanel<SeasonTO> {
+public class SeasonsPanel extends AbstractOverviewDataPanel<Season> {
 
     /**
      * SerialVersionUID
@@ -27,32 +28,32 @@ public class SeasonsPanel extends AbstractOverviewDataPanel<SeasonTO> {
     /**
      * Facade for seasons
      */
-    private SeasonFacade seasonFacade;
+    private final SeasonFacade seasonFacade;
 
     /**
      * Facade for episodes
      */
-    private EpisodeFacade episodeFacade;
+    private final EpisodeFacade episodeFacade;
 
     /**
-     * TO for show
+     * Show
      */
-    private ShowTO show;
+    private Show show;
 
     /**
      * Creates a new instance of SeasonsPanel.
      *
      * @param seasonFacade  facade for seasons
      * @param episodeFacade facade for episodes
-     * @param show          TO for show
+     * @param show           show
      * @throws IllegalArgumentException if facade for seasons is null
      *                                  or facade for episodes is null
-     *                                  or TO for show is null
+     *                                  or show is null
      */
-    public SeasonsPanel(final SeasonFacade seasonFacade, final EpisodeFacade episodeFacade, final ShowTO show) {
+    public SeasonsPanel(final SeasonFacade seasonFacade, final EpisodeFacade episodeFacade, final Show show) {
         super(getSeasonsListDataModel(seasonFacade, show));
 
-        Validators.validateArgumentNotNull(episodeFacade, "Facade for episodes");
+        Assert.notNull(episodeFacade, "Facade for episodes mustn't be null.");
 
         this.seasonFacade = seasonFacade;
         this.episodeFacade = episodeFacade;
@@ -60,13 +61,13 @@ public class SeasonsPanel extends AbstractOverviewDataPanel<SeasonTO> {
     }
 
     /**
-     * Sets a new value to TO for show.
+     * Sets a new value to show.
      *
      * @param show new value
-     * @throws IllegalArgumentException if TO for show is null
+     * @throws IllegalArgumentException if show is null
      */
-    public void setShow(final ShowTO show) {
-        Validators.validateArgumentNotNull(show, "TO for show");
+    public void setShow(final Show show) {
+        Assert.notNull(show, " show");
 
         this.show = show;
     }
@@ -92,12 +93,12 @@ public class SeasonsPanel extends AbstractOverviewDataPanel<SeasonTO> {
     }
 
     @Override
-    protected AbstractInfoDialog<SeasonTO> getInfoDialog(final boolean add, final SeasonTO data) {
+    protected AbstractInfoDialog<Season> getInfoDialog(final boolean add, final Season data) {
         return add ? new SeasonInfoDialog() : new SeasonInfoDialog(data);
     }
 
     @Override
-    protected void addData(final SeasonTO data) {
+    protected void addData(final Season data) {
         seasonFacade.add(show, data);
     }
 
@@ -107,37 +108,37 @@ public class SeasonsPanel extends AbstractOverviewDataPanel<SeasonTO> {
     }
 
     @Override
-    protected void updateData(final SeasonTO data) {
+    protected void updateData(final Season data) {
         seasonFacade.update(data);
     }
 
     @Override
-    protected void removeData(final SeasonTO data) {
+    protected void removeData(final Season data) {
         seasonFacade.remove(data);
     }
 
     @Override
-    protected void duplicatesData(final SeasonTO data) {
+    protected void duplicatesData(final Season data) {
         seasonFacade.duplicate(data);
     }
 
     @Override
-    protected void moveUpData(final SeasonTO data) {
+    protected void moveUpData(final Season data) {
         seasonFacade.moveUp(data);
     }
 
     @Override
-    protected void moveDownData(final SeasonTO data) {
+    protected void moveDownData(final Season data) {
         seasonFacade.moveDown(data);
     }
 
     @Override
-    protected JPanel getDataPanel(final SeasonTO data) {
+    protected JPanel getDataPanel(final Season data) {
         return new SeasonDataPanel(data, episodeFacade);
     }
 
     @Override
-    protected void updateDataOnChange(final JTabbedPane dataPanel, final SeasonTO data) {
+    protected void updateDataOnChange(final JTabbedPane dataPanel, final Season data) {
         final EpisodesPanel episodesPanel = new EpisodesPanel(episodeFacade, data);
         episodesPanel.addPropertyChangeListener("update", evt -> {
             if (Boolean.TRUE.equals(evt.getNewValue())) {
@@ -153,12 +154,12 @@ public class SeasonsPanel extends AbstractOverviewDataPanel<SeasonTO> {
      * Returns data model for list with seasons.
      *
      * @param facade     facade for seasons
-     * @param showObject TO for show
+     * @param showObject  show
      * @return data model for list with seasons
      * @throws IllegalArgumentException if facade for seasons is null
-     *                                  or TO for show is null
+     *                                  or show is null
      */
-    private static SeasonsListDataModel getSeasonsListDataModel(final SeasonFacade facade, final ShowTO showObject) {
+    private static SeasonsListDataModel getSeasonsListDataModel(final SeasonFacade facade, final Show showObject) {
         return new SeasonsListDataModel(facade, showObject);
     }
 

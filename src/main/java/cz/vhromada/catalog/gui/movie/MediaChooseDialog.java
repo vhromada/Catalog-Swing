@@ -13,13 +13,14 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.WindowConstants;
 
-import cz.vhromada.catalog.commons.Time;
-import cz.vhromada.catalog.facade.to.MediumTO;
+import cz.vhromada.catalog.common.Time;
+import cz.vhromada.catalog.entity.Medium;
 import cz.vhromada.catalog.gui.commons.CatalogSwingConstants;
 import cz.vhromada.catalog.gui.commons.DialogResult;
 import cz.vhromada.catalog.gui.commons.Picture;
 import cz.vhromada.catalog.gui.commons.TimeDataPanel;
-import cz.vhromada.validators.Validators;
+
+import org.springframework.util.Assert;
 
 /**
  * A class represents dialog for choosing media.
@@ -91,17 +92,17 @@ public class MediaChooseDialog extends JDialog {
     /**
      * List of media
      */
-    private List<MediumTO> media;
+    private List<Medium> media;
 
     /**
      * Label for media count
      */
-    private JLabel mediaCountLabel = new JLabel("Media count");
+    private final JLabel mediaCountLabel = new JLabel("Media count");
 
     /**
      * Spinner for media count
      */
-    private JSpinner mediaCountData = new JSpinner(new SpinnerNumberModel(1, 1, MAX_MEDIA_COUNT, 1));
+    private final JSpinner mediaCountData = new JSpinner(new SpinnerNumberModel(1, 1, MAX_MEDIA_COUNT, 1));
 
     /**
      * Media panels
@@ -111,12 +112,12 @@ public class MediaChooseDialog extends JDialog {
     /**
      * Button OK
      */
-    private JButton okButton = new JButton("OK", Picture.OK.getIcon());
+    private final JButton okButton = new JButton("OK", Picture.OK.getIcon());
 
     /**
      * Button Cancel
      */
-    private JButton cancelButton = new JButton("Cancel", Picture.CANCEL.getIcon());
+    private final JButton cancelButton = new JButton("Cancel", Picture.CANCEL.getIcon());
 
     /**
      * Creates a new instance of MediaChooseDialog.
@@ -124,10 +125,10 @@ public class MediaChooseDialog extends JDialog {
      * @param media media
      * @throws IllegalArgumentException if list of media is null
      */
-    public MediaChooseDialog(final List<MediumTO> media) {
+    public MediaChooseDialog(final List<Medium> media) {
         super(new JFrame(), "Choose", true);
 
-        Validators.validateArgumentNotNull(media, "List of media");
+        Assert.notNull(media, "List of media mustn't be null.");
 
         this.media = media;
         initComponents();
@@ -149,8 +150,8 @@ public class MediaChooseDialog extends JDialog {
      * @return list of media
      * @throws IllegalStateException if list of media for hasn't been set
      */
-    public List<MediumTO> getMedia() {
-        Validators.validateFieldNotNull(media, "List of media");
+    public List<Medium> getMedia() {
+        Assert.state(media != null, "List of media mustn't be null.");
 
         return media;
     }
@@ -206,7 +207,7 @@ public class MediaChooseDialog extends JDialog {
         media.clear();
         final int mediaCount = (Integer) mediaCountData.getValue();
         for (int i = 0; i < mediaCount; i++) {
-            final MediumTO medium = new MediumTO();
+            final Medium medium = new Medium();
             medium.setNumber(i + 1);
             medium.setLength(mediaPanels.get(i).getLength().getLength());
             media.add(medium);
