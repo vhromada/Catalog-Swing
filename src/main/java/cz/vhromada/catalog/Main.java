@@ -39,6 +39,8 @@ public final class Main {
      *
      * @param args the command line arguments
      */
+    //CHECKSTYLE.OFF: UncommentedMain
+    @SuppressWarnings("AccessOfSystemProperties")
     public static void main(final String... args) {
         Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler());
         System.setProperty("sun.awt.exception.handler", ExceptionHandler.class.getName());
@@ -67,6 +69,7 @@ public final class Main {
             System.exit(2);
         }
     }
+    //CHECKSTYLE.ON: UncommentedMain
 
     /**
      * A class represents handler for uncaught exception.

@@ -101,6 +101,7 @@ public class ProgramDataPanel extends AbstractDataPanel<Program> {
     }
 
     @Override
+    @SuppressWarnings("Duplicates")
     protected void updateComponentData(final Program data) {
         nameData.setText(data.getName());
         dataData.setText(getAdditionalData(data));

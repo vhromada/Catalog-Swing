@@ -350,6 +350,7 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
      * @param japaneseLanguageData radio button for japanese language
      * @return selected language
      */
+    //CHECKSTYLE.OFF: ReturnCount
     protected static Language getSelectedLanguage(final ButtonModel model, final JRadioButton czechLanguageData, final JRadioButton englishLanguageData,
             final JRadioButton frenchLanguageData, final JRadioButton japaneseLanguageData) {
         if (model.equals(czechLanguageData.getModel())) {
@@ -367,6 +368,7 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
 
         return Language.SK;
     }
+    //CHECKSTYLE.ON: ReturnCount
 
     /**
      * Initializes subtitles.

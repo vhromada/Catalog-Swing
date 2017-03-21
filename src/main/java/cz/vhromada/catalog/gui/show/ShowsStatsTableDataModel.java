@@ -16,6 +16,7 @@ import org.springframework.util.Assert;
  *
  * @author Vladimir Hromada
  */
+@SuppressWarnings("Duplicates")
 public class ShowsStatsTableDataModel extends AbstractStatsTableDataModel {
 
     /**

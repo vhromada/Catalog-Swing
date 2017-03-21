@@ -121,6 +121,7 @@ public class ProgramInfoDialog extends AbstractInfoDialog<Program> {
     }
 
     @Override
+    @SuppressWarnings("Duplicates")
     protected void initComponents() {
         initLabelComponent(nameLabel, nameData);
         initLabelComponent(wikiCzLabel, wikiCzData);

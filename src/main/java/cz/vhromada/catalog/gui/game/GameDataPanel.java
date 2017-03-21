@@ -101,6 +101,7 @@ public class GameDataPanel extends AbstractDataPanel<Game> {
     }
 
     @Override
+    @SuppressWarnings("Duplicates")
     protected void updateComponentData(final Game data) {
         nameData.setText(data.getName());
         dataData.setText(getAdditionalData(data));

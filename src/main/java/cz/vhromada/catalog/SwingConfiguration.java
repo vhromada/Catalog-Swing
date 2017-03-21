@@ -25,4 +25,5 @@ public class SwingConfiguration {
                 .password("stargate stargate")
                 .build();
     }
+
 }

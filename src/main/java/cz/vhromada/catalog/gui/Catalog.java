@@ -41,6 +41,7 @@ import org.springframework.util.Assert;
  *
  * @author Vladimir Hromada
  */
+//CHECKSTYLE.OFF: ClassDataAbstractionCoupling
 public class Catalog extends JFrame {
 
     /**
@@ -388,3 +389,4 @@ public class Catalog extends JFrame {
     }
 
 }
+//CHECKSTYLE.ON: ClassDataAbstractionCoupling

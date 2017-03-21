@@ -151,6 +151,7 @@ public class GameInfoDialog extends AbstractInfoDialog<Game> {
     }
 
     @Override
+    @SuppressWarnings("Duplicates")
     protected void initComponents() {
         initLabelComponent(nameLabel, nameData);
         initLabelComponent(wikiCzLabel, wikiCzData);

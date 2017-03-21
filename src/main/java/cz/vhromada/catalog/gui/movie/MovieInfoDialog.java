@@ -32,6 +32,7 @@ import org.springframework.util.Assert;
  *
  * @author Vladimir Hromada
  */
+//CHECKSTYLE.OFF: ClassDataAbstractionCoupling
 public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
 
     /**
@@ -461,3 +462,4 @@ public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
     }
 
 }
+//CHECKSTYLE.ON: ClassDataAbstractionCoupling
