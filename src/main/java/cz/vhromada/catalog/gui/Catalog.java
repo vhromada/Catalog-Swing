@@ -33,6 +33,7 @@ import cz.vhromada.catalog.gui.music.MusicPanel;
 import cz.vhromada.catalog.gui.program.ProgramsPanel;
 import cz.vhromada.catalog.gui.show.ShowsPanel;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.util.Assert;
 
@@ -42,6 +43,7 @@ import org.springframework.util.Assert;
  * @author Vladimir Hromada
  */
 //CHECKSTYLE.OFF: ClassDataAbstractionCoupling
+@SuppressFBWarnings("CD_CIRCULAR_DEPENDENCY")
 public class Catalog extends JFrame {
 
     /**

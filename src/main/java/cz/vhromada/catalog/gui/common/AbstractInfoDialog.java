@@ -22,6 +22,7 @@ import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.facade.GenreFacade;
 import cz.vhromada.catalog.gui.genre.GenreChooseDialog;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.util.Assert;
 
 /**
@@ -30,6 +31,7 @@ import org.springframework.util.Assert;
  * @param <T> type of data
  * @author Vladimir Hromada
  */
+@SuppressFBWarnings("CD_CIRCULAR_DEPENDENCY")
 public abstract class AbstractInfoDialog<T> extends JDialog {
 
     /**

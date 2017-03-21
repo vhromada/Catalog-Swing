@@ -33,6 +33,11 @@ public class ShowDataPanel extends AbstractDataPanel<Show> {
     private static final long serialVersionUID = 1L;
 
     /**
+     * Error message for result with errors
+     */
+    private static final String RESULT_WITH_ERROR_MESSAGE = "Can't get data. ";
+
+    /**
      * Facade for seasons
      */
     private final SeasonFacade seasonFacade;
@@ -290,7 +295,7 @@ public class ShowDataPanel extends AbstractDataPanel<Show> {
         if (Status.OK == result.getStatus()) {
             return Integer.toString(result.getData().size());
         } else {
-            throw new IllegalArgumentException("Can't get data. " + result);
+            throw new IllegalArgumentException(RESULT_WITH_ERROR_MESSAGE + result);
         }
     }
 
@@ -310,12 +315,12 @@ public class ShowDataPanel extends AbstractDataPanel<Show> {
                 if (Status.OK == episodesResult.getStatus()) {
                     totalCount += episodesResult.getData().size();
                 } else {
-                    throw new IllegalArgumentException("Can't get data. " + episodesResult);
+                    throw new IllegalArgumentException(RESULT_WITH_ERROR_MESSAGE + episodesResult);
                 }
             }
             return Integer.toString(totalCount);
         } else {
-            throw new IllegalArgumentException("Can't get data. " + seasonsResult);
+            throw new IllegalArgumentException(RESULT_WITH_ERROR_MESSAGE + seasonsResult);
         }
     }
 
@@ -337,12 +342,12 @@ public class ShowDataPanel extends AbstractDataPanel<Show> {
                         totalLength += episode.getLength();
                     }
                 } else {
-                    throw new IllegalArgumentException("Can't get data. " + episodesResult);
+                    throw new IllegalArgumentException(RESULT_WITH_ERROR_MESSAGE + episodesResult);
                 }
             }
             return new Time(totalLength).toString();
         } else {
-            throw new IllegalArgumentException("Can't get data. " + seasonsResult);
+            throw new IllegalArgumentException(RESULT_WITH_ERROR_MESSAGE + seasonsResult);
         }
     }
 

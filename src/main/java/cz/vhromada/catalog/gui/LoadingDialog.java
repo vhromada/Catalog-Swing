@@ -16,6 +16,7 @@ import cz.vhromada.catalog.SwingConfiguration;
 import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
 import cz.vhromada.catalog.gui.common.DialogResult;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -27,6 +28,7 @@ import org.springframework.util.Assert;
  *
  * @author Vladimir Hromada
  */
+@SuppressFBWarnings("CD_CIRCULAR_DEPENDENCY")
 public class LoadingDialog extends JDialog {
 
     /**
@@ -147,6 +149,7 @@ public class LoadingDialog extends JDialog {
         }
 
         @Override
+        @SuppressFBWarnings("DM_EXIT")
         protected void done() {
             try {
                 timer.stop();

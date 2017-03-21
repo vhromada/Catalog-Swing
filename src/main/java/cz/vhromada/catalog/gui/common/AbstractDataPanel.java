@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import cz.vhromada.catalog.common.Language;
 import cz.vhromada.catalog.entity.Genre;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.util.Assert;
 
 /**
@@ -19,6 +20,7 @@ import org.springframework.util.Assert;
  * @param <T> type of data
  * @author Vladimir Hromada
  */
+@SuppressFBWarnings("CD_CIRCULAR_DEPENDENCY")
 public abstract class AbstractDataPanel<T> extends JPanel {
 
     /**

@@ -2,9 +2,11 @@ package cz.vhromada.catalog;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
+import java.nio.charset.Charset;
 import java.util.Properties;
 
 import javax.swing.SwingUtilities;
@@ -13,6 +15,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import cz.vhromada.catalog.gui.Selector;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +24,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Vladimir Hromada
  */
+@SuppressFBWarnings("CD_CIRCULAR_DEPENDENCY")
 public final class Main {
 
     /**
@@ -49,7 +53,7 @@ public final class Main {
             final File file = new File("Settings.properties");
             if (file.exists()) {
                 final Properties properties = new Properties();
-                try (Reader reader = new BufferedReader(new FileReader(file))) {
+                try (Reader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charset.forName("UTF-8")))) {
                     properties.load(reader);
                 }
                 final String os = properties.getProperty("OS");
@@ -77,6 +81,7 @@ public final class Main {
     private static class ExceptionHandler implements Thread.UncaughtExceptionHandler {
 
         @Override
+        @SuppressFBWarnings("DM_EXIT")
         public void uncaughtException(final Thread t, final Throwable e) {
             logger.error("Exception in Catalog application.", e);
             System.exit(4);
