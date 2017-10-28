@@ -12,7 +12,7 @@
 
     <groupId>cz.vhromada.catalog</groupId>
     <artifactId>catalog-swing</artifactId>
-    <version>3.0.2</version>
+    <version>3.0.3</version>
 
     <name>Catalog Swing</name>
     <description>Application in Swing for catalog of movies, games, music and programs</description>
@@ -74,6 +74,10 @@
                         </manifest>
                     </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
