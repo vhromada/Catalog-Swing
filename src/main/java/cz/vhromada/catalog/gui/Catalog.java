@@ -263,16 +263,16 @@ public class Catalog extends JFrame {
      * Initializes file menu.
      */
     private void initFileMenu() {
-        newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+        newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
         newMenuItem.addActionListener(e -> newAction());
 
-        saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
+        saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_DOWN_MASK));
         saveMenuItem.addActionListener(e -> saveAction());
 
-        selectorMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
+        selectorMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_DOWN_MASK));
         selectorMenuItem.addActionListener(e -> selectorAction());
 
-        exitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_MASK));
+        exitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.ALT_DOWN_MASK));
         exitMenuItem.addActionListener(e -> exitAction());
     }
 
@@ -381,7 +381,7 @@ public class Catalog extends JFrame {
         gameFacade.updatePositions();
         musicFacade.updatePositions();
         programFacade.updatePositions();
-        gameFacade.updatePositions();
+        genreFacade.updatePositions();
         moviesPanel.save();
         showsPanel.save();
         gamesPanel.save();

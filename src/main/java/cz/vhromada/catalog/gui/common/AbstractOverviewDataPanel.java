@@ -307,15 +307,15 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
         removePopupMenuItem.setEnabled(false);
         removePopupMenuItem.addActionListener(e -> removeAction());
 
-        duplicatePopupMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_MASK));
+        duplicatePopupMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_DOWN_MASK));
         duplicatePopupMenuItem.setEnabled(false);
         duplicatePopupMenuItem.addActionListener(e -> duplicateAction());
 
-        moveUpPopupMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_MASK));
+        moveUpPopupMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK));
         moveUpPopupMenuItem.setEnabled(false);
         moveUpPopupMenuItem.addActionListener(e -> moveUpAction());
 
-        moveDownPopupMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_MASK));
+        moveDownPopupMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK));
         moveDownPopupMenuItem.setEnabled(false);
         moveDownPopupMenuItem.addActionListener(e -> moveDownAction());
 
