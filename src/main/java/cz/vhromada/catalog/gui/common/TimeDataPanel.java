@@ -12,7 +12,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * A class represents TimeDataPanel.
+ * A class represents panel for data about time.
  *
  * @author Vladimir Hromada
  */
@@ -77,8 +77,8 @@ public class TimeDataPanel extends JPanel {
      * Creates a new instance of TimeDataPanel.
      *
      * @param labelText text of label
-     * @throws IllegalArgumentException                              if text of label is null
-     *                                                               or text of label is empty string
+     * @throws IllegalArgumentException if text of label is null
+     *                                  or text of label is empty string
      */
     public TimeDataPanel(final String labelText) {
         Assert.notNull(labelText, "Label text mustn't be null.");

@@ -128,7 +128,7 @@ public class SeasonInfoDialog extends AbstractInfoDialog<Season> {
     /**
      * Creates a new instance of SeasonInfoDialog.
      *
-     * @param season  season
+     * @param season season
      * @throws IllegalArgumentException if season is null
      */
     public SeasonInfoDialog(final Season season) {

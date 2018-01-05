@@ -18,25 +18,26 @@ import cz.vhromada.catalog.gui.Selector;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Import;
 
 /**
- * A class represents utility class with main method.
+ * A class represents Spring boot application.
  *
  * @author Vladimir Hromada
  */
-@SuppressFBWarnings("CD_CIRCULAR_DEPENDENCY")
-public final class Main {
+//CHECKSTYLE.OFF: HideUtilityClassConstructor
+@SpringBootApplication
+@Import(CatalogConfiguration.class)
+@SuppressWarnings("NonFinalUtilityClass")
+public class SwingApplication {
 
     /**
      * Logger
      */
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
-
-    /**
-     * Creates a new instance of Main.
-     */
-    private Main() {
-    }
+    private static final Logger logger = LoggerFactory.getLogger(SwingApplication.class);
 
     /**
      * Main method.
@@ -60,7 +61,9 @@ public final class Main {
                 if (os != null && "Windows".equals(os)) {
                     UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
                 }
-                SwingUtilities.invokeLater(() -> new Selector().setVisible(true));
+
+                final ConfigurableApplicationContext context = new SpringApplicationBuilder(SwingApplication.class).headless(false).run(args);
+                SwingUtilities.invokeLater(() -> new Selector(context).setVisible(true));
             } else {
                 logger.error("There isn't settings file ({}).", file.getAbsolutePath());
                 System.exit(3);
@@ -90,3 +93,4 @@ public final class Main {
     }
 
 }
+//CHECKSTYLE.ON: HideUtilityClassConstructor

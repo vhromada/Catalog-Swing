@@ -320,7 +320,7 @@ public class Catalog extends JFrame {
      */
     private void selectorAction() {
         closing();
-        SwingUtilities.invokeLater(() -> new Selector().setVisible(true));
+        SwingUtilities.invokeLater(() -> new Selector(context).setVisible(true));
         setVisible(false);
         dispose();
     }

@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: Catalog
+  datasource:
+    driverClassName: org.h2.Driver
+    name: Catalog
+    password: stargate stargate
+    url: jdbc:h2:.\\db\\Catalog;CIPHER=AES
+    username: Lavina
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none
+    show-sql: false

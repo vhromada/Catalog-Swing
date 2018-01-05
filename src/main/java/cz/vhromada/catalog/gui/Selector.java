@@ -7,8 +7,10 @@ import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
-import cz.vhromada.catalog.gui.common.DialogResult;
 import cz.vhromada.catalog.gui.common.Picture;
+
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.util.Assert;
 
 /**
  * A class represents main screen for selecting options.
@@ -38,6 +40,11 @@ public class Selector extends JFrame {
     private static final int VERTICAL_GAP_SIZE = 40;
 
     /**
+     * Application context
+     */
+    private ConfigurableApplicationContext context;
+
+    /**
      * Button Catalog
      */
     private final JButton catalogButton = new JButton("Catalog");
@@ -49,15 +56,22 @@ public class Selector extends JFrame {
 
     /**
      * Creates a new instance of Selector.
+     *
+     * @param context application context
+     * @throws IllegalArgumentException if application context is null
      */
-    public Selector() {
+    public Selector(final ConfigurableApplicationContext context) {
+        Assert.notNull(context, "Application context mustn't be null.");
+
         setTitle("Catalog - Selector");
         setIconImage(Picture.CATALOG.getIcon().getImage());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        this.context = context;
+
         catalogButton.addActionListener(e -> catalogAction());
 
-        exitButton.addActionListener(e -> System.exit(0));
+        exitButton.addActionListener(e -> exitAction());
 
         final GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -75,15 +89,17 @@ public class Selector extends JFrame {
     private void catalogAction() {
         SwingUtilities.invokeLater(() -> {
             setVisible(false);
-            final LoadingDialog dialog = new LoadingDialog();
-            dialog.setVisible(true);
-            if (dialog.getReturnStatus() == DialogResult.OK) {
-                dispose();
-                new Catalog(dialog.getContext()).setVisible(true);
-            } else {
-                System.exit(0);
-            }
+            dispose();
+            new Catalog(context).setVisible(true);
         });
+    }
+
+    /**
+     * Performs action for button Exit.
+     */
+    private void exitAction() {
+        context.close();
+        System.exit(0);
     }
 
     /**

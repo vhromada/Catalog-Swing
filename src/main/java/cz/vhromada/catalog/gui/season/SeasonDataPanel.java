@@ -105,7 +105,7 @@ public class SeasonDataPanel extends AbstractDataPanel<Season> {
     /**
      * Creates a new instance of SeasonDataPanel.
      *
-     * @param season         season
+     * @param season        season
      * @param episodeFacade facade for episodes
      * @throws IllegalArgumentException if season is null
      *                                  or facade for episodes is null
@@ -193,7 +193,7 @@ public class SeasonDataPanel extends AbstractDataPanel<Season> {
     /**
      * Returns season's year.
      *
-     * @param season  season
+     * @param season season
      * @return season's year
      */
     private static String getYear(final Season season) {
@@ -206,7 +206,7 @@ public class SeasonDataPanel extends AbstractDataPanel<Season> {
     /**
      * Returns count of season's episodes.
      *
-     * @param season  season
+     * @param season season
      * @return count of season's episodes
      */
     private String getEpisodesCount(final Season season) {
@@ -222,7 +222,7 @@ public class SeasonDataPanel extends AbstractDataPanel<Season> {
     /**
      * Returns total length of all season's episodes.
      *
-     * @param season  season
+     * @param season season
      * @return total length of all season's episodes
      */
     private String getSeasonLength(final Season season) {
