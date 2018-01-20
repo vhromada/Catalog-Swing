@@ -17,7 +17,7 @@ import org.springframework.util.Assert;
  *
  * @author Vladimir Hromada
  */
-public class Selector extends JFrame {
+public final class Selector extends JFrame {
 
     /**
      * SerialVersionUID
@@ -110,13 +110,13 @@ public class Selector extends JFrame {
      */
     private GroupLayout.SequentialGroup createHorizontalLayout(final GroupLayout layout) {
         final GroupLayout.ParallelGroup buttons = layout.createParallelGroup()
-                .addComponent(catalogButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, Short.MAX_VALUE)
-                .addComponent(exitButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, Short.MAX_VALUE);
+            .addComponent(catalogButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, Short.MAX_VALUE)
+            .addComponent(exitButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, Short.MAX_VALUE);
 
         return layout.createSequentialGroup()
-                .addGap(0, HORIZONTAL_GAP_SIZE, Short.MAX_VALUE)
-                .addGroup(buttons)
-                .addGap(0, HORIZONTAL_GAP_SIZE, Short.MAX_VALUE);
+            .addGap(0, HORIZONTAL_GAP_SIZE, Short.MAX_VALUE)
+            .addGroup(buttons)
+            .addGap(0, HORIZONTAL_GAP_SIZE, Short.MAX_VALUE);
     }
 
     /**
@@ -127,11 +127,11 @@ public class Selector extends JFrame {
      */
     private GroupLayout.SequentialGroup createVerticalLayout(final GroupLayout layout) {
         return layout.createSequentialGroup()
-                .addGap(0, VERTICAL_GAP_SIZE, Short.MAX_VALUE)
-                .addComponent(catalogButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, Short.MAX_VALUE)
-                .addGap(0, VERTICAL_GAP_SIZE, Short.MAX_VALUE)
-                .addComponent(exitButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, Short.MAX_VALUE)
-                .addGap(0, VERTICAL_GAP_SIZE, Short.MAX_VALUE);
+            .addGap(0, VERTICAL_GAP_SIZE, Short.MAX_VALUE)
+            .addComponent(catalogButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, Short.MAX_VALUE)
+            .addGap(0, VERTICAL_GAP_SIZE, Short.MAX_VALUE)
+            .addComponent(exitButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, Short.MAX_VALUE)
+            .addGap(0, VERTICAL_GAP_SIZE, Short.MAX_VALUE);
     }
 
 }

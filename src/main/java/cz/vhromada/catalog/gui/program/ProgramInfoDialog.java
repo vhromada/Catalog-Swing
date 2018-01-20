@@ -161,36 +161,36 @@ public class ProgramInfoDialog extends AbstractInfoDialog<Program> {
     @Override
     protected GroupLayout.Group getHorizontalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addGroup(createHorizontalComponents(layout, nameLabel, nameData))
-                .addGroup(createHorizontalComponents(layout, wikiCzLabel, wikiCzData))
-                .addGroup(createHorizontalComponents(layout, wikiEnLabel, wikiEnData))
-                .addGroup(createHorizontalComponents(layout, mediaCountLabel, mediaCountData))
-                .addComponent(crackData, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE)
-                .addComponent(serialData, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE)
-                .addGroup(createHorizontalComponents(layout, otherDataLabel, otherDataData))
-                .addGroup(createHorizontalComponents(layout, noteLabel, noteData));
+            .addGroup(createHorizontalComponents(layout, nameLabel, nameData))
+            .addGroup(createHorizontalComponents(layout, wikiCzLabel, wikiCzData))
+            .addGroup(createHorizontalComponents(layout, wikiEnLabel, wikiEnData))
+            .addGroup(createHorizontalComponents(layout, mediaCountLabel, mediaCountData))
+            .addComponent(crackData, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE)
+            .addComponent(serialData, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE)
+            .addGroup(createHorizontalComponents(layout, otherDataLabel, otherDataData))
+            .addGroup(createHorizontalComponents(layout, noteLabel, noteData));
     }
 
     @Override
     protected GroupLayout.Group getVerticalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addGroup(createVerticalComponents(layout, nameLabel, nameData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, wikiCzLabel, wikiCzData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, wikiEnLabel, wikiEnData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, mediaCountLabel, mediaCountData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addComponent(crackData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
-                .addGap(VERTICAL_GAP_SIZE)
-                .addComponent(serialData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, otherDataLabel, otherDataData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, noteLabel, noteData));
+            .addGroup(createVerticalComponents(layout, nameLabel, nameData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, wikiCzLabel, wikiCzData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, wikiEnLabel, wikiEnData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, mediaCountLabel, mediaCountData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(crackData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
+            .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(serialData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, otherDataLabel, otherDataData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, noteLabel, noteData));
     }
 
 }

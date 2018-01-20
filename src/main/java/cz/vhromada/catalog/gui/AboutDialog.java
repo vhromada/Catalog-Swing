@@ -18,7 +18,7 @@ import cz.vhromada.catalog.gui.common.Picture;
  *
  * @author Vladimir Hromada
  */
-public class AboutDialog extends JDialog {
+public final class AboutDialog extends JDialog {
 
     /**
      * SerialVersionUID
@@ -136,23 +136,23 @@ public class AboutDialog extends JDialog {
      */
     private GroupLayout.SequentialGroup createHorizontalLayout(final GroupLayout layout) {
         final GroupLayout.ParallelGroup labels = layout.createParallelGroup()
-                .addComponent(nameLabel, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE)
-                .addComponent(versionLabel, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE)
-                .addComponent(authorLabel, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE)
-                .addComponent(rightsLabel, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE);
+            .addComponent(nameLabel, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE)
+            .addComponent(versionLabel, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE)
+            .addComponent(authorLabel, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE)
+            .addComponent(rightsLabel, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE);
 
         final GroupLayout.SequentialGroup button = layout.createSequentialGroup()
-                .addGap(HORIZONTAL_BUTTON_GAP_SIZE)
-                .addComponent(okButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE);
+            .addGap(HORIZONTAL_BUTTON_GAP_SIZE)
+            .addComponent(okButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE);
 
         final GroupLayout.ParallelGroup components = layout.createParallelGroup()
-                .addGroup(labels)
-                .addGroup(button);
+            .addGroup(labels)
+            .addGroup(button);
 
         return layout.createSequentialGroup()
-                .addGap(HORIZONTAL_GAP_SIZE)
-                .addGroup(components)
-                .addGap(HORIZONTAL_GAP_SIZE);
+            .addGap(HORIZONTAL_GAP_SIZE)
+            .addGroup(components)
+            .addGap(HORIZONTAL_GAP_SIZE);
     }
 
     /**
@@ -163,22 +163,22 @@ public class AboutDialog extends JDialog {
      */
     private GroupLayout.SequentialGroup createVerticalLayout(final GroupLayout layout) {
         return layout.createSequentialGroup()
-                .addGap(VERTICAL_GAP_SIZE)
-                .addComponent(nameLabel, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
-                .addGap(VERTICAL_GAP_SIZE)
-                .addComponent(versionLabel, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
-                .addGap(VERTICAL_GAP_SIZE)
-                .addComponent(authorLabel, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
-                .addGap(VERTICAL_GAP_SIZE)
-                .addComponent(rightsLabel, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
-                .addGap(VERTICAL_LONG_GAP_SIZE)
-                .addComponent(okButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
-                        CatalogSwingConstants.VERTICAL_BUTTON_SIZE)
-                .addGap(VERTICAL_GAP_SIZE);
+            .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(nameLabel, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
+            .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(versionLabel, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
+            .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(authorLabel, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
+            .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(rightsLabel, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
+            .addGap(VERTICAL_LONG_GAP_SIZE)
+            .addComponent(okButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
+                CatalogSwingConstants.VERTICAL_BUTTON_SIZE)
+            .addGap(VERTICAL_GAP_SIZE);
     }
 
 }

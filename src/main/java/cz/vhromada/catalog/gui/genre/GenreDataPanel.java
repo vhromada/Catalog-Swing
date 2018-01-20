@@ -70,13 +70,13 @@ public class GenreDataPanel extends AbstractDataPanel<Genre> {
     @Override
     protected GroupLayout.Group getHorizontalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addGroup(createHorizontalDataComponents(layout, nameLabel, nameData));
+            .addGroup(createHorizontalDataComponents(layout, nameLabel, nameData));
     }
 
     @Override
     protected GroupLayout.Group getVerticalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addGroup(createVerticalComponents(layout, nameLabel, nameData));
+            .addGroup(createVerticalComponents(layout, nameLabel, nameData));
     }
 
 }

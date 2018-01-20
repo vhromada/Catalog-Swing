@@ -502,16 +502,16 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
      */
     private GroupLayout.Group createHorizontalLayout(final GroupLayout layout) {
         final GroupLayout.Group data = layout.createSequentialGroup()
-                .addComponent(listScrollPane, HORIZONTAL_SCROLL_PANE_SIZE, HORIZONTAL_SCROLL_PANE_SIZE, HORIZONTAL_SCROLL_PANE_SIZE)
-                .addGap(HORIZONTAL_GAP_SIZE)
-                .addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
+            .addComponent(listScrollPane, HORIZONTAL_SCROLL_PANE_SIZE, HORIZONTAL_SCROLL_PANE_SIZE, HORIZONTAL_SCROLL_PANE_SIZE)
+            .addGap(HORIZONTAL_GAP_SIZE)
+            .addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
 
         if (statsTableDataModel == null) {
             return data;
         } else {
             return layout.createParallelGroup()
-                    .addGroup(data)
-                    .addComponent(statsTableScrollPane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
+                .addGroup(data)
+                .addComponent(statsTableScrollPane, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
         }
     }
 
@@ -523,16 +523,16 @@ public abstract class AbstractOverviewDataPanel<T> extends JPanel {
      */
     private GroupLayout.Group createVerticalLayout(final GroupLayout layout) {
         final GroupLayout.Group data = layout.createParallelGroup()
-                .addComponent(listScrollPane, VERTICAL_DATA_COMPONENT_SIZE, VERTICAL_DATA_COMPONENT_SIZE, Short.MAX_VALUE)
-                .addComponent(tabbedPane, VERTICAL_DATA_COMPONENT_SIZE, VERTICAL_DATA_COMPONENT_SIZE, Short.MAX_VALUE);
+            .addComponent(listScrollPane, VERTICAL_DATA_COMPONENT_SIZE, VERTICAL_DATA_COMPONENT_SIZE, Short.MAX_VALUE)
+            .addComponent(tabbedPane, VERTICAL_DATA_COMPONENT_SIZE, VERTICAL_DATA_COMPONENT_SIZE, Short.MAX_VALUE);
 
         if (statsTableDataModel == null) {
             return data;
         } else {
             return layout.createSequentialGroup()
-                    .addGroup(data)
-                    .addGap(VERTICAL_GAP_SIZE)
-                    .addComponent(statsTableScrollPane, VERTICAL_STATS_SCROLL_PANE_SIZE, VERTICAL_STATS_SCROLL_PANE_SIZE, VERTICAL_STATS_SCROLL_PANE_SIZE);
+                .addGroup(data)
+                .addGap(VERTICAL_GAP_SIZE)
+                .addComponent(statsTableScrollPane, VERTICAL_STATS_SCROLL_PANE_SIZE, VERTICAL_STATS_SCROLL_PANE_SIZE, VERTICAL_STATS_SCROLL_PANE_SIZE);
         }
     }
 

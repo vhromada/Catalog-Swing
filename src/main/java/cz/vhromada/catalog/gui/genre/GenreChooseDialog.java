@@ -1,6 +1,7 @@
 package cz.vhromada.catalog.gui.genre;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.GroupLayout;
@@ -25,7 +26,7 @@ import org.springframework.util.Assert;
  *
  * @author Vladimir Hromada
  */
-public class GenreChooseDialog extends JDialog {
+public final class GenreChooseDialog extends JDialog {
 
     /**
      * SerialVersionUID
@@ -122,7 +123,7 @@ public class GenreChooseDialog extends JDialog {
         Assert.notNull(genres, "List of genres mustn't be null.");
 
         this.genreFacade = genreFacade;
-        this.genres = genres;
+        this.genres = new ArrayList<>(genres);
         initComponents();
         setIconImage(Picture.CHOOSE.getIcon().getImage());
     }
@@ -145,7 +146,7 @@ public class GenreChooseDialog extends JDialog {
     public List<Genre> getGenres() {
         Assert.state(genres != null, "List of genres mustn't be null.");
 
-        return genres;
+        return Collections.unmodifiableList(genres);
     }
 
     /**
@@ -242,21 +243,21 @@ public class GenreChooseDialog extends JDialog {
      */
     private GroupLayout.Group createHorizontalLayout(final GroupLayout layout) {
         final GroupLayout.Group buttons = layout.createSequentialGroup()
-                .addGap(HORIZONTAL_BUTTON_GAP_SIZE)
-                .addComponent(okButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE)
-                .addGap(HORIZONTAL_BUTTONS_GAP_SIZE)
-                .addComponent(cancelButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE)
-                .addGap(HORIZONTAL_BUTTON_GAP_SIZE);
+            .addGap(HORIZONTAL_BUTTON_GAP_SIZE)
+            .addComponent(okButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE)
+            .addGap(HORIZONTAL_BUTTONS_GAP_SIZE)
+            .addComponent(cancelButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE)
+            .addGap(HORIZONTAL_BUTTON_GAP_SIZE);
 
 
         final GroupLayout.Group components = layout.createParallelGroup()
-                .addComponent(listScrollPane, HORIZONTAL_SCROLL_PANE_SIZE, HORIZONTAL_SCROLL_PANE_SIZE, HORIZONTAL_SCROLL_PANE_SIZE)
-                .addGroup(buttons);
+            .addComponent(listScrollPane, HORIZONTAL_SCROLL_PANE_SIZE, HORIZONTAL_SCROLL_PANE_SIZE, HORIZONTAL_SCROLL_PANE_SIZE)
+            .addGroup(buttons);
 
         return layout.createSequentialGroup()
-                .addGap(HORIZONTAL_GAP_SIZE)
-                .addGroup(components)
-                .addGap(HORIZONTAL_GAP_SIZE);
+            .addGap(HORIZONTAL_GAP_SIZE)
+            .addGroup(components)
+            .addGap(HORIZONTAL_GAP_SIZE);
     }
 
     /**
@@ -267,17 +268,17 @@ public class GenreChooseDialog extends JDialog {
      */
     private GroupLayout.Group createVerticalLayout(final GroupLayout layout) {
         final GroupLayout.Group buttons = layout.createParallelGroup()
-                .addComponent(okButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
-                        CatalogSwingConstants.VERTICAL_BUTTON_SIZE)
-                .addComponent(cancelButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
-                        CatalogSwingConstants.VERTICAL_BUTTON_SIZE);
+            .addComponent(okButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
+                CatalogSwingConstants.VERTICAL_BUTTON_SIZE)
+            .addComponent(cancelButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
+                CatalogSwingConstants.VERTICAL_BUTTON_SIZE);
 
         return layout.createSequentialGroup()
-                .addGap(VERTICAL_GAP_SIZE)
-                .addComponent(listScrollPane, VERTICAL_SCROLL_PANE_SIZE, VERTICAL_SCROLL_PANE_SIZE, VERTICAL_SCROLL_PANE_SIZE)
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(buttons)
-                .addGap(VERTICAL_GAP_SIZE);
+            .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(listScrollPane, VERTICAL_SCROLL_PANE_SIZE, VERTICAL_SCROLL_PANE_SIZE, VERTICAL_SCROLL_PANE_SIZE)
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(buttons)
+            .addGap(VERTICAL_GAP_SIZE);
     }
 
 }

@@ -256,7 +256,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
         this.originalNameData.setText(movie.getOriginalName());
         this.yearData.setValue(movie.getYear());
         initLanguage(movie.getLanguage(), this.czechLanguageData, this.englishLanguageData, this.frenchLanguageData, this.japaneseLanguageData,
-                this.slovakLanguageData);
+            this.slovakLanguageData);
         initSubtitles(movie.getSubtitles(), this.czechSubtitlesData, this.englishSubtitlesData);
         this.mediaData.setText(getMedia());
         this.csfdData.setText(movie.getCsfd());
@@ -314,7 +314,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
         movie.setOriginalName(originalNameData.getText());
         movie.setYear((Integer) yearData.getValue());
         movie.setLanguage(getSelectedLanguage(languagesButtonGroup.getSelection(), czechLanguageData, englishLanguageData, frenchLanguageData,
-                japaneseLanguageData));
+            japaneseLanguageData));
         movie.setSubtitles(getSelectedSubtitles(czechSubtitlesData, englishSubtitlesData));
         movie.setMedia(media);
         movie.setCsfd(csfdData.getText());
@@ -343,77 +343,77 @@ public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
     @Override
     protected GroupLayout.Group getHorizontalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addGroup(createHorizontalComponents(layout, czechNameLabel, czechNameData))
-                .addGroup(createHorizontalComponents(layout, originalNameLabel, originalNameData))
-                .addGroup(createHorizontalComponents(layout, yearLabel, yearData))
-                .addGroup(createHorizontalComponents(layout, languageLabel, czechLanguageData))
-                .addGroup(createHorizontalSelectableComponent(layout, englishLanguageData))
-                .addGroup(createHorizontalSelectableComponent(layout, frenchLanguageData))
-                .addGroup(createHorizontalSelectableComponent(layout, japaneseLanguageData))
-                .addGroup(createHorizontalSelectableComponent(layout, slovakLanguageData))
-                .addGroup(createHorizontalComponents(layout, subtitlesLabel, czechSubtitlesData))
-                .addGroup(createHorizontalSelectableComponent(layout, englishSubtitlesData))
-                .addGroup(createHorizontalComponents(layout, mediaLabel, mediaData))
-                .addComponent(mediaButton, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE)
-                .addGroup(createHorizontalComponents(layout, csfdLabel, csfdData))
-                .addGroup(createHorizontalComponents(layout, imdbCodeLabel, imdbCodeData))
-                .addGroup(createHorizontalComponents(layout, wikiCzLabel, wikiCzData))
-                .addGroup(createHorizontalComponents(layout, wikiEnLabel, wikiEnData))
-                .addGroup(createHorizontalComponents(layout, pictureLabel, pictureData))
-                .addGroup(createHorizontalComponents(layout, noteLabel, noteData))
-                .addGroup(createHorizontalComponents(layout, genreLabel, genreData))
-                .addComponent(genresButton, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE);
+            .addGroup(createHorizontalComponents(layout, czechNameLabel, czechNameData))
+            .addGroup(createHorizontalComponents(layout, originalNameLabel, originalNameData))
+            .addGroup(createHorizontalComponents(layout, yearLabel, yearData))
+            .addGroup(createHorizontalComponents(layout, languageLabel, czechLanguageData))
+            .addGroup(createHorizontalSelectableComponent(layout, englishLanguageData))
+            .addGroup(createHorizontalSelectableComponent(layout, frenchLanguageData))
+            .addGroup(createHorizontalSelectableComponent(layout, japaneseLanguageData))
+            .addGroup(createHorizontalSelectableComponent(layout, slovakLanguageData))
+            .addGroup(createHorizontalComponents(layout, subtitlesLabel, czechSubtitlesData))
+            .addGroup(createHorizontalSelectableComponent(layout, englishSubtitlesData))
+            .addGroup(createHorizontalComponents(layout, mediaLabel, mediaData))
+            .addComponent(mediaButton, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE)
+            .addGroup(createHorizontalComponents(layout, csfdLabel, csfdData))
+            .addGroup(createHorizontalComponents(layout, imdbCodeLabel, imdbCodeData))
+            .addGroup(createHorizontalComponents(layout, wikiCzLabel, wikiCzData))
+            .addGroup(createHorizontalComponents(layout, wikiEnLabel, wikiEnData))
+            .addGroup(createHorizontalComponents(layout, pictureLabel, pictureData))
+            .addGroup(createHorizontalComponents(layout, noteLabel, noteData))
+            .addGroup(createHorizontalComponents(layout, genreLabel, genreData))
+            .addComponent(genresButton, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE);
     }
 
     @Override
     protected GroupLayout.Group getVerticalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addGroup(createVerticalComponents(layout, czechNameLabel, czechNameData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, originalNameLabel, originalNameData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, yearLabel, yearData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, languageLabel, czechLanguageData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addComponent(englishLanguageData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
-                .addGap(VERTICAL_GAP_SIZE)
-                .addComponent(frenchLanguageData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
-                .addGap(VERTICAL_GAP_SIZE)
-                .addComponent(japaneseLanguageData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
-                .addGap(VERTICAL_GAP_SIZE)
-                .addComponent(slovakLanguageData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, subtitlesLabel, czechSubtitlesData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addComponent(englishSubtitlesData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, mediaLabel, mediaData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addComponent(mediaButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
-                        CatalogSwingConstants.VERTICAL_BUTTON_SIZE)
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, csfdLabel, csfdData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, imdbCodeLabel, imdbCodeData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, wikiCzLabel, wikiCzData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, wikiEnLabel, wikiEnData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, pictureLabel, pictureData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, noteLabel, noteData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, genreLabel, genreData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addComponent(genresButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
-                        CatalogSwingConstants.VERTICAL_BUTTON_SIZE);
+            .addGroup(createVerticalComponents(layout, czechNameLabel, czechNameData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, originalNameLabel, originalNameData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, yearLabel, yearData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, languageLabel, czechLanguageData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(englishLanguageData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
+            .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(frenchLanguageData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
+            .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(japaneseLanguageData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
+            .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(slovakLanguageData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, subtitlesLabel, czechSubtitlesData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(englishSubtitlesData, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, mediaLabel, mediaData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(mediaButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
+                CatalogSwingConstants.VERTICAL_BUTTON_SIZE)
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, csfdLabel, csfdData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, imdbCodeLabel, imdbCodeData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, wikiCzLabel, wikiCzData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, wikiEnLabel, wikiEnData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, pictureLabel, pictureData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, noteLabel, noteData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, genreLabel, genreData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(genresButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
+                CatalogSwingConstants.VERTICAL_BUTTON_SIZE);
     }
 
     /**

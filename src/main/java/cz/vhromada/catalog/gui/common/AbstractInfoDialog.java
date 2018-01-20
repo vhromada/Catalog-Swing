@@ -22,7 +22,6 @@ import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.facade.GenreFacade;
 import cz.vhromada.catalog.gui.genre.GenreChooseDialog;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.util.Assert;
 
 /**
@@ -31,7 +30,6 @@ import org.springframework.util.Assert;
  * @param <T> type of data
  * @author Vladimir Hromada
  */
-@SuppressFBWarnings("CD_CIRCULAR_DEPENDENCY")
 public abstract class AbstractInfoDialog<T> extends JDialog {
 
     /**
@@ -146,9 +144,7 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
     private AbstractInfoDialog(final String name, final Picture picture) {
         super(new JFrame(), name, true);
 
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setResizable(false);
-        setIconImage(picture.getIcon().getImage());
+        initDialog(picture);
 
         okButton.addActionListener(e -> okAction());
 
@@ -320,7 +316,7 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
      * @param slovakLanguageData   radio button for slovak language
      */
     protected static void initLanguage(final Language language, final JRadioButton czechLanguageData, final JRadioButton englishLanguageData,
-            final JRadioButton frenchLanguageData, final JRadioButton japaneseLanguageData, final JRadioButton slovakLanguageData) {
+        final JRadioButton frenchLanguageData, final JRadioButton japaneseLanguageData, final JRadioButton slovakLanguageData) {
         switch (language) {
             case CZ:
                 czechLanguageData.setSelected(true);
@@ -354,7 +350,7 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
      */
     //CHECKSTYLE.OFF: ReturnCount
     protected static Language getSelectedLanguage(final ButtonModel model, final JRadioButton czechLanguageData, final JRadioButton englishLanguageData,
-            final JRadioButton frenchLanguageData, final JRadioButton japaneseLanguageData) {
+        final JRadioButton frenchLanguageData, final JRadioButton japaneseLanguageData) {
         if (model.equals(czechLanguageData.getModel())) {
             return Language.CZ;
         }
@@ -438,9 +434,9 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
      */
     protected final GroupLayout.Group createHorizontalComponents(final GroupLayout layout, final JComponent labelComponent, final JComponent dataComponent) {
         return layout.createSequentialGroup()
-                .addComponent(labelComponent, HORIZONTAL_LABEL_DIALOG_SIZE, HORIZONTAL_LABEL_DIALOG_SIZE, HORIZONTAL_LABEL_DIALOG_SIZE)
-                .addGap(HORIZONTAL_DATA_GAP_SIZE)
-                .addComponent(dataComponent, HORIZONTAL_DATA_DIALOG_SIZE, HORIZONTAL_DATA_DIALOG_SIZE, HORIZONTAL_DATA_DIALOG_SIZE);
+            .addComponent(labelComponent, HORIZONTAL_LABEL_DIALOG_SIZE, HORIZONTAL_LABEL_DIALOG_SIZE, HORIZONTAL_LABEL_DIALOG_SIZE)
+            .addGap(HORIZONTAL_DATA_GAP_SIZE)
+            .addComponent(dataComponent, HORIZONTAL_DATA_DIALOG_SIZE, HORIZONTAL_DATA_DIALOG_SIZE, HORIZONTAL_DATA_DIALOG_SIZE);
     }
 
     /**
@@ -452,8 +448,8 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
      */
     protected final GroupLayout.Group createHorizontalSelectableComponent(final GroupLayout layout, final JComponent component) {
         return layout.createSequentialGroup()
-                .addGap(HORIZONTAL_SELECTABLE_COMPONENT_GAP_SIZE)
-                .addComponent(component, HORIZONTAL_DATA_DIALOG_SIZE, HORIZONTAL_DATA_DIALOG_SIZE, HORIZONTAL_DATA_DIALOG_SIZE);
+            .addGap(HORIZONTAL_SELECTABLE_COMPONENT_GAP_SIZE)
+            .addComponent(component, HORIZONTAL_DATA_DIALOG_SIZE, HORIZONTAL_DATA_DIALOG_SIZE, HORIZONTAL_DATA_DIALOG_SIZE);
     }
 
     /**
@@ -466,10 +462,21 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
      */
     protected final GroupLayout.Group createVerticalComponents(final GroupLayout layout, final JComponent labelComponent, final JComponent dataComponent) {
         return layout.createParallelGroup()
-                .addComponent(labelComponent, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
-                .addComponent(dataComponent, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE);
+            .addComponent(labelComponent, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
+            .addComponent(dataComponent, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE);
+    }
+
+    /**
+     * Initializes dialog.
+     *
+     * @param picture
+     */
+    private void initDialog(final Picture picture) {
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
+        setIconImage(picture.getIcon().getImage());
     }
 
     /**
@@ -506,20 +513,20 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
      */
     private GroupLayout.Group createHorizontalLayout(final GroupLayout layout) {
         final GroupLayout.Group buttons = layout.createSequentialGroup()
-                .addGap(HORIZONTAL_BUTTON_GAP_SIZE)
-                .addComponent(okButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE)
-                .addGap(HORIZONTAL_BUTTONS_GAP_SIZE)
-                .addComponent(cancelButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE)
-                .addGap(HORIZONTAL_BUTTON_GAP_SIZE);
+            .addGap(HORIZONTAL_BUTTON_GAP_SIZE)
+            .addComponent(okButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE)
+            .addGap(HORIZONTAL_BUTTONS_GAP_SIZE)
+            .addComponent(cancelButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE)
+            .addGap(HORIZONTAL_BUTTON_GAP_SIZE);
 
 
         final GroupLayout.Group components = getHorizontalLayoutWithComponents(layout, layout.createParallelGroup())
-                .addGroup(buttons);
+            .addGroup(buttons);
 
         return layout.createSequentialGroup()
-                .addGap(HORIZONTAL_GAP_SIZE)
-                .addGroup(components)
-                .addGap(HORIZONTAL_GAP_SIZE);
+            .addGap(HORIZONTAL_GAP_SIZE)
+            .addGroup(components)
+            .addGap(HORIZONTAL_GAP_SIZE);
     }
 
     /**
@@ -530,18 +537,18 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
      */
     private GroupLayout.Group createVerticalLayout(final GroupLayout layout) {
         final GroupLayout.Group buttons = layout.createParallelGroup()
-                .addComponent(okButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
-                        CatalogSwingConstants.VERTICAL_BUTTON_SIZE)
-                .addComponent(cancelButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
-                        CatalogSwingConstants.VERTICAL_BUTTON_SIZE);
+            .addComponent(okButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
+                CatalogSwingConstants.VERTICAL_BUTTON_SIZE)
+            .addComponent(cancelButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
+                CatalogSwingConstants.VERTICAL_BUTTON_SIZE);
 
         final GroupLayout.Group components = layout.createSequentialGroup()
-                .addGap(VERTICAL_LONG_GAP_SIZE);
+            .addGap(VERTICAL_LONG_GAP_SIZE);
 
         return getVerticalLayoutWithComponents(layout, components)
-                .addGap(VERTICAL_LONG_GAP_SIZE)
-                .addGroup(buttons)
-                .addGap(VERTICAL_LONG_GAP_SIZE);
+            .addGap(VERTICAL_LONG_GAP_SIZE)
+            .addGroup(buttons)
+            .addGap(VERTICAL_LONG_GAP_SIZE);
     }
 
 }

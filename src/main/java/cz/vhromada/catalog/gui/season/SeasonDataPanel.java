@@ -162,32 +162,32 @@ public class SeasonDataPanel extends AbstractDataPanel<Season> {
     @Override
     protected GroupLayout.Group getHorizontalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addGroup(createHorizontalDataComponents(layout, numberLabel, numberData))
-                .addGroup(createHorizontalDataComponents(layout, yearLabel, yearData))
-                .addGroup(createHorizontalDataComponents(layout, languageLabel, languageData))
-                .addGroup(createHorizontalDataComponents(layout, subtitlesLabel, subtitlesData))
-                .addGroup(createHorizontalDataComponents(layout, episodesCountLabel, episodesCountData))
-                .addGroup(createHorizontalDataComponents(layout, totalLengthLabel, totalLengthData))
-                .addGroup(createHorizontalDataComponents(layout, noteLabel, noteData));
+            .addGroup(createHorizontalDataComponents(layout, numberLabel, numberData))
+            .addGroup(createHorizontalDataComponents(layout, yearLabel, yearData))
+            .addGroup(createHorizontalDataComponents(layout, languageLabel, languageData))
+            .addGroup(createHorizontalDataComponents(layout, subtitlesLabel, subtitlesData))
+            .addGroup(createHorizontalDataComponents(layout, episodesCountLabel, episodesCountData))
+            .addGroup(createHorizontalDataComponents(layout, totalLengthLabel, totalLengthData))
+            .addGroup(createHorizontalDataComponents(layout, noteLabel, noteData));
     }
 
     @Override
     protected GroupLayout.Group getVerticalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addGroup(createVerticalComponents(layout, numberLabel, numberData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, yearLabel, yearData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, languageLabel, languageData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, subtitlesLabel, subtitlesData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, episodesCountLabel, episodesCountData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, totalLengthLabel, totalLengthData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, noteLabel, noteData))
-                .addGap(VERTICAL_GAP_SIZE);
+            .addGroup(createVerticalComponents(layout, numberLabel, numberData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, yearLabel, yearData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, languageLabel, languageData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, subtitlesLabel, subtitlesData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, episodesCountLabel, episodesCountData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, totalLengthLabel, totalLengthData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, noteLabel, noteData))
+            .addGap(VERTICAL_GAP_SIZE);
     }
 
     /**

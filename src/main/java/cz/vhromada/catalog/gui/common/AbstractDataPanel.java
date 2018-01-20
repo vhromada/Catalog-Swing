@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import cz.vhromada.catalog.common.Language;
 import cz.vhromada.catalog.entity.Genre;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.util.Assert;
 
 /**
@@ -20,7 +19,6 @@ import org.springframework.util.Assert;
  * @param <T> type of data
  * @author Vladimir Hromada
  */
-@SuppressFBWarnings("CD_CIRCULAR_DEPENDENCY")
 public abstract class AbstractDataPanel<T> extends JPanel {
 
     /**
@@ -100,7 +98,7 @@ public abstract class AbstractDataPanel<T> extends JPanel {
      * @param button     button
      * @param buttonType button type
      */
-    protected void initButton(final JButton button, final WebPageButtonType buttonType) {
+    protected final void initButton(final JButton button, final WebPageButtonType buttonType) {
         button.addActionListener(new WebPageButtonActionListener(buttonType) {
 
             @Override
@@ -238,9 +236,9 @@ public abstract class AbstractDataPanel<T> extends JPanel {
      */
     protected GroupLayout.Group createHorizontalDataComponents(final GroupLayout layout, final JLabel label, final JLabel data) {
         return layout.createSequentialGroup()
-                .addComponent(label, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE)
-                .addGap(HORIZONTAL_GAP_SIZE)
-                .addComponent(data, HORIZONTAL_DATA_SIZE, HORIZONTAL_DATA_SIZE, HORIZONTAL_DATA_SIZE);
+            .addComponent(label, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE, HORIZONTAL_LABEL_SIZE)
+            .addGap(HORIZONTAL_GAP_SIZE)
+            .addComponent(data, HORIZONTAL_DATA_SIZE, HORIZONTAL_DATA_SIZE, HORIZONTAL_DATA_SIZE);
     }
 
     /**
@@ -254,7 +252,7 @@ public abstract class AbstractDataPanel<T> extends JPanel {
         final GroupLayout.Group result = layout.createSequentialGroup();
         for (int i = 0; i < buttons.length - 1; i++) {
             result.addComponent(buttons[i], HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE)
-                    .addGap(HORIZONTAL_GAP_SIZE);
+                .addGap(HORIZONTAL_GAP_SIZE);
         }
 
         return result.addComponent(buttons[buttons.length - 1], HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE);
@@ -279,10 +277,10 @@ public abstract class AbstractDataPanel<T> extends JPanel {
      */
     protected GroupLayout.Group createVerticalComponents(final GroupLayout layout, final JComponent label, final JComponent data) {
         return layout.createParallelGroup()
-                .addComponent(label, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
-                .addComponent(data, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE);
+            .addComponent(label, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
+            .addComponent(data, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE);
     }
 
     /**
@@ -296,7 +294,7 @@ public abstract class AbstractDataPanel<T> extends JPanel {
         final GroupLayout.Group result = layout.createParallelGroup();
         for (final JButton button : buttons) {
             result.addComponent(button, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
-                    CatalogSwingConstants.VERTICAL_BUTTON_SIZE);
+                CatalogSwingConstants.VERTICAL_BUTTON_SIZE);
         }
 
         return result;
@@ -310,9 +308,9 @@ public abstract class AbstractDataPanel<T> extends JPanel {
      */
     private GroupLayout.Group createHorizontalLayout(final GroupLayout layout) {
         return layout.createSequentialGroup()
-                .addGap(HORIZONTAL_GAP_SIZE)
-                .addGroup(getHorizontalLayoutWithComponents(layout, layout.createParallelGroup()))
-                .addGap(HORIZONTAL_GAP_SIZE);
+            .addGap(HORIZONTAL_GAP_SIZE)
+            .addGroup(getHorizontalLayoutWithComponents(layout, layout.createParallelGroup()))
+            .addGap(HORIZONTAL_GAP_SIZE);
     }
 
     /**
@@ -323,10 +321,10 @@ public abstract class AbstractDataPanel<T> extends JPanel {
      */
     private GroupLayout.Group createVerticalLayout(final GroupLayout layout) {
         final GroupLayout.Group components = layout.createSequentialGroup()
-                .addGap(VERTICAL_GAP_SIZE);
+            .addGap(VERTICAL_GAP_SIZE);
 
         return getVerticalLayoutWithComponents(layout, components)
-                .addGap(VERTICAL_GAP_SIZE);
+            .addGap(VERTICAL_GAP_SIZE);
     }
 
 }

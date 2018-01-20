@@ -107,23 +107,23 @@ public class EpisodeDataPanel extends AbstractDataPanel<Episode> {
     @Override
     protected GroupLayout.Group getHorizontalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addGroup(createHorizontalDataComponents(layout, numberLabel, numberData))
-                .addGroup(createHorizontalDataComponents(layout, nameLabel, nameData))
-                .addGroup(createHorizontalDataComponents(layout, lengthLabel, lengthData))
-                .addGroup(createHorizontalDataComponents(layout, noteLabel, noteData));
+            .addGroup(createHorizontalDataComponents(layout, numberLabel, numberData))
+            .addGroup(createHorizontalDataComponents(layout, nameLabel, nameData))
+            .addGroup(createHorizontalDataComponents(layout, lengthLabel, lengthData))
+            .addGroup(createHorizontalDataComponents(layout, noteLabel, noteData));
     }
 
     @Override
     protected GroupLayout.Group getVerticalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addGroup(createVerticalComponents(layout, numberLabel, numberData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, nameLabel, nameData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, lengthLabel, lengthData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, noteLabel, noteData))
-                .addGap(VERTICAL_GAP_SIZE);
+            .addGroup(createVerticalComponents(layout, numberLabel, numberData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, nameLabel, nameData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, lengthLabel, lengthData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, noteLabel, noteData))
+            .addGap(VERTICAL_GAP_SIZE);
     }
 
 }

@@ -99,19 +99,19 @@ public class SongInfoDialog extends AbstractInfoDialog<Song> {
     @Override
     protected GroupLayout.Group getHorizontalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addGroup(createHorizontalComponents(layout, nameLabel, nameData))
-                .addComponent(lengthPanel)
-                .addGroup(createHorizontalComponents(layout, noteLabel, noteData));
+            .addGroup(createHorizontalComponents(layout, nameLabel, nameData))
+            .addComponent(lengthPanel)
+            .addGroup(createHorizontalComponents(layout, noteLabel, noteData));
     }
 
     @Override
     protected GroupLayout.Group getVerticalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addGroup(createVerticalComponents(layout, nameLabel, nameData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addComponent(lengthPanel)
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, noteLabel, noteData));
+            .addGroup(createVerticalComponents(layout, nameLabel, nameData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(lengthPanel)
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, noteLabel, noteData));
     }
 
 }

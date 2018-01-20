@@ -169,28 +169,28 @@ public class MusicDataPanel extends AbstractDataPanel<Music> {
     @Override
     protected GroupLayout.Group getHorizontalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addGroup(createHorizontalDataComponents(layout, nameLabel, nameData))
-                .addGroup(createHorizontalDataComponents(layout, mediaCountLabel, mediaCountData))
-                .addGroup(createHorizontalDataComponents(layout, songsCountLabel, songsCountData))
-                .addGroup(createHorizontalDataComponents(layout, totalLengthLabel, totalLengthData))
-                .addGroup(createHorizontalDataComponents(layout, noteLabel, noteData))
-                .addGroup(createHorizontalButtons(layout, wikiCzButton, wikiEnButton));
+            .addGroup(createHorizontalDataComponents(layout, nameLabel, nameData))
+            .addGroup(createHorizontalDataComponents(layout, mediaCountLabel, mediaCountData))
+            .addGroup(createHorizontalDataComponents(layout, songsCountLabel, songsCountData))
+            .addGroup(createHorizontalDataComponents(layout, totalLengthLabel, totalLengthData))
+            .addGroup(createHorizontalDataComponents(layout, noteLabel, noteData))
+            .addGroup(createHorizontalButtons(layout, wikiCzButton, wikiEnButton));
     }
 
     @Override
     protected GroupLayout.Group getVerticalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addGroup(createVerticalComponents(layout, nameLabel, nameData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, mediaCountLabel, mediaCountData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, songsCountLabel, songsCountData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, totalLengthLabel, totalLengthData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, noteLabel, noteData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalButtons(layout, wikiCzButton, wikiEnButton));
+            .addGroup(createVerticalComponents(layout, nameLabel, nameData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, mediaCountLabel, mediaCountData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, songsCountLabel, songsCountData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, totalLengthLabel, totalLengthData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, noteLabel, noteData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalButtons(layout, wikiCzButton, wikiEnButton));
     }
 
     /**

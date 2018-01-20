@@ -1,6 +1,7 @@
 package cz.vhromada.catalog.gui.movie;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.GroupLayout;
@@ -27,7 +28,7 @@ import org.springframework.util.Assert;
  *
  * @author Vladimir Hromada
  */
-public class MediaChooseDialog extends JDialog {
+public final class MediaChooseDialog extends JDialog {
 
     /**
      * SerialVersionUID
@@ -130,7 +131,7 @@ public class MediaChooseDialog extends JDialog {
 
         Assert.notNull(media, "List of media mustn't be null.");
 
-        this.media = media;
+        this.media = new ArrayList<>(media);
         initComponents();
         setIconImage(Picture.CHOOSE.getIcon().getImage());
     }
@@ -153,7 +154,7 @@ public class MediaChooseDialog extends JDialog {
     public List<Medium> getMedia() {
         Assert.state(media != null, "List of media mustn't be null.");
 
-        return media;
+        return Collections.unmodifiableList(media);
     }
 
     /**
@@ -240,24 +241,24 @@ public class MediaChooseDialog extends JDialog {
      */
     private GroupLayout.Group createHorizontalLayout(final GroupLayout layout) {
         final GroupLayout.Group buttons = layout.createSequentialGroup()
-                .addGap(HORIZONTAL_BUTTON_GAP_SIZE)
-                .addComponent(okButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE)
-                .addGap(HORIZONTAL_BUTTONS_GAP_SIZE)
-                .addComponent(cancelButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE)
-                .addGap(HORIZONTAL_BUTTON_GAP_SIZE);
+            .addGap(HORIZONTAL_BUTTON_GAP_SIZE)
+            .addComponent(okButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE)
+            .addGap(HORIZONTAL_BUTTONS_GAP_SIZE)
+            .addComponent(cancelButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE)
+            .addGap(HORIZONTAL_BUTTON_GAP_SIZE);
 
 
         final GroupLayout.Group components = layout.createParallelGroup()
-                .addGroup(createHorizontalComponents(layout, mediaCountLabel, mediaCountData));
+            .addGroup(createHorizontalComponents(layout, mediaCountLabel, mediaCountData));
         for (final TimeDataPanel mediumPanel : mediaPanels) {
             components.addComponent(mediumPanel, HORIZONTAL_MEDIUM_PANEL_SIZE, HORIZONTAL_MEDIUM_PANEL_SIZE, HORIZONTAL_MEDIUM_PANEL_SIZE);
         }
         components.addGroup(buttons);
 
         return layout.createSequentialGroup()
-                .addGap(HORIZONTAL_GAP_SIZE)
-                .addGroup(components)
-                .addGap(HORIZONTAL_GAP_SIZE);
+            .addGap(HORIZONTAL_GAP_SIZE)
+            .addGroup(components)
+            .addGap(HORIZONTAL_GAP_SIZE);
     }
 
     /**
@@ -270,9 +271,9 @@ public class MediaChooseDialog extends JDialog {
      */
     private GroupLayout.Group createHorizontalComponents(final GroupLayout layout, final JComponent labelComponent, final JComponent dataComponent) {
         return layout.createSequentialGroup()
-                .addComponent(labelComponent, HORIZONTAL_LABEL_DIALOG_SIZE, HORIZONTAL_LABEL_DIALOG_SIZE, HORIZONTAL_LABEL_DIALOG_SIZE)
-                .addGap(HORIZONTAL_DATA_GAP_SIZE)
-                .addComponent(dataComponent, HORIZONTAL_DATA_DIALOG_SIZE, HORIZONTAL_DATA_DIALOG_SIZE, HORIZONTAL_DATA_DIALOG_SIZE);
+            .addComponent(labelComponent, HORIZONTAL_LABEL_DIALOG_SIZE, HORIZONTAL_LABEL_DIALOG_SIZE, HORIZONTAL_LABEL_DIALOG_SIZE)
+            .addGap(HORIZONTAL_DATA_GAP_SIZE)
+            .addComponent(dataComponent, HORIZONTAL_DATA_DIALOG_SIZE, HORIZONTAL_DATA_DIALOG_SIZE, HORIZONTAL_DATA_DIALOG_SIZE);
     }
 
     /**
@@ -283,22 +284,22 @@ public class MediaChooseDialog extends JDialog {
      */
     private GroupLayout.Group createVerticalLayout(final GroupLayout layout) {
         final GroupLayout.Group buttons = layout.createParallelGroup()
-                .addComponent(okButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
-                        CatalogSwingConstants.VERTICAL_BUTTON_SIZE)
-                .addComponent(cancelButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
-                        CatalogSwingConstants.VERTICAL_BUTTON_SIZE);
+            .addComponent(okButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
+                CatalogSwingConstants.VERTICAL_BUTTON_SIZE)
+            .addComponent(cancelButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
+                CatalogSwingConstants.VERTICAL_BUTTON_SIZE);
 
         final GroupLayout.Group components = layout.createSequentialGroup()
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, mediaCountLabel, mediaCountData))
-                .addGap(VERTICAL_GAP_SIZE);
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, mediaCountLabel, mediaCountData))
+            .addGap(VERTICAL_GAP_SIZE);
         for (final TimeDataPanel mediumPanel : mediaPanels) {
             components.addComponent(mediumPanel, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
-                    CatalogSwingConstants.VERTICAL_BUTTON_SIZE);
+                CatalogSwingConstants.VERTICAL_BUTTON_SIZE);
         }
         components.addGap(VERTICAL_GAP_SIZE)
-                .addGroup(buttons)
-                .addGap(VERTICAL_GAP_SIZE);
+            .addGroup(buttons)
+            .addGap(VERTICAL_GAP_SIZE);
 
         return components;
     }
@@ -313,10 +314,10 @@ public class MediaChooseDialog extends JDialog {
      */
     private GroupLayout.Group createVerticalComponents(final GroupLayout layout, final JComponent labelComponent, final JComponent dataComponent) {
         return layout.createParallelGroup()
-                .addComponent(labelComponent, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
-                .addComponent(dataComponent, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
-                        CatalogSwingConstants.VERTICAL_COMPONENT_SIZE);
+            .addComponent(labelComponent, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE)
+            .addComponent(dataComponent, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE, CatalogSwingConstants.VERTICAL_COMPONENT_SIZE,
+                CatalogSwingConstants.VERTICAL_COMPONENT_SIZE);
     }
 
 }

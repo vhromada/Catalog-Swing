@@ -131,25 +131,25 @@ public class MusicInfoDialog extends AbstractInfoDialog<Music> {
     @Override
     protected GroupLayout.Group getHorizontalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addGroup(createHorizontalComponents(layout, nameLabel, nameData))
-                .addGroup(createHorizontalComponents(layout, wikiCzLabel, wikiCzData))
-                .addGroup(createHorizontalComponents(layout, wikiEnLabel, wikiEnData))
-                .addGroup(createHorizontalComponents(layout, mediaCountLabel, mediaCountData))
-                .addGroup(createHorizontalComponents(layout, noteLabel, noteData));
+            .addGroup(createHorizontalComponents(layout, nameLabel, nameData))
+            .addGroup(createHorizontalComponents(layout, wikiCzLabel, wikiCzData))
+            .addGroup(createHorizontalComponents(layout, wikiEnLabel, wikiEnData))
+            .addGroup(createHorizontalComponents(layout, mediaCountLabel, mediaCountData))
+            .addGroup(createHorizontalComponents(layout, noteLabel, noteData));
     }
 
     @Override
     protected GroupLayout.Group getVerticalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addGroup(createVerticalComponents(layout, nameLabel, nameData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, wikiCzLabel, wikiCzData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, wikiEnLabel, wikiEnData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, mediaCountLabel, mediaCountData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, noteLabel, noteData));
+            .addGroup(createVerticalComponents(layout, nameLabel, nameData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, wikiCzLabel, wikiCzData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, wikiEnLabel, wikiEnData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, mediaCountLabel, mediaCountData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, noteLabel, noteData));
     }
 
 }

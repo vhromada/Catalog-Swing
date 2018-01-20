@@ -7,7 +7,7 @@ import javax.swing.table.DefaultTableCellRenderer;
  *
  * @author Vladimir Hromada
  */
-public class StatsTableCellRenderer extends DefaultTableCellRenderer {
+public final class StatsTableCellRenderer extends DefaultTableCellRenderer {
 
     /**
      * SerialVersionUID

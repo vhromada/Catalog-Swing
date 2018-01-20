@@ -250,37 +250,37 @@ public class ShowDataPanel extends AbstractDataPanel<Show> {
     @Override
     protected GroupLayout.Group getHorizontalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addComponent(pictureData, HORIZONTAL_PICTURE_SIZE, HORIZONTAL_PICTURE_SIZE, HORIZONTAL_PICTURE_SIZE)
-                .addGroup(createHorizontalDataComponents(layout, czechNameLabel, czechNameData))
-                .addGroup(createHorizontalDataComponents(layout, originalNameLabel, originalNameData))
-                .addGroup(createHorizontalDataComponents(layout, genreLabel, genreData))
-                .addGroup(createHorizontalDataComponents(layout, seasonsCountLabel, seasonsCountData))
-                .addGroup(createHorizontalDataComponents(layout, episodesCountLabel, episodesCountData))
-                .addGroup(createHorizontalDataComponents(layout, totalLengthLabel, totalLengthData))
-                .addGroup(createHorizontalDataComponents(layout, noteLabel, noteData))
-                .addGroup(createHorizontalButtons(layout, csfdButton, imdbButton, wikiCzButton, wikiEnButton));
+            .addComponent(pictureData, HORIZONTAL_PICTURE_SIZE, HORIZONTAL_PICTURE_SIZE, HORIZONTAL_PICTURE_SIZE)
+            .addGroup(createHorizontalDataComponents(layout, czechNameLabel, czechNameData))
+            .addGroup(createHorizontalDataComponents(layout, originalNameLabel, originalNameData))
+            .addGroup(createHorizontalDataComponents(layout, genreLabel, genreData))
+            .addGroup(createHorizontalDataComponents(layout, seasonsCountLabel, seasonsCountData))
+            .addGroup(createHorizontalDataComponents(layout, episodesCountLabel, episodesCountData))
+            .addGroup(createHorizontalDataComponents(layout, totalLengthLabel, totalLengthData))
+            .addGroup(createHorizontalDataComponents(layout, noteLabel, noteData))
+            .addGroup(createHorizontalButtons(layout, csfdButton, imdbButton, wikiCzButton, wikiEnButton));
     }
 
     @Override
     protected GroupLayout.Group getVerticalLayoutWithComponents(final GroupLayout layout, final GroupLayout.Group group) {
         return group
-                .addComponent(pictureData, VERTICAL_PICTURE_SIZE, VERTICAL_PICTURE_SIZE, VERTICAL_PICTURE_SIZE)
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, czechNameLabel, czechNameData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, originalNameLabel, originalNameData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, genreLabel, genreData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, seasonsCountLabel, seasonsCountData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, episodesCountLabel, episodesCountData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, totalLengthLabel, totalLengthData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalComponents(layout, noteLabel, noteData))
-                .addGap(VERTICAL_GAP_SIZE)
-                .addGroup(createVerticalButtons(layout, csfdButton, imdbButton, wikiCzButton, wikiEnButton));
+            .addComponent(pictureData, VERTICAL_PICTURE_SIZE, VERTICAL_PICTURE_SIZE, VERTICAL_PICTURE_SIZE)
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, czechNameLabel, czechNameData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, originalNameLabel, originalNameData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, genreLabel, genreData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, seasonsCountLabel, seasonsCountData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, episodesCountLabel, episodesCountData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, totalLengthLabel, totalLengthData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalComponents(layout, noteLabel, noteData))
+            .addGap(VERTICAL_GAP_SIZE)
+            .addGroup(createVerticalButtons(layout, csfdButton, imdbButton, wikiCzButton, wikiEnButton));
     }
 
     /**
