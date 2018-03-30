@@ -14,6 +14,7 @@ import javax.swing.SpinnerNumberModel;
 import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.entity.Show;
 import cz.vhromada.catalog.facade.GenreFacade;
+import cz.vhromada.catalog.facade.PictureFacade;
 import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
 import cz.vhromada.catalog.gui.common.Picture;
@@ -39,9 +40,19 @@ public class ShowInfoDialog extends AbstractInfoDialog<Show> {
     private GenreFacade genreFacade;
 
     /**
+     * Facade for pictures
+     */
+    private PictureFacade pictureFacade;
+
+    /**
      * List of genres
      */
     private List<Genre> genres = new ArrayList<>();
+
+    /**
+     * List of pictures
+     */
+    private List<Integer> pictures = new ArrayList<>();
 
     /**
      * Label for czech name
@@ -109,9 +120,14 @@ public class ShowInfoDialog extends AbstractInfoDialog<Show> {
     private final JLabel pictureLabel = new JLabel("Picture");
 
     /**
-     * Text field for picture
+     * Data with picture
      */
-    private final JTextField pictureData = new JTextField();
+    private final JLabel pictureData = new JLabel();
+
+    /**
+     * Button for changing picture
+     */
+    private final JButton pictureButton = new JButton("Change picture", Picture.CHOOSE.getIcon());
 
     /**
      * Label for note
@@ -141,12 +157,15 @@ public class ShowInfoDialog extends AbstractInfoDialog<Show> {
     /**
      * Creates a new instance of ShowInfoDialog.
      *
-     * @param genreFacade facade for genres
+     * @param genreFacade   facade for genres
+     * @param pictureFacade facade for pictures
      * @throws IllegalArgumentException if facade for genres is null
+     *                                  or facade for pictures is null
      */
-    public ShowInfoDialog(final GenreFacade genreFacade) {
+    public ShowInfoDialog(final GenreFacade genreFacade, final PictureFacade pictureFacade) {
         init();
         setGenreFacade(genreFacade);
+        setPictureFacade(pictureFacade);
         imdbCodeLabel.setSelected(false);
         imdbCodeData.setEnabled(false);
     }
@@ -154,17 +173,23 @@ public class ShowInfoDialog extends AbstractInfoDialog<Show> {
     /**
      * Creates a new instance of ShowInfoDialog.
      *
-     * @param genreFacade facade for genres
-     * @param show        show
+     * @param genreFacade   facade for genres
+     * @param pictureFacade facade for pictures
+     * @param show          show
      * @throws IllegalArgumentException if facade for genres is null
+     *                                  or facade for pictures is null
      *                                  or show is null
      */
-    public ShowInfoDialog(final GenreFacade genreFacade, final Show show) {
+    public ShowInfoDialog(final GenreFacade genreFacade, final PictureFacade pictureFacade, final Show show) {
         super(show);
 
         init();
         setGenreFacade(genreFacade);
+        setPictureFacade(pictureFacade);
         this.genres = show.getGenres();
+        if (show.getPicture() != null) {
+            this.pictures.add(show.getPicture());
+        }
         this.czechNameData.setText(show.getCzechName());
         this.originalNameData.setText(show.getOriginalName());
         this.csfdData.setText(show.getCsfd());
@@ -178,7 +203,7 @@ public class ShowInfoDialog extends AbstractInfoDialog<Show> {
         }
         this.wikiCzData.setText(show.getWikiCz());
         this.wikiEnData.setText(show.getWikiEn());
-        this.pictureData.setText(show.getPicture());
+        this.pictureData.setText(getPicture(this.pictures));
         this.noteData.setText(show.getNote());
         this.genreData.setText(getGenres(this.genres));
     }
@@ -190,16 +215,17 @@ public class ShowInfoDialog extends AbstractInfoDialog<Show> {
         initLabelComponent(csfdLabel, csfdData);
         initLabelComponent(wikiCzLabel, wikiCzData);
         initLabelComponent(wikiEnLabel, wikiEnData);
-        initLabelComponent(pictureLabel, pictureData);
         initLabelComponent(noteLabel, noteData);
-        initLabelComponent(genreLabel, genreData);
 
         addInputValidator(czechNameData);
         addInputValidator(originalNameData);
 
+        pictureData.setFocusable(false);
         genreData.setFocusable(false);
 
         imdbCodeLabel.addChangeListener(e -> imdbCodeData.setEnabled(imdbCodeLabel.isSelected()));
+
+        pictureButton.addActionListener(e -> pictureAction(pictureFacade, pictures, pictureData));
 
         genresButton.addActionListener(e -> genresAction(genreFacade, genres, genreData));
     }
@@ -213,7 +239,7 @@ public class ShowInfoDialog extends AbstractInfoDialog<Show> {
         show.setImdbCode(imdbCodeLabel.isSelected() ? (Integer) imdbCodeData.getValue() : -1);
         show.setWikiCz(wikiCzData.getText());
         show.setWikiEn(wikiEnData.getText());
-        show.setPicture(pictureData.getText());
+        show.setPicture(pictures.isEmpty() ? null : pictures.get(0));
         show.setNote(noteData.getText());
         show.setGenres(genres);
 
@@ -240,6 +266,7 @@ public class ShowInfoDialog extends AbstractInfoDialog<Show> {
             .addGroup(createHorizontalComponents(layout, wikiCzLabel, wikiCzData))
             .addGroup(createHorizontalComponents(layout, wikiEnLabel, wikiEnData))
             .addGroup(createHorizontalComponents(layout, pictureLabel, pictureData))
+            .addComponent(pictureButton, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE)
             .addGroup(createHorizontalComponents(layout, noteLabel, noteData))
             .addGroup(createHorizontalComponents(layout, genreLabel, genreData))
             .addComponent(genresButton, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE);
@@ -262,6 +289,9 @@ public class ShowInfoDialog extends AbstractInfoDialog<Show> {
             .addGap(VERTICAL_GAP_SIZE)
             .addGroup(createVerticalComponents(layout, pictureLabel, pictureData))
             .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(pictureButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
+                CatalogSwingConstants.VERTICAL_BUTTON_SIZE)
+            .addGap(VERTICAL_GAP_SIZE)
             .addGroup(createVerticalComponents(layout, noteLabel, noteData))
             .addGap(VERTICAL_GAP_SIZE)
             .addGroup(createVerticalComponents(layout, genreLabel, genreData))
@@ -279,6 +309,17 @@ public class ShowInfoDialog extends AbstractInfoDialog<Show> {
         Assert.notNull(genreFacade, "Facade for genres mustn't be null.");
 
         this.genreFacade = genreFacade;
+    }
+
+    /**
+     * Initializes facade for pictures.
+     *
+     * @throws IllegalArgumentException if facade for pictures is null
+     */
+    private void setPictureFacade(final PictureFacade pictureFacade) {
+        Assert.notNull(pictureFacade, "Facade for pictures mustn't be null.");
+
+        this.pictureFacade = pictureFacade;
     }
 
 }

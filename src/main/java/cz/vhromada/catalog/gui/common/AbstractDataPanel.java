@@ -3,6 +3,7 @@ package cz.vhromada.catalog.gui.common;
 import java.util.List;
 
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -10,6 +11,10 @@ import javax.swing.JPanel;
 
 import cz.vhromada.catalog.common.Language;
 import cz.vhromada.catalog.entity.Genre;
+import cz.vhromada.catalog.entity.Picture;
+import cz.vhromada.catalog.facade.PictureFacade;
+import cz.vhromada.result.Result;
+import cz.vhromada.result.Status;
 
 import org.springframework.util.Assert;
 
@@ -205,6 +210,26 @@ public abstract class AbstractDataPanel<T> extends JPanel {
         }
 
         return result.substring(0, result.length() - 3);
+    }
+
+    /**
+     * Loads picture.
+     *
+     * @param picture       picture
+     * @param pictureFacade facade for pictures
+     * @param pictureData   label for picture
+     */
+    protected static void loadPicture(final Integer picture, final PictureFacade pictureFacade, final JLabel pictureData) {
+        if (picture == null) {
+            pictureData.setIcon(null);
+        } else {
+            final Result<Picture> pictureResult = pictureFacade.get(picture);
+            if (Status.OK == pictureResult.getStatus()) {
+                pictureData.setIcon(new ImageIcon(pictureResult.getData().getContent()));
+            } else {
+                throw new IllegalArgumentException("Can't get data. " + pictureResult);
+            }
+        }
     }
 
     /**

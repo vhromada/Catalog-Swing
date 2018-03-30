@@ -24,11 +24,11 @@ import cz.vhromada.catalog.gui.common.TimeDataPanel;
 import org.springframework.util.Assert;
 
 /**
- * A class represents dialog for choosing media.
+ * A class represents dialog for choosing medium.
  *
  * @author Vladimir Hromada
  */
-public final class MediaChooseDialog extends JDialog {
+public final class MediumChooseDialog extends JDialog {
 
     /**
      * SerialVersionUID
@@ -121,12 +121,12 @@ public final class MediaChooseDialog extends JDialog {
     private final JButton cancelButton = new JButton("Cancel", Picture.CANCEL.getIcon());
 
     /**
-     * Creates a new instance of MediaChooseDialog.
+     * Creates a new instance of MediumChooseDialog.
      *
      * @param media media
      * @throws IllegalArgumentException if list of media is null
      */
-    public MediaChooseDialog(final List<Medium> media) {
+    public MediumChooseDialog(final List<Medium> media) {
         super(new JFrame(), "Choose", true);
 
         Assert.notNull(media, "List of media mustn't be null.");

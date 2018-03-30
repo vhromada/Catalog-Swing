@@ -21,6 +21,7 @@ import cz.vhromada.catalog.facade.GameFacade;
 import cz.vhromada.catalog.facade.GenreFacade;
 import cz.vhromada.catalog.facade.MovieFacade;
 import cz.vhromada.catalog.facade.MusicFacade;
+import cz.vhromada.catalog.facade.PictureFacade;
 import cz.vhromada.catalog.facade.ProgramFacade;
 import cz.vhromada.catalog.facade.SeasonFacade;
 import cz.vhromada.catalog.facade.ShowFacade;
@@ -30,6 +31,7 @@ import cz.vhromada.catalog.gui.game.GamesPanel;
 import cz.vhromada.catalog.gui.genre.GenresPanel;
 import cz.vhromada.catalog.gui.movie.MoviesPanel;
 import cz.vhromada.catalog.gui.music.MusicPanel;
+import cz.vhromada.catalog.gui.picture.PicturesPanel;
 import cz.vhromada.catalog.gui.program.ProgramsPanel;
 import cz.vhromada.catalog.gui.show.ShowsPanel;
 
@@ -140,6 +142,11 @@ public final class Catalog extends JFrame {
     private final GenresPanel genresPanel;
 
     /**
+     * Panel for pictures
+     */
+    private final PicturesPanel picturesPanel;
+
+    /**
      * Facade for movies
      */
     private MovieFacade movieFacade;
@@ -170,6 +177,11 @@ public final class Catalog extends JFrame {
     private GenreFacade genreFacade;
 
     /**
+     * Facade for pictures
+     */
+    private PictureFacade pictureFacade;
+
+    /**
      * Creates a new instance Catalog.
      *
      * @param context application context
@@ -191,12 +203,13 @@ public final class Catalog extends JFrame {
         aboutMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F1, 0));
         aboutMenuItem.addActionListener(e -> aboutAction());
 
-        moviesPanel = new MoviesPanel(movieFacade, genreFacade);
-        showsPanel = new ShowsPanel(showFacade, context.getBean(SeasonFacade.class), context.getBean(EpisodeFacade.class), genreFacade);
+        moviesPanel = new MoviesPanel(movieFacade, genreFacade, pictureFacade);
+        showsPanel = new ShowsPanel(showFacade, context.getBean(SeasonFacade.class), context.getBean(EpisodeFacade.class), genreFacade, pictureFacade);
         gamesPanel = new GamesPanel(gameFacade);
         musicPanel = new MusicPanel(musicFacade, context.getBean(SongFacade.class));
         programsPanel = new ProgramsPanel(programFacade);
         genresPanel = new GenresPanel(genreFacade);
+        picturesPanel = new PicturesPanel(pictureFacade);
 
         initTabbedPane();
 
@@ -230,6 +243,7 @@ public final class Catalog extends JFrame {
         musicFacade = context.getBean(MusicFacade.class);
         programFacade = context.getBean(ProgramFacade.class);
         genreFacade = context.getBean(GenreFacade.class);
+        pictureFacade = context.getBean(PictureFacade.class);
     }
 
     /**
@@ -284,6 +298,7 @@ public final class Catalog extends JFrame {
         tabbedPane.addTab("Music", musicPanel);
         tabbedPane.addTab("Programs", programsPanel);
         tabbedPane.addTab("Genres", genresPanel);
+        tabbedPane.addTab("Pictures", picturesPanel);
         tabbedPane.addChangeListener(e -> {
             moviesPanel.clearSelection();
             showsPanel.clearSelection();
@@ -291,6 +306,7 @@ public final class Catalog extends JFrame {
             musicPanel.clearSelection();
             programsPanel.clearSelection();
             genresPanel.clearSelection();
+            picturesPanel.clearSelection();
         });
     }
 
@@ -304,6 +320,7 @@ public final class Catalog extends JFrame {
         musicPanel.newData();
         programsPanel.newData();
         genresPanel.newData();
+        picturesPanel.newData();
     }
 
     /**
@@ -380,12 +397,14 @@ public final class Catalog extends JFrame {
         musicFacade.updatePositions();
         programFacade.updatePositions();
         genreFacade.updatePositions();
+        pictureFacade.updatePositions();
         moviesPanel.save();
         showsPanel.save();
         gamesPanel.save();
         musicPanel.save();
         programsPanel.save();
         genresPanel.save();
+        picturesPanel.save();
     }
 
 }

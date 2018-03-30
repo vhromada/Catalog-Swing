@@ -20,7 +20,9 @@ import javax.swing.text.JTextComponent;
 import cz.vhromada.catalog.common.Language;
 import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.facade.GenreFacade;
+import cz.vhromada.catalog.facade.PictureFacade;
 import cz.vhromada.catalog.gui.genre.GenreChooseDialog;
+import cz.vhromada.catalog.gui.picture.PictureChooseDialog;
 
 import org.springframework.util.Assert;
 
@@ -285,6 +287,21 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
         return genresString.substring(0, genresString.length() - 2);
     }
 
+
+    /**
+     * Returns picture.
+     *
+     * @param pictures list of pictures
+     * @return picture
+     */
+    protected static String getPicture(final List<Integer> pictures) {
+        if (pictures == null || pictures.isEmpty()) {
+            return "";
+        }
+
+        return String.valueOf(pictures.get(0));
+    }
+
     /**
      * Performs action for button Genres.
      *
@@ -300,6 +317,28 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
                 genres.clear();
                 genres.addAll(dialog.getGenres());
                 genreData.setText(getGenres(genres));
+                setOkButtonEnabled(isInputValid());
+            }
+        });
+    }
+
+    /**
+     * Performs action for button Change pictures.
+     *
+     * @param pictureFacade facade for pictures
+     * @param pictures      list of pictures
+     * @param pictureData   data with genres
+     */
+    protected void pictureAction(final PictureFacade pictureFacade, final List<Integer> pictures, final JLabel pictureData) {
+        EventQueue.invokeLater(() -> {
+            final cz.vhromada.catalog.entity.Picture pictureEntity = new cz.vhromada.catalog.entity.Picture();
+            pictureEntity.setId(pictures.isEmpty() ? null : pictures.get(0));
+            final PictureChooseDialog dialog = new PictureChooseDialog(pictureFacade, pictureEntity);
+            dialog.setVisible(true);
+            if (dialog.getReturnStatus() == DialogResult.OK) {
+                pictures.clear();
+                pictures.add(dialog.getPicture().getId());
+                pictureData.setText(getPicture(pictures));
                 setOkButtonEnabled(isInputValid());
             }
         });

@@ -6,6 +6,7 @@ import javax.swing.JTabbedPane;
 import cz.vhromada.catalog.entity.Show;
 import cz.vhromada.catalog.facade.EpisodeFacade;
 import cz.vhromada.catalog.facade.GenreFacade;
+import cz.vhromada.catalog.facade.PictureFacade;
 import cz.vhromada.catalog.facade.SeasonFacade;
 import cz.vhromada.catalog.facade.ShowFacade;
 import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
@@ -47,33 +48,43 @@ public class ShowsPanel extends AbstractOverviewDataPanel<Show> {
     private final GenreFacade genreFacade;
 
     /**
+     * Facade for pictures
+     */
+    private final PictureFacade pictureFacade;
+
+    /**
      * Creates a new instance of ShowsPanel.
      *
      * @param showFacade    facade for shows
      * @param seasonFacade  facade for seasons
      * @param episodeFacade facade for episodes
      * @param genreFacade   facade for genres
+     * @param pictureFacade facade for pictures
      * @throws IllegalArgumentException if facade for shows is null
      *                                  or facade for seasons is null
      *                                  or facade for episodes is null
      *                                  or facade for genres is null
+     *                                  or facade for pictures is null
      */
-    public ShowsPanel(final ShowFacade showFacade, final SeasonFacade seasonFacade, final EpisodeFacade episodeFacade, final GenreFacade genreFacade) {
+    public ShowsPanel(final ShowFacade showFacade, final SeasonFacade seasonFacade, final EpisodeFacade episodeFacade, final GenreFacade genreFacade,
+        final PictureFacade pictureFacade) {
         super(getShowsListDataModel(showFacade), getShowsStatsTableDataModel(showFacade));
 
         Assert.notNull(seasonFacade, "Facade for seasons mustn't be null.");
         Assert.notNull(episodeFacade, "Facade for episodes mustn't be null.");
         Assert.notNull(genreFacade, "Facade for genres mustn't be null.");
+        Assert.notNull(pictureFacade, "Facade for pictures mustn't be null.");
 
         this.showFacade = showFacade;
         this.seasonFacade = seasonFacade;
         this.episodeFacade = episodeFacade;
         this.genreFacade = genreFacade;
+        this.pictureFacade = pictureFacade;
     }
 
     @Override
     protected AbstractInfoDialog<Show> getInfoDialog(final boolean add, final Show data) {
-        return add ? new ShowInfoDialog(genreFacade) : new ShowInfoDialog(genreFacade, data);
+        return add ? new ShowInfoDialog(genreFacade, pictureFacade) : new ShowInfoDialog(genreFacade, pictureFacade, data);
     }
 
     @Override
@@ -113,7 +124,7 @@ public class ShowsPanel extends AbstractOverviewDataPanel<Show> {
 
     @Override
     protected JPanel getDataPanel(final Show data) {
-        return new ShowDataPanel(data, seasonFacade, episodeFacade);
+        return new ShowDataPanel(data, seasonFacade, episodeFacade, pictureFacade);
     }
 
     @Override

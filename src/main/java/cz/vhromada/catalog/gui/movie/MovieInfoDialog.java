@@ -19,6 +19,7 @@ import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.entity.Medium;
 import cz.vhromada.catalog.entity.Movie;
 import cz.vhromada.catalog.facade.GenreFacade;
+import cz.vhromada.catalog.facade.PictureFacade;
 import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
 import cz.vhromada.catalog.gui.common.DialogResult;
@@ -46,9 +47,19 @@ public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
     private GenreFacade genreFacade;
 
     /**
+     * Facade for pictures
+     */
+    private PictureFacade pictureFacade;
+
+    /**
      * List of genres
      */
     private List<Genre> genres = new ArrayList<>();
+
+    /**
+     * List of pictures
+     */
+    private List<Integer> pictures = new ArrayList<>();
 
     /**
      * List of media
@@ -196,9 +207,14 @@ public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
     private final JLabel pictureLabel = new JLabel("Picture");
 
     /**
-     * Text field for picture
+     * Data with picture
      */
-    private final JTextField pictureData = new JTextField();
+    private final JLabel pictureData = new JLabel();
+
+    /**
+     * Button for changing picture
+     */
+    private final JButton pictureButton = new JButton("Change picture", Picture.CHOOSE.getIcon());
 
     /**
      * Label for note
@@ -228,30 +244,39 @@ public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
     /**
      * Creates a new instance of MovieInfoDialog.
      *
-     * @param genreFacade facade for genres
+     * @param genreFacade   facade for genres
+     * @param pictureFacade facade for pictures
      * @throws IllegalArgumentException if facade for genres is null
+     *                                  or facade for pictures is null
      */
-    public MovieInfoDialog(final GenreFacade genreFacade) {
+    public MovieInfoDialog(final GenreFacade genreFacade, final PictureFacade pictureFacade) {
         init();
         setGenreFacade(genreFacade);
+        setPictureFacade(pictureFacade);
         imdbCodeData.setEnabled(false);
     }
 
     /**
      * Creates a new instance of MovieInfoDialog.
      *
-     * @param genreFacade facade for genres
-     * @param movie       movie
+     * @param genreFacade   facade for genres
+     * @param pictureFacade facade for pictures
+     * @param movie         movie
      * @throws IllegalArgumentException if facade for genres is null
+     *                                  or facade for pictures is null
      *                                  or movie is null
      */
-    public MovieInfoDialog(final GenreFacade genreFacade, final Movie movie) {
+    public MovieInfoDialog(final GenreFacade genreFacade, final PictureFacade pictureFacade, final Movie movie) {
         super(movie);
 
         init();
         setGenreFacade(genreFacade);
+        setPictureFacade(pictureFacade);
         this.genres = movie.getGenres();
         this.media = movie.getMedia();
+        if (movie.getPicture() != null) {
+            this.pictures.add(movie.getPicture());
+        }
         this.czechNameData.setText(movie.getCzechName());
         this.originalNameData.setText(movie.getOriginalName());
         this.yearData.setValue(movie.getYear());
@@ -270,7 +295,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
         }
         this.wikiCzData.setText(movie.getWikiCz());
         this.wikiEnData.setText(movie.getWikiEn());
-        this.pictureData.setText(movie.getPicture());
+        this.pictureData.setText(getPicture(this.pictures));
         this.noteData.setText(movie.getNote());
         this.genreData.setText(getGenres(this.genres));
     }
@@ -285,7 +310,6 @@ public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
         initLabelComponent(wikiEnLabel, wikiEnData);
         initLabelComponent(pictureLabel, pictureData);
         initLabelComponent(noteLabel, noteData);
-        initLabelComponent(genreLabel, genreData);
 
         addInputValidator(czechNameData);
         addInputValidator(originalNameData);
@@ -298,11 +322,15 @@ public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
 
         languageLabel.setFocusable(false);
         subtitlesLabel.setFocusable(false);
+        mediaData.setFocusable(false);
+        pictureData.setFocusable(false);
         genreData.setFocusable(false);
 
         imdbCodeLabel.addChangeListener(e -> imdbCodeData.setEnabled(imdbCodeLabel.isSelected()));
 
         mediaButton.addActionListener(e -> mediaAction());
+
+        pictureButton.addActionListener(e -> pictureAction(pictureFacade, pictures, pictureData));
 
         genresButton.addActionListener(e -> genresAction(genreFacade, genres, genreData));
     }
@@ -321,7 +349,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
         movie.setImdbCode(imdbCodeLabel.isSelected() ? (Integer) imdbCodeData.getValue() : -1);
         movie.setWikiCz(wikiCzData.getText());
         movie.setWikiEn(wikiEnData.getText());
-        movie.setPicture(pictureData.getText());
+        movie.setPicture(pictures.isEmpty() ? null : pictures.get(0));
         movie.setNote(noteData.getText());
         movie.setGenres(genres);
 
@@ -360,6 +388,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
             .addGroup(createHorizontalComponents(layout, wikiCzLabel, wikiCzData))
             .addGroup(createHorizontalComponents(layout, wikiEnLabel, wikiEnData))
             .addGroup(createHorizontalComponents(layout, pictureLabel, pictureData))
+            .addComponent(pictureButton, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE)
             .addGroup(createHorizontalComponents(layout, noteLabel, noteData))
             .addGroup(createHorizontalComponents(layout, genreLabel, genreData))
             .addComponent(genresButton, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE, HORIZONTAL_LONG_COMPONENT_SIZE);
@@ -408,6 +437,9 @@ public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
             .addGap(VERTICAL_GAP_SIZE)
             .addGroup(createVerticalComponents(layout, pictureLabel, pictureData))
             .addGap(VERTICAL_GAP_SIZE)
+            .addComponent(pictureButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
+                CatalogSwingConstants.VERTICAL_BUTTON_SIZE)
+            .addGap(VERTICAL_GAP_SIZE)
             .addGroup(createVerticalComponents(layout, noteLabel, noteData))
             .addGap(VERTICAL_GAP_SIZE)
             .addGroup(createVerticalComponents(layout, genreLabel, genreData))
@@ -425,6 +457,17 @@ public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
         Assert.notNull(genreFacade, "Facade for genres mustn't be null.");
 
         this.genreFacade = genreFacade;
+    }
+
+    /**
+     * Initializes facade for pictures.
+     *
+     * @throws IllegalArgumentException if facade for pictures is null
+     */
+    private void setPictureFacade(final PictureFacade pictureFacade) {
+        Assert.notNull(pictureFacade, "Facade for pictures mustn't be null.");
+
+        this.pictureFacade = pictureFacade;
     }
 
     /**
@@ -451,7 +494,7 @@ public class MovieInfoDialog extends AbstractInfoDialog<Movie> {
      */
     private void mediaAction() {
         EventQueue.invokeLater(() -> {
-            final MediaChooseDialog dialog = new MediaChooseDialog(new ArrayList<>(media));
+            final MediumChooseDialog dialog = new MediumChooseDialog(new ArrayList<>(media));
             dialog.setVisible(true);
             if (dialog.getReturnStatus() == DialogResult.OK) {
                 media = dialog.getMedia();

@@ -3,7 +3,6 @@ package cz.vhromada.catalog.gui.show;
 import java.util.List;
 
 import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -12,6 +11,7 @@ import cz.vhromada.catalog.entity.Episode;
 import cz.vhromada.catalog.entity.Season;
 import cz.vhromada.catalog.entity.Show;
 import cz.vhromada.catalog.facade.EpisodeFacade;
+import cz.vhromada.catalog.facade.PictureFacade;
 import cz.vhromada.catalog.facade.SeasonFacade;
 import cz.vhromada.catalog.gui.common.AbstractDataPanel;
 import cz.vhromada.catalog.gui.common.WebPageButtonType;
@@ -46,6 +46,10 @@ public class ShowDataPanel extends AbstractDataPanel<Show> {
      * Facade for episodes
      */
     private final EpisodeFacade episodeFacade;
+    /**
+     * Facade for pictures
+     */
+    private PictureFacade pictureFacade;
 
     /**
      * Label for picture
@@ -168,16 +172,20 @@ public class ShowDataPanel extends AbstractDataPanel<Show> {
      * @param show          show
      * @param seasonFacade  facade for seasons
      * @param episodeFacade facade for episodes
+     * @param pictureFacade facade for pictures
      * @throws IllegalArgumentException if show is null
      *                                  or facade for seasons is null
      *                                  or facade for episodes is null
+     *                                  or facade for pictures is null
      */
-    public ShowDataPanel(final Show show, final SeasonFacade seasonFacade, final EpisodeFacade episodeFacade) {
+    public ShowDataPanel(final Show show, final SeasonFacade seasonFacade, final EpisodeFacade episodeFacade, final PictureFacade pictureFacade) {
         Assert.notNull(seasonFacade, "Facade for seasons mustn't be null.");
         Assert.notNull(episodeFacade, "Facade for episodes mustn't be null.");
+        Assert.notNull(pictureFacade, "Facade for pictures mustn't be null.");
 
         this.seasonFacade = seasonFacade;
         this.episodeFacade = episodeFacade;
+        this.pictureFacade = pictureFacade;
 
         updateData(show);
 
@@ -201,12 +209,7 @@ public class ShowDataPanel extends AbstractDataPanel<Show> {
 
     @Override
     protected void updateComponentData(final Show data) {
-        final String picture = data.getPicture();
-        if (picture.isEmpty()) {
-            pictureData.setIcon(null);
-        } else {
-            pictureData.setIcon(new ImageIcon("posters/" + picture));
-        }
+        loadPicture(data.getPicture(), pictureFacade, pictureData);
 
         czechNameData.setText(data.getCzechName());
         originalNameData.setText(data.getOriginalName());

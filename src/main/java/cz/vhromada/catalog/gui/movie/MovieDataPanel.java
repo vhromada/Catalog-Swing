@@ -3,13 +3,13 @@ package cz.vhromada.catalog.gui.movie;
 import java.util.List;
 
 import javax.swing.GroupLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import cz.vhromada.catalog.common.Time;
 import cz.vhromada.catalog.entity.Medium;
 import cz.vhromada.catalog.entity.Movie;
+import cz.vhromada.catalog.facade.PictureFacade;
 import cz.vhromada.catalog.gui.common.AbstractDataPanel;
 import cz.vhromada.catalog.gui.common.WebPageButtonType;
 
@@ -26,6 +26,11 @@ public class MovieDataPanel extends AbstractDataPanel<Movie> {
      * SerialVersionUID
      */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * Facade for pictures
+     */
+    private PictureFacade pictureFacade;
 
     /**
      * Label for picture
@@ -165,13 +170,17 @@ public class MovieDataPanel extends AbstractDataPanel<Movie> {
     /**
      * Creates a new instance of MovieDataPanel.
      *
-     * @param movie movie
+     * @param movie         movie
+     * @param pictureFacade facade for pictures
      * @throws IllegalArgumentException if movie is null
+     *                                  or facade for pictures is null
      */
-    public MovieDataPanel(final Movie movie) {
-        updateData(movie);
+    public MovieDataPanel(final Movie movie, final PictureFacade pictureFacade) {
+        Assert.notNull(pictureFacade, "Facade for pictures mustn't be null.");
 
-        Assert.notNull(movie, "Movie mustn't be null.");
+        this.pictureFacade = pictureFacade;
+
+        updateData(movie);
 
         pictureData.setFocusable(false);
 
@@ -197,12 +206,8 @@ public class MovieDataPanel extends AbstractDataPanel<Movie> {
     protected void updateComponentData(final Movie data) {
         Assert.notNull(data, "movie");
 
-        final String picture = data.getPicture();
-        if (picture.isEmpty()) {
-            pictureData.setIcon(null);
-        } else {
-            pictureData.setIcon(new ImageIcon("posters/" + picture));
-        }
+        loadPicture(data.getPicture(), pictureFacade, pictureData);
+
         czechNameData.setText(data.getCzechName());
         originalNameData.setText(data.getOriginalName());
         genreData.setText(getGenres(data.getGenres()));

@@ -6,6 +6,7 @@ import javax.swing.JTabbedPane;
 import cz.vhromada.catalog.entity.Movie;
 import cz.vhromada.catalog.facade.GenreFacade;
 import cz.vhromada.catalog.facade.MovieFacade;
+import cz.vhromada.catalog.facade.PictureFacade;
 import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.common.AbstractOverviewDataPanel;
 
@@ -34,25 +35,34 @@ public class MoviesPanel extends AbstractOverviewDataPanel<Movie> {
     private final GenreFacade genreFacade;
 
     /**
+     * Facade for pictures
+     */
+    private final PictureFacade pictureFacade;
+
+    /**
      * Creates a new instance of MoviesPanel.
      *
-     * @param movieFacade facade for movies
-     * @param genreFacade facade for genres
+     * @param movieFacade   facade for movies
+     * @param genreFacade   facade for genres
+     * @param pictureFacade facade for pictures
      * @throws IllegalArgumentException if facade for movies is null
      *                                  or facade for genres is null
+     *                                  or facade for pictures is null
      */
-    public MoviesPanel(final MovieFacade movieFacade, final GenreFacade genreFacade) {
+    public MoviesPanel(final MovieFacade movieFacade, final GenreFacade genreFacade, final PictureFacade pictureFacade) {
         super(getMoviesListDataModel(movieFacade), getMoviesStatsTableDataModel(movieFacade));
 
         Assert.notNull(genreFacade, "Facade for genres mustn't be null.");
+        Assert.notNull(pictureFacade, "Facade for pictures mustn't be null.");
 
         this.movieFacade = movieFacade;
         this.genreFacade = genreFacade;
+        this.pictureFacade = pictureFacade;
     }
 
     @Override
     protected AbstractInfoDialog<Movie> getInfoDialog(final boolean add, final Movie data) {
-        return add ? new MovieInfoDialog(genreFacade) : new MovieInfoDialog(genreFacade, data);
+        return add ? new MovieInfoDialog(genreFacade, pictureFacade) : new MovieInfoDialog(genreFacade, pictureFacade, data);
     }
 
     @Override
@@ -92,7 +102,7 @@ public class MoviesPanel extends AbstractOverviewDataPanel<Movie> {
 
     @Override
     protected JPanel getDataPanel(final Movie data) {
-        return new MovieDataPanel(data);
+        return new MovieDataPanel(data, pictureFacade);
     }
 
     @Override
