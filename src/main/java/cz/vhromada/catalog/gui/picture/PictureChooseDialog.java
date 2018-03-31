@@ -143,6 +143,7 @@ public final class PictureChooseDialog extends JDialog {
         this.picture = picture;
         initComponents();
         setIconImage(cz.vhromada.catalog.gui.common.Picture.CHOOSE.getIcon().getImage());
+        updatePicture(picture.getId());
     }
 
     /**
@@ -220,15 +221,10 @@ public final class PictureChooseDialog extends JDialog {
     private void selectionChangeAction() {
         final int[] indexes = list.getSelectedIndices();
         if (indexes.length > 0) {
-            final Result<Picture> pictureResult = pictureFacade.get(Integer.valueOf(list.getSelectedValue()));
-            if (Status.OK == pictureResult.getStatus()) {
-                pictureData.setIcon(new ImageIcon(pictureResult.getData().getContent()));
-            } else {
-                throw new IllegalArgumentException("Can't get data. " + pictureResult);
-            }
+            updatePicture(Integer.valueOf(list.getSelectedValue()));
             okButton.setEnabled(true);
         } else {
-            pictureData.setIcon(null);
+            updatePicture(null);
             okButton.setEnabled(false);
         }
     }
@@ -314,6 +310,24 @@ public final class PictureChooseDialog extends JDialog {
             .addGap(VERTICAL_GAP_SIZE)
             .addGroup(buttons)
             .addGap(VERTICAL_GAP_SIZE);
+    }
+
+    /**
+     * Updates picture.
+     *
+     * @param id picture's ID
+     */
+    private void updatePicture(final Integer id) {
+        if (id != null) {
+            final Result<Picture> pictureResult = pictureFacade.get(id);
+            if (Status.OK == pictureResult.getStatus()) {
+                pictureData.setIcon(new ImageIcon(pictureResult.getData().getContent()));
+            } else {
+                throw new IllegalArgumentException("Can't get data. " + pictureResult);
+            }
+        } else {
+            pictureData.setIcon(null);
+        }
     }
 
 }
