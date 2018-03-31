@@ -558,7 +558,6 @@ public abstract class AbstractInfoDialog<T> extends JDialog {
             .addComponent(cancelButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE)
             .addGap(HORIZONTAL_BUTTON_GAP_SIZE);
 
-
         final GroupLayout.Group components = getHorizontalLayoutWithComponents(layout, layout.createParallelGroup())
             .addGroup(buttons);
 

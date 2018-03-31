@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -16,6 +18,8 @@ import cz.vhromada.catalog.entity.Picture;
 import cz.vhromada.catalog.facade.PictureFacade;
 import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
 import cz.vhromada.catalog.gui.common.DialogResult;
+import cz.vhromada.result.Result;
+import cz.vhromada.result.Status;
 
 import org.springframework.util.Assert;
 
@@ -32,6 +36,11 @@ public final class PictureChooseDialog extends JDialog {
     private static final long serialVersionUID = 1L;
 
     /**
+     * Horizontal picture size
+     */
+    private static final int HORIZONTAL_PICTURE_SIZE = 200;
+
+    /**
      * Horizontal scroll pane size
      */
     private static final int HORIZONTAL_SCROLL_PANE_SIZE = 310;
@@ -44,17 +53,22 @@ public final class PictureChooseDialog extends JDialog {
     /**
      * Horizontal button gap size
      */
-    private static final int HORIZONTAL_BUTTON_GAP_SIZE = 32;
+    private static final int HORIZONTAL_BUTTON_GAP_SIZE = 82;
 
     /**
      * Horizontal size of gap between button
      */
-    private static final int HORIZONTAL_BUTTONS_GAP_SIZE = 54;
+    private static final int HORIZONTAL_BUTTONS_GAP_SIZE = 154;
 
     /**
      * Horizontal gap size
      */
     private static final int HORIZONTAL_GAP_SIZE = 20;
+
+    /**
+     * Vertical picture size
+     */
+    private static final int VERTICAL_PICTURE_SIZE = 180;
 
     /**
      * Vertical scroll pane size
@@ -90,6 +104,11 @@ public final class PictureChooseDialog extends JDialog {
      * ScrollPane for list with pictures
      */
     private final JScrollPane listScrollPane = new JScrollPane(list);
+
+    /**
+     * Label for picture
+     */
+    private final JLabel pictureData = new JLabel();
 
     /**
      * Button OK
@@ -200,7 +219,18 @@ public final class PictureChooseDialog extends JDialog {
      */
     private void selectionChangeAction() {
         final int[] indexes = list.getSelectedIndices();
-        okButton.setEnabled(indexes.length > 0);
+        if (indexes.length > 0) {
+            final Result<Picture> pictureResult = pictureFacade.get(Integer.valueOf(list.getSelectedValue()));
+            if (Status.OK == pictureResult.getStatus()) {
+                pictureData.setIcon(new ImageIcon(pictureResult.getData().getContent()));
+            } else {
+                throw new IllegalArgumentException("Can't get data. " + pictureResult);
+            }
+            okButton.setEnabled(true);
+        } else {
+            pictureData.setIcon(null);
+            okButton.setEnabled(false);
+        }
     }
 
     /**
@@ -246,9 +276,13 @@ public final class PictureChooseDialog extends JDialog {
             .addComponent(cancelButton, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE, HORIZONTAL_BUTTON_SIZE)
             .addGap(HORIZONTAL_BUTTON_GAP_SIZE);
 
+        final GroupLayout.Group data = layout.createSequentialGroup()
+            .addComponent(listScrollPane, HORIZONTAL_SCROLL_PANE_SIZE, HORIZONTAL_SCROLL_PANE_SIZE, HORIZONTAL_SCROLL_PANE_SIZE)
+            .addGap(HORIZONTAL_GAP_SIZE)
+            .addComponent(pictureData, HORIZONTAL_PICTURE_SIZE, HORIZONTAL_PICTURE_SIZE, HORIZONTAL_PICTURE_SIZE);
 
         final GroupLayout.Group components = layout.createParallelGroup()
-            .addComponent(listScrollPane, HORIZONTAL_SCROLL_PANE_SIZE, HORIZONTAL_SCROLL_PANE_SIZE, HORIZONTAL_SCROLL_PANE_SIZE)
+            .addGroup(data)
             .addGroup(buttons);
 
         return layout.createSequentialGroup()
@@ -270,9 +304,13 @@ public final class PictureChooseDialog extends JDialog {
             .addComponent(cancelButton, CatalogSwingConstants.VERTICAL_BUTTON_SIZE, CatalogSwingConstants.VERTICAL_BUTTON_SIZE,
                 CatalogSwingConstants.VERTICAL_BUTTON_SIZE);
 
+        final GroupLayout.Group data = layout.createParallelGroup()
+            .addComponent(listScrollPane, VERTICAL_SCROLL_PANE_SIZE, VERTICAL_SCROLL_PANE_SIZE, VERTICAL_SCROLL_PANE_SIZE)
+            .addComponent(pictureData, VERTICAL_PICTURE_SIZE, VERTICAL_PICTURE_SIZE, VERTICAL_PICTURE_SIZE);
+
         return layout.createSequentialGroup()
             .addGap(VERTICAL_GAP_SIZE)
-            .addComponent(listScrollPane, VERTICAL_SCROLL_PANE_SIZE, VERTICAL_SCROLL_PANE_SIZE, VERTICAL_SCROLL_PANE_SIZE)
+            .addGroup(data)
             .addGap(VERTICAL_GAP_SIZE)
             .addGroup(buttons)
             .addGap(VERTICAL_GAP_SIZE);
