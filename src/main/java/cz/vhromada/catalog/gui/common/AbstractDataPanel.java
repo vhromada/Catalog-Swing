@@ -9,10 +9,10 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import cz.vhromada.catalog.common.Language;
 import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.entity.Picture;
 import cz.vhromada.catalog.facade.PictureFacade;
+import cz.vhromada.common.Language;
 import cz.vhromada.result.Result;
 import cz.vhromada.result.Status;
 

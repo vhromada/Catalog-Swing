@@ -17,12 +17,12 @@ import javax.swing.JSpinner;
 import javax.swing.WindowConstants;
 import javax.swing.text.JTextComponent;
 
-import cz.vhromada.catalog.common.Language;
 import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.facade.GenreFacade;
 import cz.vhromada.catalog.facade.PictureFacade;
 import cz.vhromada.catalog.gui.genre.GenreChooseDialog;
 import cz.vhromada.catalog.gui.picture.PictureChooseDialog;
+import cz.vhromada.common.Language;
 
 import org.springframework.util.Assert;
 

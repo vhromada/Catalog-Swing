@@ -6,12 +6,12 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import cz.vhromada.catalog.common.Time;
 import cz.vhromada.catalog.entity.Medium;
 import cz.vhromada.catalog.entity.Movie;
 import cz.vhromada.catalog.facade.PictureFacade;
 import cz.vhromada.catalog.gui.common.AbstractDataPanel;
 import cz.vhromada.catalog.gui.common.WebPageButtonType;
+import cz.vhromada.common.Time;
 
 import org.springframework.util.Assert;
 

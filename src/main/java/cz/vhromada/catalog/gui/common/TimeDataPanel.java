@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
-import cz.vhromada.catalog.common.Time;
+import cz.vhromada.common.Time;
 
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;

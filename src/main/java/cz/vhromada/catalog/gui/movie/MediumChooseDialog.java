@@ -14,12 +14,12 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.WindowConstants;
 
-import cz.vhromada.catalog.common.Time;
 import cz.vhromada.catalog.entity.Medium;
 import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
 import cz.vhromada.catalog.gui.common.DialogResult;
 import cz.vhromada.catalog.gui.common.Picture;
 import cz.vhromada.catalog.gui.common.TimeDataPanel;
+import cz.vhromada.common.Time;
 
 import org.springframework.util.Assert;
 

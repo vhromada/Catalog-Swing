@@ -4,10 +4,10 @@ import javax.swing.GroupLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import cz.vhromada.catalog.common.Time;
 import cz.vhromada.catalog.entity.Song;
 import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.common.TimeDataPanel;
+import cz.vhromada.common.Time;
 
 /**
  * A class represents dialog for song.

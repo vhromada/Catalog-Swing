@@ -12,7 +12,7 @@ import javax.swing.SpinnerNumberModel;
 import cz.vhromada.catalog.entity.Season;
 import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
-import cz.vhromada.catalog.utils.Constants;
+import cz.vhromada.common.utils.Constants;
 
 /**
  * A class represents dialog for season.

@@ -14,7 +14,6 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
-import cz.vhromada.catalog.common.Time;
 import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.entity.Medium;
 import cz.vhromada.catalog.entity.Movie;
@@ -24,7 +23,8 @@ import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
 import cz.vhromada.catalog.gui.common.DialogResult;
 import cz.vhromada.catalog.gui.common.Picture;
-import cz.vhromada.catalog.utils.Constants;
+import cz.vhromada.common.Time;
+import cz.vhromada.common.utils.Constants;
 
 import org.springframework.util.Assert;
 

@@ -18,7 +18,7 @@ import cz.vhromada.catalog.facade.PictureFacade;
 import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
 import cz.vhromada.catalog.gui.common.Picture;
-import cz.vhromada.catalog.utils.Constants;
+import cz.vhromada.common.utils.Constants;
 
 import org.springframework.util.Assert;
 

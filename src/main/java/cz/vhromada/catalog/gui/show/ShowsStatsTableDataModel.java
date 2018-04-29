@@ -2,10 +2,10 @@ package cz.vhromada.catalog.gui.show;
 
 import java.util.List;
 
-import cz.vhromada.catalog.common.Time;
 import cz.vhromada.catalog.entity.Show;
 import cz.vhromada.catalog.facade.ShowFacade;
 import cz.vhromada.catalog.gui.common.AbstractStatsTableDataModel;
+import cz.vhromada.common.Time;
 import cz.vhromada.result.Result;
 import cz.vhromada.result.Status;
 

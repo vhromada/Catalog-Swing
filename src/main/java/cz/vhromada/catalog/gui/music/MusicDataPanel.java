@@ -6,12 +6,12 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import cz.vhromada.catalog.common.Time;
 import cz.vhromada.catalog.entity.Music;
 import cz.vhromada.catalog.entity.Song;
 import cz.vhromada.catalog.facade.SongFacade;
 import cz.vhromada.catalog.gui.common.AbstractDataPanel;
 import cz.vhromada.catalog.gui.common.WebPageButtonType;
+import cz.vhromada.common.Time;
 import cz.vhromada.result.Result;
 import cz.vhromada.result.Status;
 

@@ -6,10 +6,10 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 
-import cz.vhromada.catalog.common.Time;
 import cz.vhromada.catalog.entity.Episode;
 import cz.vhromada.catalog.gui.common.AbstractInfoDialog;
 import cz.vhromada.catalog.gui.common.TimeDataPanel;
+import cz.vhromada.common.Time;
 
 /**
  * A class represents dialog for episode.
