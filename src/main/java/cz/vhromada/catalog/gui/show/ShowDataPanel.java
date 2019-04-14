@@ -15,8 +15,8 @@ import cz.vhromada.catalog.facade.SeasonFacade;
 import cz.vhromada.catalog.gui.common.AbstractDataPanel;
 import cz.vhromada.catalog.gui.common.WebPageButtonType;
 import cz.vhromada.common.Time;
-import cz.vhromada.result.Result;
-import cz.vhromada.result.Status;
+import cz.vhromada.validation.result.Result;
+import cz.vhromada.validation.result.Status;
 
 import org.springframework.util.Assert;
 

@@ -13,8 +13,8 @@ import cz.vhromada.catalog.entity.Genre;
 import cz.vhromada.catalog.entity.Picture;
 import cz.vhromada.catalog.facade.PictureFacade;
 import cz.vhromada.common.Language;
-import cz.vhromada.result.Result;
-import cz.vhromada.result.Status;
+import cz.vhromada.validation.result.Result;
+import cz.vhromada.validation.result.Status;
 
 import org.springframework.util.Assert;
 

@@ -18,8 +18,8 @@ import cz.vhromada.catalog.entity.Picture;
 import cz.vhromada.catalog.facade.PictureFacade;
 import cz.vhromada.catalog.gui.common.CatalogSwingConstants;
 import cz.vhromada.catalog.gui.common.DialogResult;
-import cz.vhromada.result.Result;
-import cz.vhromada.result.Status;
+import cz.vhromada.validation.result.Result;
+import cz.vhromada.validation.result.Status;
 
 import org.springframework.util.Assert;
 

@@ -5,7 +5,7 @@ import java.util.List;
 import cz.vhromada.catalog.entity.Picture;
 import cz.vhromada.catalog.facade.PictureFacade;
 import cz.vhromada.catalog.gui.common.AbstractListDataModel;
-import cz.vhromada.result.Result;
+import cz.vhromada.validation.result.Result;
 
 import org.springframework.util.Assert;
 

@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.swing.AbstractListModel;
 
-import cz.vhromada.result.Result;
-import cz.vhromada.result.Status;
+import cz.vhromada.validation.result.Result;
+import cz.vhromada.validation.result.Status;
 
 /**
  * An abstract class represents data model for list with data.
