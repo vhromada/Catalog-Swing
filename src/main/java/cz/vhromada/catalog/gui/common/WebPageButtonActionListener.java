@@ -7,6 +7,7 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * Abstract class represents action listener for button fow showing web page.
@@ -41,7 +42,7 @@ public abstract class WebPageButtonActionListener implements ActionListener {
     public void actionPerformed(final ActionEvent e) {
         final String url = buttonType.getBaseUrl() + getDynamicUrlPart();
         try {
-            Runtime.getRuntime().exec("rundll32.exe url.dll,FileProtocolHandler " + url);
+            Runtime.getRuntime().exec("rundll32.exe url.dll,FileProtocolHandler " + UriComponentsBuilder.fromHttpUrl(url).toUriString());
         } catch (final IOException ex) {
             logger.error("Error in showing page {}.", url, ex);
         }

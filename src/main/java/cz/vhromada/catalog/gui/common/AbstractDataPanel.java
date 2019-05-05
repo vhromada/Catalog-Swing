@@ -16,6 +16,7 @@ import cz.vhromada.common.Language;
 import cz.vhromada.validation.result.Result;
 import cz.vhromada.validation.result.Status;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 
 /**
@@ -116,7 +117,7 @@ public abstract class AbstractDataPanel<T> extends JPanel {
                     case CSFD:
                         return getCsfdUrl();
                     case IMDB:
-                        return Integer.toString(getImdbUrl());
+                        return StringUtils.leftPad(Integer.toString(getImdbUrl()), 7, "0");
                     default:
                         throw new IllegalArgumentException("Unknown button type - " + buttonType);
                 }
