@@ -7,12 +7,12 @@
     <parent>
         <groupId>cz.vhromada.maven</groupId>
         <artifactId>parent</artifactId>
-        <version>2.1.1</version>
+        <version>3.0.1</version>
     </parent>
 
     <groupId>cz.vhromada.catalog</groupId>
     <artifactId>catalog-swing</artifactId>
-    <version>4.3.1</version>
+    <version>5.0.0</version>
 
     <name>Catalog Swing</name>
     <description>Application in Swing for catalog of movies, games, music and programs</description>
@@ -40,23 +40,23 @@
         <url>git@github.com:vhromada/Catalog-Swing.git</url>
     </scm>
 
+    <properties>
+        <catalog.version>8.0.0</catalog.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>cz.vhromada.catalog</groupId>
             <artifactId>catalog</artifactId>
-            <version>7.0.1</version>
+            <version>${catalog.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-jdk8</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -67,10 +67,15 @@
 
     <build>
         <finalName>Catalog</finalName>
+        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
