@@ -3,7 +3,7 @@ package cz.vhromada.catalog.gui.picture
 import cz.vhromada.catalog.entity.Picture
 import cz.vhromada.catalog.facade.PictureFacade
 import cz.vhromada.catalog.gui.common.AbstractListDataModel
-import cz.vhromada.validation.result.Result
+import cz.vhromada.common.result.Result
 
 /**
  * A class represents data model for list with pictures.

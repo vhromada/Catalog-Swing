@@ -1,7 +1,7 @@
 package cz.vhromada.catalog.gui.common
 
-import cz.vhromada.validation.result.Result
-import cz.vhromada.validation.result.Status
+import cz.vhromada.common.result.Result
+import cz.vhromada.common.result.Status
 import javax.swing.AbstractListModel
 
 /**

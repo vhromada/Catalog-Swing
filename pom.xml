@@ -5,14 +5,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>cz.vhromada.maven</groupId>
-        <artifactId>parent</artifactId>
-        <version>3.0.1</version>
+        <groupId>cz.vhromada.project</groupId>
+        <artifactId>project-parent</artifactId>
+        <version>4.0.2</version>
     </parent>
 
     <groupId>cz.vhromada.catalog</groupId>
     <artifactId>catalog-swing</artifactId>
-    <version>5.0.0</version>
+    <version>5.0.1</version>
 
     <name>Catalog Swing</name>
     <description>Application in Swing for catalog of movies, games, music and programs</description>
@@ -41,7 +41,7 @@
     </scm>
 
     <properties>
-        <catalog.version>8.0.0</catalog.version>
+        <catalog.version>8.0.1</catalog.version>
     </properties>
 
     <dependencies>

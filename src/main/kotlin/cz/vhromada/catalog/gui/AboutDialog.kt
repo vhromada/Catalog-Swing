@@ -26,7 +26,7 @@ class AboutDialog : JDialog(JFrame(), "About", true) {
     /**
      * Label for version
      */
-    private val versionLabel = JLabel("Version: 5.0.0")
+    private val versionLabel = JLabel("Version: 5.0.1")
 
     /**
      * Label for author

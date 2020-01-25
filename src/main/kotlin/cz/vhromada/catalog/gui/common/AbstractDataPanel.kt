@@ -3,7 +3,7 @@ package cz.vhromada.catalog.gui.common
 import cz.vhromada.catalog.entity.Genre
 import cz.vhromada.catalog.facade.PictureFacade
 import cz.vhromada.common.Language
-import cz.vhromada.validation.result.Status
+import cz.vhromada.common.result.Status
 import javax.swing.GroupLayout
 import javax.swing.ImageIcon
 import javax.swing.JButton

@@ -4,7 +4,7 @@ import cz.vhromada.catalog.entity.Episode
 import cz.vhromada.catalog.entity.Season
 import cz.vhromada.catalog.facade.EpisodeFacade
 import cz.vhromada.catalog.gui.common.AbstractListDataModel
-import cz.vhromada.validation.result.Result
+import cz.vhromada.common.result.Result
 
 /**
  * A class represents data model for list with episodes.

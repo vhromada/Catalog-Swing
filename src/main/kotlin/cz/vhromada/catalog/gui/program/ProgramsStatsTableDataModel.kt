@@ -3,8 +3,8 @@ package cz.vhromada.catalog.gui.program
 import cz.vhromada.catalog.entity.Program
 import cz.vhromada.catalog.facade.ProgramFacade
 import cz.vhromada.catalog.gui.common.AbstractStatsTableDataModel
-import cz.vhromada.validation.result.Result
-import cz.vhromada.validation.result.Status
+import cz.vhromada.common.result.Result
+import cz.vhromada.common.result.Status
 
 /**
  * A class represents data model for table with stats for programs.

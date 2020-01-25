@@ -21,6 +21,7 @@ import javax.swing.SwingUtilities
  * @author Vladimir Hromada
  */
 abstract class AbstractOverviewDataPanel<T> : JPanel {
+
     /**
      * Popup menu
      */

@@ -4,7 +4,7 @@ import cz.vhromada.catalog.entity.Picture
 import cz.vhromada.catalog.facade.PictureFacade
 import cz.vhromada.catalog.gui.common.CatalogSwingConstants
 import cz.vhromada.catalog.gui.common.DialogResult
-import cz.vhromada.validation.result.Status
+import cz.vhromada.common.result.Status
 import javax.swing.GroupLayout
 import javax.swing.ImageIcon
 import javax.swing.JButton

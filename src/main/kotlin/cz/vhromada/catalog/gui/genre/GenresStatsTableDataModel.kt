@@ -3,7 +3,7 @@ package cz.vhromada.catalog.gui.genre
 import cz.vhromada.catalog.entity.Genre
 import cz.vhromada.catalog.facade.GenreFacade
 import cz.vhromada.catalog.gui.common.AbstractStatsTableDataModel
-import cz.vhromada.validation.result.Status
+import cz.vhromada.common.result.Status
 
 /**
  * A class represents data model for table with stats for genres.
