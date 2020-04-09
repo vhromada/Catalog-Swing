@@ -5,7 +5,7 @@ import cz.vhromada.catalog.gui.common.CatalogSwingConstants
 import cz.vhromada.catalog.gui.common.DialogResult
 import cz.vhromada.catalog.gui.common.Picture
 import cz.vhromada.catalog.gui.common.TimeDataPanel
-import cz.vhromada.common.Time
+import cz.vhromada.common.entity.Time
 import java.util.ArrayList
 import javax.swing.GroupLayout
 import javax.swing.JButton

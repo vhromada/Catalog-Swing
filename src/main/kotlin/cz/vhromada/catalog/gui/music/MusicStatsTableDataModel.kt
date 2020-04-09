@@ -3,7 +3,7 @@ package cz.vhromada.catalog.gui.music
 import cz.vhromada.catalog.entity.Music
 import cz.vhromada.catalog.facade.MusicFacade
 import cz.vhromada.catalog.gui.common.AbstractStatsTableDataModel
-import cz.vhromada.common.Time
+import cz.vhromada.common.entity.Time
 import cz.vhromada.common.result.Result
 import cz.vhromada.common.result.Status
 

@@ -3,7 +3,7 @@ package cz.vhromada.catalog.gui.song
 import cz.vhromada.catalog.entity.Song
 import cz.vhromada.catalog.gui.common.AbstractInfoDialog
 import cz.vhromada.catalog.gui.common.TimeDataPanel
-import cz.vhromada.common.Time
+import cz.vhromada.common.entity.Time
 import javax.swing.GroupLayout
 import javax.swing.JLabel
 import javax.swing.JTextField

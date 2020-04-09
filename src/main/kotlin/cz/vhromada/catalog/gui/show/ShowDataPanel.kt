@@ -6,7 +6,7 @@ import cz.vhromada.catalog.facade.PictureFacade
 import cz.vhromada.catalog.facade.SeasonFacade
 import cz.vhromada.catalog.gui.common.AbstractDataPanel
 import cz.vhromada.catalog.gui.common.WebPageButtonType
-import cz.vhromada.common.Time
+import cz.vhromada.common.entity.Time
 import cz.vhromada.common.result.Status
 import javax.swing.GroupLayout
 import javax.swing.JButton

@@ -7,12 +7,12 @@
     <parent>
         <groupId>cz.vhromada.project</groupId>
         <artifactId>project-parent</artifactId>
-        <version>4.0.3</version>
+        <version>4.0.4</version>
     </parent>
 
     <groupId>cz.vhromada.catalog</groupId>
     <artifactId>catalog-swing</artifactId>
-    <version>5.0.2</version>
+    <version>6.0.0</version>
 
     <name>Catalog Swing</name>
     <description>Application in Swing for catalog of movies, games, music and programs</description>
@@ -41,7 +41,8 @@
     </scm>
 
     <properties>
-        <catalog.version>8.0.2</catalog.version>
+        <catalog.version>9.0.0</catalog.version>
+        <common.version>4.0.0</common.version>
     </properties>
 
     <dependencies>
@@ -51,8 +52,17 @@
             <version>${catalog.version}</version>
         </dependency>
         <dependency>
+            <groupId>cz.vhromada.common</groupId>
+            <artifactId>common-account</artifactId>
+            <version>${common.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>

@@ -9,7 +9,7 @@ import cz.vhromada.catalog.gui.common.AbstractInfoDialog
 import cz.vhromada.catalog.gui.common.CatalogSwingConstants
 import cz.vhromada.catalog.gui.common.DialogResult
 import cz.vhromada.catalog.gui.common.Picture
-import cz.vhromada.common.Time
+import cz.vhromada.common.entity.Time
 import cz.vhromada.common.utils.Constants
 import java.awt.EventQueue
 import javax.swing.ButtonGroup

@@ -5,7 +5,7 @@ import cz.vhromada.catalog.facade.GenreFacade
 import cz.vhromada.catalog.facade.PictureFacade
 import cz.vhromada.catalog.gui.genre.GenreChooseDialog
 import cz.vhromada.catalog.gui.picture.PictureChooseDialog
-import cz.vhromada.common.Language
+import cz.vhromada.common.entity.Language
 import java.awt.EventQueue
 import javax.swing.ButtonModel
 import javax.swing.GroupLayout

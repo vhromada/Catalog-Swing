@@ -3,7 +3,7 @@ package cz.vhromada.catalog.gui.season
 import cz.vhromada.catalog.entity.Season
 import cz.vhromada.catalog.facade.EpisodeFacade
 import cz.vhromada.catalog.gui.common.AbstractDataPanel
-import cz.vhromada.common.Time
+import cz.vhromada.common.entity.Time
 import cz.vhromada.common.result.Status
 import javax.swing.GroupLayout
 import javax.swing.JLabel

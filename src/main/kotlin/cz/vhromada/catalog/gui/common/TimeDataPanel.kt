@@ -1,6 +1,6 @@
 package cz.vhromada.catalog.gui.common
 
-import cz.vhromada.common.Time
+import cz.vhromada.common.entity.Time
 import javax.swing.GroupLayout
 import javax.swing.JLabel
 import javax.swing.JPanel

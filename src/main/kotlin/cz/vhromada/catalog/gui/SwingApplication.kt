@@ -1,10 +1,9 @@
-package cz.vhromada.catalog
+package cz.vhromada.catalog.gui
 
-import cz.vhromada.catalog.gui.Selector
+import cz.vhromada.catalog.gui.main.Login
 import mu.KotlinLogging
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.builder.SpringApplicationBuilder
-import org.springframework.context.annotation.Import
 import javax.swing.SwingUtilities
 import javax.swing.UIManager
 import javax.swing.UnsupportedLookAndFeelException
@@ -16,7 +15,6 @@ import kotlin.system.exitProcess
  * @author Vladimir Hromada
  */
 @SpringBootApplication
-@Import(CatalogConfiguration::class)
 class SwingApplication
 
 /**
@@ -32,7 +30,7 @@ fun main(args: Array<String>) {
         UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel")
 
         val context = SpringApplicationBuilder(SwingApplication::class.java).headless(false).run(*args)
-        SwingUtilities.invokeLater { Selector(context).isVisible = true }
+        SwingUtilities.invokeLater { Login(context).isVisible = true }
     } catch (ex: ReflectiveOperationException) {
         logger.error(ex) { "Error in setting look and feel." }
         exitProcess(1)

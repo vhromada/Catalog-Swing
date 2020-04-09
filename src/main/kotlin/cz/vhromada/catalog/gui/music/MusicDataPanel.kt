@@ -4,7 +4,7 @@ import cz.vhromada.catalog.entity.Music
 import cz.vhromada.catalog.facade.SongFacade
 import cz.vhromada.catalog.gui.common.AbstractDataPanel
 import cz.vhromada.catalog.gui.common.WebPageButtonType
-import cz.vhromada.common.Time
+import cz.vhromada.common.entity.Time
 import cz.vhromada.common.result.Status
 import javax.swing.GroupLayout
 import javax.swing.JButton

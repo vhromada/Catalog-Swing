@@ -3,7 +3,7 @@ package cz.vhromada.catalog.gui.movie
 import cz.vhromada.catalog.entity.Movie
 import cz.vhromada.catalog.facade.MovieFacade
 import cz.vhromada.catalog.gui.common.AbstractStatsTableDataModel
-import cz.vhromada.common.Time
+import cz.vhromada.common.entity.Time
 import cz.vhromada.common.result.Result
 import cz.vhromada.common.result.Status
 

@@ -1,4 +1,4 @@
-package cz.vhromada.catalog.gui
+package cz.vhromada.catalog.gui.main
 
 import cz.vhromada.catalog.gui.common.CatalogSwingConstants
 import cz.vhromada.catalog.gui.common.Picture

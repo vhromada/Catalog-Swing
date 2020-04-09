@@ -4,7 +4,7 @@ import cz.vhromada.catalog.entity.Movie
 import cz.vhromada.catalog.facade.PictureFacade
 import cz.vhromada.catalog.gui.common.AbstractDataPanel
 import cz.vhromada.catalog.gui.common.WebPageButtonType
-import cz.vhromada.common.Time
+import cz.vhromada.common.entity.Time
 import javax.swing.GroupLayout
 import javax.swing.JButton
 import javax.swing.JLabel

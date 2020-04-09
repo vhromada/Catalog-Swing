@@ -2,7 +2,7 @@ package cz.vhromada.catalog.gui.episode
 
 import cz.vhromada.catalog.entity.Episode
 import cz.vhromada.catalog.gui.common.AbstractDataPanel
-import cz.vhromada.common.Time
+import cz.vhromada.common.entity.Time
 import javax.swing.GroupLayout
 import javax.swing.JLabel
 

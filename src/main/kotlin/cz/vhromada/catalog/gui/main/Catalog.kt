@@ -1,4 +1,4 @@
-package cz.vhromada.catalog.gui
+package cz.vhromada.catalog.gui.main
 
 import cz.vhromada.catalog.facade.EpisodeFacade
 import cz.vhromada.catalog.facade.GameFacade
@@ -183,7 +183,7 @@ class Catalog(private val context: ConfigurableApplicationContext) : JFrame() {
         addWindowListener(object : WindowAdapter() {
 
             override fun windowClosing(e: WindowEvent) {
-                closing()
+                closing(true)
             }
 
         })
@@ -287,7 +287,7 @@ class Catalog(private val context: ConfigurableApplicationContext) : JFrame() {
      * Performs action for button Selector.
      */
     private fun selectorAction() {
-        closing()
+        closing(false)
         SwingUtilities.invokeLater { Selector(context).isVisible = true }
         isVisible = false
         dispose()
@@ -297,14 +297,16 @@ class Catalog(private val context: ConfigurableApplicationContext) : JFrame() {
      * Performs action for button Exit.
      */
     private fun exitAction() {
-        closing()
+        closing(true)
         exitProcess(0)
     }
 
     /**
      * Closes form.
+     *
+     * @param exit true if exiting
      */
-    private fun closing() {
+    private fun closing(exit: Boolean) {
         val saved = areMediaSaved() && areProgramsSaved() && genresPanel.saved
         if (!saved) {
             val returnStatus = JOptionPane.showConfirmDialog(this, "Save data?", "", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE)
@@ -312,7 +314,9 @@ class Catalog(private val context: ConfigurableApplicationContext) : JFrame() {
                 save()
             }
         }
-        context.close()
+        if (exit) {
+            context.close()
+        }
     }
 
     /**
